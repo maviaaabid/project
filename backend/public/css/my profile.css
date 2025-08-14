@@ -1,0 +1,261 @@
+body {
+  background: linear-gradient(120deg, #18122b 0%, #7f00ff 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Orbitron', 'Poppins', Arial, sans-serif;
+  margin: 0;
+}
+.profile-container {
+  background: rgba(24,18,43,0.93);
+  box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+  border: 2.5px solid #7f00ff;
+  border-radius: 22px;
+  padding: 2.5rem 2rem 2rem 2rem;
+  width: 370px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.profile-container:before {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 28px;
+  z-index: -1;
+  background: linear-gradient(135deg, #f357a8 0%, #7b2ff2 100%);
+  filter: blur(18px);
+  opacity: 0.55;
+  pointer-events: none;
+  animation: borderAnim 3s linear infinite;
+}
+.profile-title {
+  color: #fff;
+  font-size: 2em;
+  font-weight: 900;
+  margin-bottom: 1.2em;
+  letter-spacing: 2px;
+  text-shadow: 0 2px 12px #7f00ff99;
+}
+.profile-pic-frame {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  margin-bottom: 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: #18122b;
+  box-shadow: 0 0 0 4px #7f00ff, 0 2px 12px #e100ff55, 0 0 24px #7f00ff44;
+  overflow: visible;
+  transition: box-shadow 0.3s;
+}
+.profile-pic-frame img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #222;
+  display: block;
+  border: none;
+  box-shadow: none;
+}
+.profile-info {
+  width: 100%;
+  margin-top: 1.2em;
+}
+.profile-info label {
+  color: #bdbdbd;
+  font-size: 1em;
+  margin-bottom: 0.2em;
+  display: block;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+.profile-info .profile-field {
+  width: 90%;
+  padding: 0.8em 1em;
+  margin-bottom: 1.1em;
+  border-radius: 10px;
+  border: 1.5px solid #7f00ff77;
+  background: rgba(255,255,255,0.13);
+  color: #fff;
+  font-size: 1em;
+  outline: none;
+  box-shadow: 0 1px 8px #7f00ff22;
+  font-family: inherit;
+  letter-spacing: 0.5px;
+  pointer-events: none;
+  user-select: text;
+}
+.back-button {
+  position: absolute;
+  top: 32px;
+  left: 32px;
+  margin: 0;
+  font-size: 24px;
+  color: #fff;
+  text-decoration: none;
+  background: rgba(24,18,43,0.93);
+  box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+  border: 2.5px solid #7f00ff;
+  padding: 3px 18px;
+  border-radius: 10px;
+  z-index: 20;
+}
+.back-button:hover {
+  background: linear-gradient(135deg, #420072, #6a45a7);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+.back-button i {
+  margin-right: 8px;
+}
+@keyframes borderAnim {
+  0% {background-position:0% 50%;}
+  100% {background-position:100% 50%;}
+}
+@keyframes rainbowAnim {
+  0% {background-position:0% 50%;}
+}
+/* --- Light Theme Flex Conflict Fix for Profile Page --- */
+body.light-theme {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 100vh;
+  background: #f5f5f5 !important;
+  color: #18122B !important;
+}
+
+/* Profile container stays centered and responsive */
+.profile-container {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 24px #7b2ff222;
+  padding: 2.5em 2em;
+  max-width: 420px;
+  width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- Fix Back Button for Light Theme --- */
+body.light-theme .back-button {
+  color: #18122B !important;
+  background: #fff !important;
+  border: 2.5px solid #e0c3fc !important;
+  box-shadow: 0 4px 16px #e0c3fc44;
+}
+
+body.light-theme .back-button:hover {
+  background: linear-gradient(135deg, #e0c3fc 60%, #7b2ff2 100%) !important;
+  color: #7b2ff2 !important;
+  box-shadow: 0 0 10px #e0c3fc88;
+}
+
+/* --- Dark Theme Styles for My Profile Page --- */
+body.dark-theme {
+   background: linear-gradient(120deg, #18122b 0%, #7f00ff 100%);
+  color: #fff !important;
+  min-height: 100vh;
+  font-family: 'Orbitron', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  overflow-x: hidden;
+}
+
+/* Profile container in dark theme */
+body.dark-theme .profile-container {
+    background: rgba(24,18,43,0.93);
+  box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+  border: 2.5px solid #7f00ff;
+  border-radius: 24px;
+ 
+  border: 2.5px solid #7b2ff2 !important;
+  color: #fff !important;
+}
+
+/* Profile title in dark theme */
+body.dark-theme .profile-title {
+  color: #e0c3fc !important;
+  text-shadow: 0 2px 16px #7b2ff288, 0 1px 0 #f357a8;
+}
+
+/* Profile pic frame in dark theme */
+body.dark-theme .profile-pic-frame img {
+  border: 3.5px solid #7b2ff2 !important;
+  background: #232042 !important;
+  box-shadow: 0 0 0 4px #7b2ff244, 0 4px 24px #18122B;
+}
+
+/* Profile info fields in dark theme */
+body.dark-theme .profile-info label {
+  color: #e0c3fc !important;
+}
+body.dark-theme .profile-field {
+  background: #18122B !important;
+  color: #fff !important;
+  border: 2px solid #7b2ff2 !important;
+  box-shadow: 0 2px 8px #7b2ff244;
+}
+
+/* Rating section in dark theme */
+body.dark-theme .rating-section > div {
+  color: #e0c3fc !important;
+}
+body.dark-theme .star {
+  color: #7b2ff2 !important;
+}
+body.dark-theme .star.selected {
+  color: #f357a8 !important;
+}
+body.dark-theme #rating-msg {
+  color: #f357a8 !important;
+}
+
+/* Back button in dark theme */
+body.dark-theme .back-button {
+  color: #fff !important;
+  background: #232042 !important;
+  border: 2.5px solid #7b2ff2 !important;
+  box-shadow: 0 4px 16px #7b2ff244;
+}
+body.dark-theme .back-button:hover {
+  background: linear-gradient(135deg, #7b2ff2 60%, #e0c3fc 100%) !important;
+  color: #e0c3fc !important;
+  box-shadow: 0 0 10px #7b2ff288;
+}
+
+/* Responsive for mobile */
+@media (max-width: 600px) {
+  body.light-theme {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: flex-start !important;
+    padding: 0 !important;
+  }
+  .profile-container {
+    max-width: 98vw;
+    padding: 1.2em 0.5em;
+  }
+  .back-button {
+    top: 12px;
+    left: 12px;
+    font-size: 20px;
+    padding: 2px 12px;
+  }
+  body.dark-theme .profile-container { padding: 18px 4vw 18px 4vw; }
+  body.dark-theme .profile-title { font-size: 1.3em;}
+  body.dark-theme .profile-field { font-size: 1em; }
+}

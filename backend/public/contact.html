@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact | GAMES-REALM</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="images/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Theme Toggle CSS -->
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <script type="text/javascript" src="https://unpkg.com/parse/dist/parse.min.js"></script>
+  <!-- Google Fonts & Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <style>
+    body {
+      background: linear-gradient(120deg, #18122b 0%, #7b2ff2 100%);
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Roboto', Arial, sans-serif;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    body.light-theme {
+      display: flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    .contact-container {
+      background: rgba(24,18,43,0.93);
+      box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+      border: 2.5px solid #7f00ff;
+      border-radius: 28px;
+      padding: 44px 66px 38px 36px;
+      max-width: 600px;
+      width: 100%;
+      margin: 20px 0;
+      position: relative;
+      animation: fadeInUp 1.2s cubic-bezier(.23,1.01,.32,1) both;
+      overflow: hidden;
+    }
+    .contact-container::before {
+      content: "";
+      position: absolute;
+      top: -60px; left: -60px;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle, #7b2ff2 0%, #18122b 80%);
+      opacity: 0.15;
+      border-radius: 50%;
+      z-index: 0;
+      animation: moveBg 8s linear infinite alternate;
+    }
+    .contact-container::after {
+      content: "";
+      position: absolute;
+      bottom: -80px; right: -80px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, #fec53a 0%, #18122b 80%);
+      opacity: 0.10;
+      border-radius: 50%;
+      z-index: 0;
+      animation: moveBg2 10s linear infinite alternate;
+    }
+    @keyframes moveBg {
+      0% { transform: scale(1) translateY(0);}
+      100% { transform: scale(1.1) translateY(30px);}
+    }
+    @keyframes moveBg2 {
+      0% { transform: scale(1) translateY(0);}
+      100% { transform: scale(1.05) translateY(-30px);}
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(60px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    .contact-title {
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 2.1em;
+      color: #fec53a;
+      text-align: center;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+      text-shadow: 0 4px 24px #7b2ff2cc;
+      position: relative;
+      z-index: 2;
+    }
+    .contact-form {
+      position: relative;
+      z-index: 2;
+    }
+    .contact-form label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 700;
+      color: #00eaff;
+      font-size: 1em;
+      letter-spacing: 0.5px;
+      margin-top: 10px;
+    }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      padding: 12px 14px;
+      margin-bottom: 18px;
+      border: none;
+      border-radius: 10px;
+      background: #232042;
+      color: #fff;
+      font-size: 1.07em;
+      font-family: inherit;
+      box-shadow: 0 2px 8px #7b2ff244;
+      transition: box-shadow 0.2s, border 0.2s;
+      outline: none;
+      border: 2px solid transparent;
+    }
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+      box-shadow: 0 0 0 2px #fec53a;
+      border-color: #00eaff;
+    }
+    .contact-form textarea {
+      min-height: 90px;
+      resize: vertical;
+    }
+    .contact-form button {
+      width: 107%;
+      padding: 13px 0;
+      background: linear-gradient(90deg, #7b2ff2 60%, #fec53a 100%);
+      color: #fff;
+      font-size: 1.15em;
+      font-family: 'Orbitron', Arial, sans-serif;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 12px #7b2ff244;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .contact-form button:hover {
+      background: linear-gradient(90deg, #fec53a 0%, #7b2ff2 100%);
+      color: #18122b;
+      box-shadow: 0 4px 18px #fec53a44;
+    }
+    .contact-success {
+      background: #232042;
+      color: #fec53a;
+      border-radius: 12px;
+      padding: 18px 12px;
+      text-align: center;
+      font-size: 1.13em;
+      margin-top: 18px;
+      box-shadow: 0 2px 12px #7b2ff244;
+      animation: fadeInUp 0.7s;
+      position: relative;
+      z-index: 2;
+    }
+    .contact-icon {
+      text-align: center;
+      font-size: 2.7em;
+      color: #00eaff;
+      margin-bottom: 10px;
+      animation: iconPulse 2s infinite alternate;
+      position: relative;
+      z-index: 2;
+    }
+    @keyframes iconPulse {
+      0% { filter: drop-shadow(0 0 0 #fec53a);}
+      100% { filter: drop-shadow(0 0 8px #fec53a);}
+    }
+    .input-row {
+      display: flex;
+      gap: 92px; /* gap barha di */
+    }
+    .input-row .input-half {
+      flex: 1;
+    }
+    @media (max-width: 600px) {
+      .contact-container { padding: 18px 4vw 18px 4vw; }
+      .contact-title { font-size: 1.3em;}
+      .input-row { flex-direction: column; gap: 0;}
+    }
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 24px;
+      color: #fff;
+      text-decoration: none;
+       background: rgba(24,18,43,0.93);
+      box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+      border: 2.5px solid #7f00ff;
+      padding: 5px 10px;
+      border-radius: 10px;
+      
+      z-index: 20;
+    }
+    .back-button:hover {
+        background: linear-gradient(135deg, #420072, #6a45a7);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .back-button i {
+      margin-right: 10px;
+    }
+    .lang-switch {
+      position: absolute;
+      top: 65px;
+      right: 390px;
+      z-index: 1002;
+      background: #232042;
+      border-radius: 8px;
+      padding: 6px 18px;
+      min-width: 110;
+      box-shadow: 0 2px 12px #7b2ff244;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 1em;
+      color: #fff;
+      border: 2px solid #7b2ff2;
+      outline: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      letter-spacing: 0.5px;
+    }
+    .lang-switch option {
+      padding: 8px 0;
+    }
+    @media (max-width: 600px) {
+      .back-btn { top: 10px; left: 10px; width: 38px; height: 38px; font-size: 1.1em;}
+      .lang-switch { top: 10px; right: 10px; font-size: 0.95em; min-width: 120px;}
+    }
+    /* --- Light Theme Styles for Contact Page --- */
+body.light-theme {
+  background: #f5f5f5 !important;
+  color: #18122B !important;
+  min-height: 100vh;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Contact container in light theme */
+body.light-theme .contact-container {
+  background: #fff !important;
+  border-radius: 28px;
+  box-shadow: 0 8px 32px 0 #e0c3fc55, 0 0 32px #7b2ff244;
+  border: 2.5px solid #e0c3fc !important;
+  color: #18122B !important;
+}
+
+/* Title in light theme */
+body.light-theme .contact-title {
+  color: #7b2ff2 !important;
+  text-shadow: 0 2px 16px #e0c3fc88, 0 1px 0 #f357a8;
+}
+
+/* Contact icon in light theme */
+body.light-theme .contact-icon {
+  color: #7b2ff2 !important;
+}
+
+/* Form labels in light theme */
+body.light-theme .contact-form label {
+  color: #7b2ff2 !important;
+}
+
+/* Inputs and textarea in light theme */
+body.light-theme .contact-form input,
+body.light-theme .contact-form textarea {
+  background: #f5f5f5 !important;
+  color: #18122B !important;
+  border: 2px solid #e0c3fc !important;
+  box-shadow: 0 2px 8px #e0c3fc33;
+}
+
+body.light-theme .contact-form input:focus,
+body.light-theme .contact-form textarea:focus {
+  border-color: #7b2ff2 !important;
+  background: #fff !important;
+}
+
+/* Button in light theme */
+body.light-theme .contact-form button {
+  background: #e0c3fc !important;
+  color: #18122B !important;
+  box-shadow: 0 2px 12px #e0c3fc55;
+}
+
+body.light-theme .contact-form button:hover {
+  background: linear-gradient(90deg,#7b2ff2 0%,#e0c3fc 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 18px #e0c3fc88;
+}
+
+/* Success message in light theme */
+body.light-theme .contact-success {
+  background: #e0c3fc !important;
+  color: #18122B !important;
+  box-shadow: 0 2px 12px #e0c3fc44;
+}
+
+/* Back button in light theme */
+body.light-theme .back-button {
+  color: #18122B !important;
+  background: #fff !important;
+  border: 2.5px solid #e0c3fc !important;
+  box-shadow: 0 4px 16px #e0c3fc44;
+}
+
+body.light-theme .back-button:hover {
+  background: linear-gradient(135deg, #e0c3fc 60%, #7b2ff2 100%) !important;
+  color: #7b2ff2 !important;
+  box-shadow: 0 0 10px #e0c3fc88;
+}
+
+/* Language switcher in light theme */
+body.light-theme .lang-switch {
+  background: #e0c3fc !important;
+  color: #18122B !important;
+  border: 2px solid #7b2ff2 !important;
+}
+
+body.light-theme .lang-switch:focus {
+  background: #7b2ff2 !important;
+  color: #fff !important;
+}
+
+/* Animated background shapes in light theme */
+body.light-theme .contact-container::before {
+  background: radial-gradient(circle, #e0c3fc 0%, #fff 80%) !important;
+  opacity: 0.13 !important;
+}
+
+body.light-theme .contact-container::after {
+  background: radial-gradient(circle, #7b2ff2 0%, #fff 80%) !important;
+  opacity: 0.09 !important;
+}
+
+/* Responsive for mobile */
+@media (max-width: 600px) {
+  body.light-theme .contact-container { padding: 18px 4vw 18px 4vw; }
+  body.light-theme .contact-title { font-size: 1.3em;}
+  body.light-theme .contact-form button { font-size: 1em; }
+  body.light-theme .lang-switch { top: 10px; right: 10px; font-size: 0.95em; min-width: 120px;}
+}
+  </style>
+</head>
+<body>
+  <!-- Back Icon (top left) -->
+ <a href="index.html" class="back-button" aria-label="Back to Home">
+    <i class="fas fa-arrow-left"></i> Back
+  </a>
+  <!-- Language Switcher (top right) -->
+  <select class="lang-switch" id="langSwitch" title="Change Language" style="min-width:110px;">
+    <option value="en">English</option>
+    <option value="ur">Urdu</option>
+    <option value="hi">Hindi</option>
+    <option value="fr">French</option>
+    <option value="es">Spanish</option>
+    <option value="de">German</option>
+    <option value="ja">Japanese</option>
+    <option value="ko">Korean</option>
+    <option value="ar">Arabic</option>
+    <option value="zh">Chinese</option>
+    <option value="ru">Russian</option>
+    <option value="tr">Turkish</option>
+    <option value="pt">Portuguese</option>
+  </select>
+  <div class="contact-container" id="contactContainer">
+    <div class="contact-icon"><i class="fas fa-headset"></i></div>
+    <div class="contact-title" id="contactTitle">Contact & Report Form Only Demo</div>
+    <!-- PHP Form Start -->
+    <form class="contact-form" id="contactForm" method="POST" action="thanks.html" autocomplete="off">
+      <div class="input-row">
+        <div class="input-half">
+          <label for="userName" id="labelName">Your Name</label>
+          <input type="text" id="userName" name="userName" placeholder="Your Name" required maxlength="40">
+        </div>
+        <div class="input-half">
+          <label for="userEmail" id="labelEmail">Your Gmail</label>
+          <input type="email" id="userEmail" name="userEmail" placeholder="your@gmail.com" required pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$">
+        </div>
+      </div>
+      <label for="userSubject" id="labelSubject">Subject</label>
+      <input type="text" id="userSubject" name="userSubject" placeholder="Subject" required maxlength="60">
+      <label for="userMsg" id="labelMsg">Your Report / Message</label>
+      <textarea id="userMsg" name="userMsg" placeholder="Write your report or message here..." required></textarea>
+      <button type="submit" id="sendBtn"><i class="fas fa-paper-plane"></i> Send Report</button>
+    </form>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Language translations
+      const translations = {
+        en: {
+          contactTitle: "Contact & Report Form / Only Demo",
+          labelName: "Your Name",
+          labelEmail: "Your Gmail",
+          labelSubject: "Subject",
+          labelMsg: "Your Report / Message",
+          sendBtn: "Send Report",
+          successMsg: '<i class="fas fa-check-circle"></i> Your request is sent.'
+        },
+        ur: {
+          contactTitle: "رابطہ اور رپورٹ فارم",
+          labelName: "آپ کا نام",
+          labelEmail: "آپ کی جی میل",
+          labelSubject: "عنوان",
+          labelMsg: "اپنی رپورٹ یا پیغام لکھیں",
+          sendBtn: "رپورٹ بھیجیں",
+          successMsg: '<i class="fas fa-check-circle"></i> آپ کی درخواست بھیج دی گئی ہے۔'
+        },
+        hi: {
+          contactTitle: "संपर्क और रिपोर्ट फॉर्म",
+          labelName: "आपका नाम",
+          labelEmail: "आपकी जीमेल",
+          labelSubject: "विषय",
+          labelMsg: "अपनी रिपोर्ट या संदेश लिखें",
+          sendBtn: "रिपोर्ट भेजें",
+          successMsg: '<i class="fas fa-check-circle"></i> आपकी रिक्वेस्ट भेज दी गई है।'
+        },
+        ar: {
+          contactTitle: "نموذج الاتصال والتقرير",
+          labelName: "اسمك",
+          labelEmail: "بريدك جيميل",
+          labelSubject: "الموضوع",
+          labelMsg: "اكتب تقريرك أو رسالتك هنا",
+          sendBtn: "إرسال التقرير",
+          successMsg: '<i class="fas fa-check-circle"></i> تم إرسال طلبك.'
+        },
+        de:{
+          contactTitle: "Kontakt- und Berichtsformular",
+          labelName: "Ihr Name",
+          labelEmail: "Ihre Gmail",
+          labelSubject: "Betreff",
+          labelMsg: "Ihr Bericht / Nachricht",
+          sendBtn: "Bericht senden",
+          successMsg: '<i class="fas fa-check-circle"></i> Ihre Anfrage wurde versendet.'
+        },
+        es:{
+          contactTitle: "Formulario de Contacto y Reporte",
+          labelName: "Tu Nombre",
+          labelEmail: "Tu Gmail",
+          labelSubject: "Asunto",
+          labelMsg: "Escribe tu reporte o mensaje aquí",
+          sendBtn: "Enviar Reporte",
+          successMsg: '<i class="fas fa-check-circle"></i> Tu solicitud ha sido enviada.'
+        },
+        fr: {
+          contactTitle: "Formulaire de Contact et Rapport",
+          labelName: "Votre Nom",
+          labelEmail: "Votre Gmail",
+          labelSubject: "Sujet",
+          labelMsg: "Écrivez votre rapport ou message ici",
+          sendBtn: "Envoyer le Rapport",
+          successMsg: '<i class="fas fa-check-circle"></i> Votre demande a été envoyée.'
+        },
+        pt: {
+          contactTitle: "Formulário de Contato e Relatório",
+          labelName: "Seu Nome",
+          labelEmail: "Seu Gmail",
+          labelSubject: "Assunto",
+          labelMsg: "Escreva seu relatório ou mensagem aqui",
+          sendBtn: "Enviar Relatório",
+          successMsg: '<i class="fas fa-check-circle"></i> Sua solicitação foi enviada.'
+        },
+          ru: {
+              contactTitle: "Форма Контакта и Отчета",
+              labelName: "Ваше Имя",
+              labelEmail: "Ваш Gmail",
+              labelSubject: "Тема",
+              labelMsg: "Напишите свой отчет или сообщение здесь",
+              sendBtn: "Отправить Отчет",
+              successMsg: '<i class="fas fa-check-circle"></i> Ваш запрос отправлен.'
+          },
+          ja: {
+              contactTitle: "お問い合わせ・報告フォーム",
+              labelName: "お名前",
+              labelEmail: "あなたのGmail",
+              labelSubject: "件名",
+              labelMsg: "報告またはメッセージをここに書いてください",
+              sendBtn: "報告を送信",
+              successMsg: '<i class="fas fa-check-circle"></i> あなたのリクエストが送信されました。'
+          },
+          zh: {
+              contactTitle: "联系我们和报告表单",
+              labelName: "您的姓名",
+              labelEmail: "您的Gmail",
+              labelSubject: "主题",
+              labelMsg: "在这里写下您的报告或消息",
+              sendBtn: "发送报告",
+              successMsg: '<i class="fas fa-check-circle"></i> 您的请求已发送。'
+          },
+          tr: {
+              contactTitle: "İletişim ve Rapor Formu",
+              labelName: "Adınız",
+              labelEmail: "Gmail Adresiniz",
+              labelSubject: "Konu",
+              labelMsg: "Raporunuzu veya mesajınızı buraya yazın",
+              sendBtn: "Rapor Gönder",
+              successMsg: '<i class="fas fa-check-circle"></i> Talebiniz gonderildi.'
+          },
+          ko: {
+              contactTitle: "연락처 및 보고서 양식",
+              labelName: "이름",
+              labelEmail: "당신의 Gmail",
+              labelSubject: "제목",
+              labelMsg: "여기에 보고서 또는 메시지를 작성하세요",
+              sendBtn: "보고서 보내기",
+              successMsg: '<i class="fas fa-check-circle"></i> 요청이 전송되었습니다.'
+          }
+      };
+      // Language display names mapping
+      const languageNames = {
+        'en': 'English',
+        'zh': 'Chinese',
+        'ja': 'Japanese',
+        'ar': 'Arabic',
+        'es': 'Spanish',
+        'tr': 'Turkish',
+        'fr': 'French',
+        'ru': 'Russian',
+        'de': 'German',
+        'hi': 'Hindi',
+        'pt': 'Portuguese',
+        'ko': 'Korean',
+        'ur': 'Urdu'
+      };
+
+      function setLang(lang) {
+        const t = translations[lang] || translations.en;
+        document.getElementById('contactTitle').innerHTML = t.contactTitle;
+        document.getElementById('labelName').innerHTML = t.labelName;
+        document.getElementById('labelEmail').innerHTML = t.labelEmail;
+        document.getElementById('labelSubject').innerHTML = t.labelSubject;
+        document.getElementById('labelMsg').innerHTML = t.labelMsg;
+        document.getElementById('sendBtn').innerHTML = '<i class="fas fa-paper-plane"></i> ' + t.sendBtn;
+        const successMsg = document.getElementById('successMsg');
+        if (successMsg) successMsg.innerHTML = t.successMsg;
+        // RTL for Arabic/Farsi
+        if (lang === "ar" || lang === "fa") {
+          document.body.dir = "rtl";
+          document.body.style.textAlign = "right";
+        } else {
+          document.body.dir = "ltr";
+          document.body.style.textAlign = "left";
+        }
+      }
+
+      document.getElementById('langSwitch').addEventListener('change', function() {
+        const selectedLang = this.value;
+        setLang(selectedLang);
+        localStorage.setItem('site-lang', selectedLang);
+      });
+
+      // On page load, set language from localStorage or default
+      const savedLang = localStorage.getItem('site-lang') || 'en';
+      document.getElementById('langSwitch').value = savedLang;
+      setLang(savedLang);
+    });
+  </script>
+  
+  <!-- Theme Sync Script -->
+  <script src="js/theme-sync.js"></script>
+  <!-- Navbar hover effect for language changes -->
+  <script src="js/navbar-hover.js"></script>
+</body>
+</html>

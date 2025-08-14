@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Games-Vila-Report</title>
+    <script type="text/javascript" src="https://unpkg.com/parse/dist/parse.min.js"></script>
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="images/logo.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="images/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/logo.png">
+    <link rel="stylesheet" href="css/theme-toggle.css">
+    <style>
+          body{
+            background: linear-gradient(120deg, #18122b 0%, #7b2ff2 100%);
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          } 
+          .thanks{
+                background: rgba(34, 26, 56, 0.97);
+                border-radius: 28px;
+                box-shadow: 0 10px 48px #7b2ff288;
+                padding: 44px 66px 38px 36px;
+                max-width: 600px;
+                width: 100%;
+                margin: 60px 0;
+                position: relative;
+                animation: fadeInUp 1.2s cubic-bezier(.23,1.01,.32,1) both;
+                overflow: hidden;
+          }
+          .thanks-1{
+            margin-left: 120px;
+            font-weight: bold;
+            font-style:italic;
+            font-size: 2em;
+            color: #7b2ff288;
+          }  
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 24px;
+      color: #fff;
+      text-decoration: none;
+      background: linear-gradient(to right, #7A288A, #C51077);
+      padding: 5px 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      z-index: 20;
+    }
+    .back-button:hover {
+      background: linear-gradient(to right, #8B0A8A, #D51077);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    }
+    .back-button i {
+      margin-right: 10px;
+    }
+    p{
+        font-size: 2em;
+        margin-left: 300px;
+        margin-bottom: 10px;
+    }
+    </style>
+</head>
+<body>
+  <a href="index.html" class="back-button" aria-label="Back to Home">
+    <i class="fas fa-arrow-left"></i> Back
+  </a>
+    <div class="thanks">
+        <h1 class="thanks-1">Thanks For Your Report✔</h1>
+        <p emogi>✅</p>
+    </div>
+    <script src="js/theme-sync.js"></script>
+</body>
+</html>

@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Register</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="images/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/logo.png">
+  <link rel="stylesheet" href="css/login.css">
+  <!-- Cropper.js CSS -->
+   <script type="text/javascript" src="https://unpkg.com/parse/dist/parse.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Add this just inside <body> for a moving gradient effect -->
+  <div style="position:fixed;inset:0;z-index:-2;pointer-events:none;animation:borderAnim 12s linear infinite;background:linear-gradient(120deg,#7f00ff 0%,#e100ff 100%);background-size:200% 200%;"></div>
+  <div class="auth-container" id="auth-container">
+    <!-- Add this inside .auth-container at the top for a gaming logo -->
+    <div style="display:flex;align-items:center;justify-content:center;margin-bottom:1.2em;">
+      <img src="images/logo.png" alt="Game Logo" style="width:44px;height:44px;margin-right:10px;filter:drop-shadow(0 0 8px #7f00ff88);">
+      <span style="font-family:'Orbitron',sans-serif;font-size:1.5em;color:#fff;letter-spacing:2px;text-shadow:0 2px 12px #7f00ff99;">GAMES-REALM</span>
+    </div>
+    <h2 id="form-title">Register</h2>
+    <div class="msg" id="msg"></div>
+    <!-- Register Form -->
+    <form id="register-form">
+      <input type="email" id="reg-email" placeholder="Enter Gmail address" required pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$">
+             <div class="input-group">
+         <input type="password" id="reg-password" placeholder="Create Password" required minlength="6" style="padding-right:2.2em;">
+         <button type="button" class="show-password-btn" tabindex="-1" onclick="togglePassword('reg-password', this)">
+           <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+             <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+             <circle cx="12" cy="12" r="3"/>
+           </svg>
+         </button>
+       </div>
+       <div class="input-group">
+         <input type="password" id="reg-confirm-password" placeholder="Confirm Password" required minlength="6" style="padding-right:2.2em;">
+         <button type="button" class="show-password-btn" tabindex="-1" onclick="togglePassword('reg-confirm-password', this)">
+           <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+             <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+             <circle cx="12" cy="12" r="3"/>
+           </svg>
+         </button>
+       </div>
+      <div id="reg-otp-section" style="display:none;">
+        <input type="text" id="reg-otp" class="otp-input" placeholder="Enter OTP" maxlength="6">
+        <div class="otp-msg" id="reg-otp-msg"></div>
+      </div>
+      <button type="submit" id="register-btn">Send OTP</button>
+    </form>
+    <!-- Login Form -->
+    <form id="login-form" style="display:none;">
+      <input type="email" id="login-email" placeholder="Enter Gmail address" required pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$">
+      <div class="input-group">
+        <input type="password" id="login-password" placeholder="Password" required minlength="6" style="padding-right:2.2em;">
+        <button type="button" class="show-password-btn" tabindex="-1" onclick="togglePassword('login-password', this)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+      <div id="login-otp-section" style="display:none;">
+        <input type="text" id="login-otp" class="otp-input" placeholder="Enter OTP" maxlength="6">
+        <div class="otp-msg" id="login-otp-msg"></div>
+      </div>
+      <p id="forgot-password-link" style="text-align:left;margin:0.5em 0;color:#f357a8;cursor:pointer;font-size:0.9em;">Forgot Password?</p>
+      <button type="submit" id="login-btn">Send OTP</button>
+    </form>
+    
+         <!-- Forgot Password Form -->
+     <form id="forgot-password-form" style="display:none;">
+       <h3 style="color:#fff;margin-bottom:1rem;text-align:center;">Forgot Password</h3>
+       <input type="email" id="forgot-email" placeholder="Enter your Gmail address" required pattern="^[a-zA-Z0-9._%+-]+@gmail\.com$">
+       <div class="input-group">
+         <input type="password" id="forgot-password" placeholder="Create New Password" required minlength="6" style="padding-right:2.2em;">
+         <button type="button" class="show-password-btn" tabindex="-1" onclick="togglePassword('forgot-password', this)">
+           <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+             <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+             <circle cx="12" cy="12" r="3"/>
+           </svg>
+         </button>
+       </div>
+       <div class="input-group">
+         <input type="password" id="forgot-confirm-password" placeholder="Confirm New Password" required minlength="6" style="padding-right:2.2em;">
+         <button type="button" class="show-password-btn" tabindex="-1" onclick="togglePassword('forgot-confirm-password', this)">
+           <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+             <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+             <circle cx="12" cy="12" r="3"/>
+           </svg>
+         </button>
+       </div>
+       <div id="forgot-otp-section" style="display:none;">
+         <input type="text" id="forgot-otp" class="otp-input" placeholder="Enter OTP" maxlength="6">
+         <div class="otp-msg" id="forgot-otp-msg"></div>
+       </div>
+       <button type="submit" id="forgot-btn">Send OTP</button>
+       <button type="button" id="back-to-login" style="background:linear-gradient(90deg, #666 60%, #999 100%);margin-top:0.5em;">Back to Login</button>
+     </form>
+    
+    <!-- Social Login Section -->
+    <div class="social-login">
+      <div class="divider">
+        <span>or</span>
+      </div>
+      <div class="social-buttons">
+        <button type="button" class="social-btn google-btn" onclick="signInWithGoogle()">
+          <svg width="20" height="20" viewBox="0 0 24 24">
+            <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+            <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+            <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+            <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+          </svg>
+          <span>Continue with Google</span>
+        </button>
+        <button id="github-login-btn" class="social-btn github-btn">
+          <svg width="20" height="20" viewBox="0 0 24 24" style="vertical-align:middle;margin-right:8px;">
+            <path fill="#181717" d="M12 2C6.477 2 2 6.484 2 12.021c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.004.07 1.532 1.032 1.532 1.032.892 1.529 2.341 1.088 2.91.832.091-.647.35-1.088.636-1.339-2.221-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.254-.446-1.274.098-2.656 0 0 .84-.27 2.75 1.025A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.115 2.504.338 1.909-1.295 2.748-1.025 2.748-1.025.546 1.382.202 2.402.099 2.656.64.7 1.028 1.595 1.028 2.688 0 3.847-2.337 4.695-4.566 4.944.359.309.678.919.678 1.852 0 1.336-.012 2.417-.012 2.747 0 .267.18.579.688.481C19.138 20.184 22 16.438 22 12.021 22 6.484 17.523 2 12 2z"/>
+          </svg>
+          <span>Continue with GitHub</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="switch">
+      <span id="switch-text">Already have an account? <a id="switch-link">Login</a></span>
+    </div>
+  </div>
+  <!-- Cropper.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+  <script src="js/login.js"></script>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // --- Translations object (same as index.html) ---
+  const translations = {
+    en: {
+      Register: "Register",
+      "Enter Gmail address": "Enter Gmail address",
+      "Create Password": "Create Password",
+      "Already have an account?": "Already have an account?",
+      Login: "Login",
+      Password: "Password",
+      "GAMES-REALM": "GAMES-REALM",
+      Welcome: "Welcome",
+      "Welcome back!": "Welcome back!",
+      "Welcome!": "Welcome!",
+      "You are now logged in.": "You are now logged in.",
+      "Go To Home": "Go To Home",
+      "Logout": "Logout",
+      "Edit Profile Picture": "Edit Profile Picture",
+      "Complete your profile": "Complete your profile",
+      "Display Name": "Display Name",
+      "Save Changes": "Save Changes",
+      "Send OTP": "Send OTP",
+      "login success": "login success",
+      "OTP verified! Registration complete.": "OTP verified! Registration complete.",
+      "OTP not verified. Please try again!": "OTP not verified. Please try again!",
+      "OTP expired. Please try again!": "OTP expired. Please try again!",
+      "OTP failed!": "OTP failed!",
+      "OTP expired!": "OTP expired!",
+      // ...rest as before...
+    },
+    pt: {
+      Register: "Registrar",
+      "Enter Gmail address": "Digite o endereço do Gmail",
+      "Create Password": "Criar senha",
+      "Already have an account?": "Já tem uma conta?",
+      Login: "Entrar",
+      Password: "Senha",
+      "GAMES-REALM": "GAMES-REALM",
+      Welcome: "Bem-vindo",
+      "Welcome back!": "Bem-vindo de volta!",
+      "Welcome!": "Bem-vindo!",
+      "You are now logged in.": "Você está logado agora.",
+      "Go To Home": "Ir para a página inicial",
+      "Logout": "Sair",
+      "Edit Profile Picture": "Editar foto do perfil",
+      "Complete your profile": "Complete seu perfil",
+      "Display Name": "Nome de exibição",
+      "Save Changes": "Salvar alterações", 
+      "Send OTP": "Enviar OTP",
+      "login success": "login bem-sucedido",
+      "OTP verified! Registration complete.": "OTP verificado! Registro completado.",
+      "OTP failed!": "OTP falhou!",
+      "OTP expired!": "OTP expirado!",
+      "OTP not found!": "OTP não encontrado!",
+      "OTP not verified. Please try again!": "OTP não verificado. Por favor, tente novamente!",
+      "OTP expired. Please try again!": "OTP expirado. Por favor, tente novamente!",  
+      // ...rest as before...
+    },
+    hi: {
+      Register: "रजिस्टर करें",
+      "Enter Gmail address": "Gmail पता दर्ज करें",
+      "Create Password": "पासवर्ड बनाएं",
+      "Already have an account?": "पहले से एक खाता है?",
+      Login: "लॉगिन",
+      Password: "पासवर्ड",
+      "GAMES-VILA": "गेम्स-विला",
+      Welcome: "स्वागत है",
+      "Welcome back!": "वापस स्वागत है!",
+      "Welcome!": "स्वागत है!",
+      "You are now logged in.": "आप अब लॉग इन हैं।",
+      "Go To Home": "होम पर जाएं",
+      "Logout": "लॉग आउट",
+      "Edit Profile Picture": "प्रोफ़ाइल चित्र संपादित करें",
+      "Complete your profile": "अपनी प्रोफ़ाइल पूरी करें",
+      "Display Name": "प्रदर्शित नाम",
+      "Save Changes": "परिवर्तन सहेजें",
+      "Send OTP": "OTP भेजें",
+      "login success": "लॉगिन सफल",
+      "OTP verified! Registration complete.": "OTP सत्यापित! पंजीकरण पूरा।",
+      "OTP not verified. Please try again!": "OTP نا ساتی پریٹی ہے۔ لطفا چلئے دوبارہ تلاش کریں!",
+      "OTP expired. Please try again!": "OTP اپنا ہیں۔ لطفا چلئے دوبارہ تلاش کریں!",
+      "OTP failed!": "OTP विफल!",
+      "OTP expired!": "OTP समाप्त हो गया!",
+      // ...rest as before...
+    },
+    ur: {
+      Register: "رجسٹر کریں",
+      "Enter Gmail address": "جی میل ایڈریس درج کریں",
+      "Create Password": "پاس ورڈ بنائیں",
+      "Already have an account?": "پہلے سے اکاؤنٹ ہے؟",
+      Login: "لاگ ان",
+      Password: "پاس ورڈ",
+      "GAMES-VILA": "گیمز-ویلا",
+      Welcome: "خوش آمدید",
+      "Welcome back!": "واپس خوش آمدید!",
+      "Welcome!": "خوش آمدید!",
+      "You are now logged in.": "آپ اب لاگ ان ہو چکے ہیں۔",
+      "Go To Home": "ہوم پر جائیں",
+      "Logout": "لاگ آؤٹ",
+      "Edit Profile Picture": "پروفائل تصویر میں ترمیم کریں",
+      "Complete your profile": "اپنی پروفائل مکمل کریں",
+      "Display Name": "دکھانے کا نام",
+      "Save Changes": "تبدیلیاں محفوظ کریں",
+      "Send OTP": "OTP بھیجیں",
+      "login success": "لاگ ان کامیاب",
+      "OTP verified! Registration complete.": "OTP تحقیق کیا گیا! رجسٹریشن کام کیا گیا ہے۔",
+      "OTP not verified. Please try again!": "OTP نا ساتی پریٹی ہے۔ لطفا چلئے دوبارہ تلاش کریں!",
+      "OTP expired. Please try again!": "OTP اپنا ہیں۔ لطفا چلئے دوبارہ تلاش کریں!",
+      // ...rest as before...
+    },
+    ko: {
+      Register: "등록",
+      "Enter Gmail address": "Gmail 주소 입력",
+      "Create Password": "비밀번호 생성",
+      "Already have an account?": "이미 계정이 있습니까?",
+      Login: "로그인",
+      Password: "비밀번호",
+      "GAMES-VILA": "게임스빌라",
+      Welcome: "환영합니다",
+      "Welcome back!": "다시 오신 것을 환영합니다!",
+      "Welcome!": "환영합니다!",
+      "You are now logged in.": "로그인되었습니다.",
+      "Go To Home": "홈으로 이동",
+      "Logout": "로그아웃",
+      "Edit Profile Picture": "프로필 사진 편집",
+      "Complete your profile": "프로필 완성",
+      "Display Name": "다시보기 名",
+      "Save Changes": "변경 저장",
+      "Send OTP": "OTP 전송",
+      "login success": "로그인 성공",
+      "OTP verified! Registration complete.": "OTP 확인！ 회원가입 완료.",
+      "OTP not verified. Please try again!": "OTP 확인하지 못했습니다. 다시 시도해 주세요!",
+      "OTP expired. Please try again!": "OTP 만료되었습니다. 다시 시도해 주세요!",
+      "OTP failed!": "OTP 실패!",
+      "OTP expired!": "OTP 만료!",
+      // ...rest as before...
+    },
+    zh: {
+      Register: "注册",
+      "Enter Gmail address": "输入Gmail地址",
+      "Create Password": "创建密码",
+      "Already have an account?": "已经有账号？",
+      Login: "登录",
+      Password: "密码",
+      "GAMES-VILA": "游戏之家",
+      Welcome: "欢迎",
+      "Welcome back!": "欢迎回来！",
+      "Welcome,": "欢迎,",
+      "Complete your profile": "完善您的资料",
+      "Display Name": "显示名称",
+      "Save Changes": "保存更改",
+      "Send OTP": "发送OTP",
+      "login success": "登录成功",
+      "OTP verified! Registration complete.": "OTP已验证！注册完成。",
+      "OTP not verified. Please try again!": "OTP未验证。请重试！",
+      "OTP expired. Please try again!": "OTP已过期。请重试！",
+      "OTP failed!": "OTP失败！",
+      "OTP expired!": "OTP已过期!",
+      // ...rest as before...
+    },
+    ja: {
+      Register: "登録",
+      "Enter Gmail address": "Gmailアドレスを入力",
+      "Create Password": "パスワードを作成",
+      "Already have an account?": "すでにアカウントをお持ちですか？",
+      Login: "ログイン",
+      Password: "パスワード",
+      "GAMES-VILA": "ゲームヴィラ",
+      Welcome: "ようこそ",
+      "Welcome back!": "お帰りなさい！",
+      "Welcome,": "ようこそ,",
+      "Complete your profile": "プロフィールを完成させてください",
+      "Display Name": "表示名",
+      "Save Changes": "変更を保存",
+      "Send OTP": "OTPを送信",
+      "login success": "ログイン成功",
+      "OTP verified! Registration complete.": "OTPが確認されました!登録完了しました。",
+      "OTP not verified. Please try again!": "OTPが確認されませんでした。もう一度お試しください！",
+      "OTP expired. Please try again!": "OTPの有効期限が切れました。もう一度お試しください！",
+      "OTP failed!": "OTP失敗！",
+      "OTP expired!": "OTPが切れました!",
+      // ...rest as before...
+    },
+    ar: {
+      Register: "تسجيل",
+      "Enter Gmail address": "أدخل بريد Gmail",
+      "Create Password": "أنشئ كلمة المرور",
+      "Already have an account?": "هل لديك حساب بالفعل؟",
+      Login: "تسجيل الدخول",
+      Password: "كلمة المرور",
+      "GAMES-VILA": "فيلا الألعاب",
+      Welcome: "مرحبا",
+      "Welcome back!": "مرحبًا بعودتك!",
+      "Welcome,": "مرحبا،",
+      "Complete your profile": "أكمل ملفك الشخصي",
+      "Display Name": "اسم العرض",
+      "Save Changes": "حفظ التغييرات",
+      "Send OTP": "إرسال OTP",
+      "login success": "تسجيل الدخول بنجاح",
+      "OTP verified! Registration complete.": "تم التحقق من OTP! تم التسجيل بنجاح.",
+      "OTP not verified. Please try again!": "OTP لم يتم التحقق منه. يرجى المحاولة مرة أخرى!",
+      "OTP expired. Please try again!": "انتهت صلاحية OTP. يرج  ى المحاولة مرة أخرى!",
+      "OTP failed!": "فشل OTP!",
+      "OTP expired!": "انتهت صلاحية OTP!",
+      // ...rest as before...
+    },
+    es: {
+      Register: "Registrarse",
+      "Enter Gmail address": "Ingrese dirección Gmail",
+      "Create Password": "Crear contraseña",
+      "Already have an account?": "¿Ya tienes una cuenta؟",
+      Login: "Iniciar sesión",
+      Password: "Contraseña",
+      "GAMES-VILA": "VILA DE JUEGOS",
+      Welcome: "Bienvenido",
+      "Welcome back!": "¡Bienvenido de nuevo!",
+      "Welcome,": "Bienvenido,",
+      "Complete your profile": "Completa tu perfil",
+      "Display Name": "Nombre para mostrar",
+      "Save Changes": "Guardar cambios",
+      "Send OTP": "Enviar OTP",
+      "login success": "inicio de sesión exitoso",
+      "OTP verified! Registration complete.": "OTP verificado! Registro completado.",
+      "OTP not verified. Please try again!": "OTP no verificado. ¡Por favor, inténtalo de nuevo!",
+      "OTP expired. Please try again!": "OTP expirado. ¡Por favor, inténtalo de nuevo!",
+      "OTP failed!": "¡OTP fallido!",
+      "OTP expired!": "OTP expirado!",
+      // ...rest as before...
+    },
+    tr: {
+      Register: "Kayıt Ol",
+      "Enter Gmail address": "Gmail adresi girin",
+      "Create Password": "Şifre Oluştur",
+      "Already have an account?": "Zaten hesabınız var mı؟",
+      Login: "Giriş Yap",
+      Password: "Şifre",
+      "GAMES-VILA": "OYUN-VİLA",
+      Welcome: "Hoşgeldiniz",
+      "Welcome back!": "Tekrar hoşgeldiniz!",
+      "Welcome,": "Hoşgeldiniz,",
+      "Complete your profile": "Profilinizi tamamlayın",
+      "Display Name": "Ekran adı",
+      "Save Changes": "Değişiklikleri Kaydet",
+      "Send OTP": "OTP Gönder",
+      "login success": "giriş başarılı",
+      "OTP verified! Registration complete.": "OTP onaylandı! Kayıt tamamlandı.",
+      "OTP not verified. Please try again!": "OTP doğrulanmadı. Lütfen tekrar deneyin!",
+      "OTP expired. Please try again!": "OTP süresi doldu. Lütfen tekrar deneyin!",
+      "OTP failed!": "OTP başarısız oldu!",
+      "OTP expired!": "OTP Süresi Doldu!",
+      // ...rest as before...
+    },
+    ru:{
+      Register: "Регистрация",
+      "Enter Gmail address": "Введите адрес Gmail",
+      "Create Password": "Создать пароль",
+      "Already have an account?": "Уже есть аккаунт?",
+      Login: "Вход",
+      Password: "Пароль",
+      "GAMES-VILA": "GAMES-VILA",
+      Welcome: "Добро пожаловать",
+      "Welcome back!": "Добро пожаловать!",
+      "Welcome,": "Добро пожаловать,",
+      "Complete your profile": "Завершите ваш профиль",
+      "Display Name": "Отображаемое имя",      
+      "Save Changes": "Сохранить изменения",
+      "Send OTP": "Отправить OTP",
+      "login success": "вход выполнен успешно",
+      "OTP verified! Registration complete.": "OTP проверен! Регистрация завершена.",
+      "OTP not verified. Please try again!": "OTP не проверен. Пожалуйста, попробуйте еще раз!",
+      "OTP expired. Please try again!": "OTP истек. Пожалуйста, попробуйте еще раз!",
+      "OTP failed!": "OTP не удался!",
+      "OTP expired!": "OTP истек!",
+      // ...rest as before...
+    },
+    de:{
+      Register: "Registrieren",
+      "Enter Gmail address": "Gmail-Adresse eingeben",
+      "Create Password": "Passwort erstellen",
+      "Already have an account?": "Haben Sie bereits ein Konto?",
+      Login: "Anmelden",
+      Password: "Passwort",
+      "GAMES-VILA": "GAMES-VILA",
+      Welcome: "Willkommen",
+      "Welcome back!": "Willkommen zurück!",
+      "Welcome,": "Willkommen,",
+      "Complete your profile": "Vervollständigen Sie Ihr Profil",
+      "Display Name": "Anzeigename",
+      "Save Changes": "Änderungen speichern",
+      "Send OTP": "OTP senden",
+      "login success": "Anmeldung erfolgreich",
+      "OTP verified! Registration complete.": "OTP verifiziert! Registrierung abgeschlossen.", 
+      "OTP not verified. Please try again!": "OTP nicht verifiziert. Bitte versuchen Sie es erneut!",
+      "OTP expired. Please try again!": "OTP abgelaufen. Bitte versuchen Sie es erneut!",
+      "OTP failed!": "OTP fehlgeschlagen!",
+      "OTP expired!": "OTP abgelaufen!",
+       
+      // ...rest as before...
+    }
+  };
+
+  function setLanguage(lang) {
+    // Title
+    const formTitle = document.getElementById('form-title');
+    if (formTitle && translations[lang][formTitle.textContent.trim()]) {
+      formTitle.textContent = translations[lang][formTitle.textContent.trim()];
+    }
+    // Register form
+    const regEmail = document.getElementById('reg-email');
+    if (regEmail && translations[lang][regEmail.placeholder]) {
+      regEmail.placeholder = translations[lang][regEmail.placeholder];
+    }
+    const regPass = document.getElementById('reg-password');
+    if (regPass && translations[lang][regPass.placeholder]) {
+      regPass.placeholder = translations[lang][regPass.placeholder];
+    }
+    const regBtn = document.querySelector('#register-form button[type="submit"]');
+    if (regBtn && translations[lang][regBtn.textContent.trim()]) {
+      regBtn.textContent = translations[lang][regBtn.textContent.trim()];
+    }
+    // Login form
+    const loginEmail = document.getElementById('login-email');
+    if (loginEmail && translations[lang][loginEmail.placeholder]) {
+      loginEmail.placeholder = translations[lang][loginEmail.placeholder];
+    }
+    const loginPass = document.getElementById('login-password');
+    if (loginPass && translations[lang][loginPass.placeholder]) {
+      loginPass.placeholder = translations[lang][loginPass.placeholder];
+    }
+    const loginBtn = document.querySelector('#login-form button[type="submit"]');
+    if (loginBtn && translations[lang][loginBtn.textContent.trim()]) {
+      loginBtn.textContent = translations[lang][loginBtn.textContent.trim()];
+    }
+    // Switch text
+    const switchText = document.getElementById('switch-text');
+    if (switchText) {
+      // "Already have an account? Login"
+      const parts = switchText.innerHTML.split('<a');
+      const mainText = parts[0].replace(/<[^>]+>/g, '').trim();
+      if (translations[lang][mainText]) {
+        switchText.childNodes[0].nodeValue = translations[lang][mainText] + ' ';
+      }
+      // Link
+      const link = document.getElementById('switch-link');
+      if (link && translations[lang][link.textContent.trim()]) {
+        link.textContent = translations[lang][link.textContent.trim()];
+      }
+    }
+    // Logo
+    const logo = document.querySelector('.footer-title, .logo-name, span[style*="Orbitron"]');
+    if (logo && translations[lang][logo.textContent.trim()]) {
+      logo.textContent = translations[lang][logo.textContent.trim()];
+    }
+    // Welcome fields (for after login)
+    document.querySelectorAll('.welcome, .welcome-msg').forEach(el => {
+      const txt = el.textContent.trim();
+      if (translations[lang][txt]) {
+        el.textContent = translations[lang][txt];
+      }
+    });
+    // Complete your profile field (for after register)
+    document.querySelectorAll('.complete-profile, .complete-profile-msg').forEach(el => {
+      const txt = el.textContent.trim();
+      if (translations[lang][txt]) {
+        el.textContent = translations[lang][txt];
+      }
+    });
+  }
+
+  // --- On page load, set language from localStorage ---
+  const savedLang = localStorage.getItem('site-lang') || 'en';
+  setLanguage(savedLang);
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+
+  // Register form submit
+  document.getElementById('register-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Check if button is disabled
+    const sendOtpBtn = document.getElementById('register-btn');
+    if (sendOtpBtn.disabled) {
+      return; // Don't proceed if button is disabled
+    }
+    
+    let msg = document.getElementById('msg');
+    msg.textContent = "";
+    let email = document.getElementById('reg-email').value.trim();
+    let password = document.getElementById('reg-password').value.trim();
+    let confirmPassword = document.getElementById('reg-confirm-password').value.trim();
+    if (!email || !password || !confirmPassword) {
+      msg.textContent = "Please fill all fields.";
+      return;
+    }
+    
+    if (password !== confirmPassword) {
+      msg.textContent = "Passwords do not match!";
+      return;
+    }
+    
+    // Local check for user (if using localStorage for demo)
+    const userKey = 'user_' + email;
+    const userData = localStorage.getItem(userKey);
+    if (userData) {
+      msg.textContent = "This Gmail is already registered! Please login instead.";
+      document.getElementById('reg-otp-section').style.display = "none";
+      return;
+    }
+    
+    // Send OTP to backend
+    msg.textContent = "Sending OTP to your Gmail...";
+    try {
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      const res = await fetch('http://localhost:3000/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, otp })
+      });
+      const data = await res.json();
+      if (data.message === 'OTP sent') {
+        msg.textContent = "OTP sent to your Gmail. Please enter OTP below.";
+        document.getElementById('reg-otp-section').style.display = "block";
+      } else {
+        msg.textContent = "Failed to send OTP: " + data.message;
+      }
+    } catch (e) {
+      msg.textContent = "Error sending OTP.";
+    }
+  });
+
+  // Registration OTP verification
+  document.getElementById('reg-otp').addEventListener('input', async function() {
+    const otpInput = this.value.trim();
+    const otpMsg = document.getElementById('reg-otp-msg');
+    const email = document.getElementById('reg-email').value.trim();
+    const password = document.getElementById('reg-password').value.trim();
+    
+    if (otpInput.length === 6) {
+      try {
+        const res = await fetch('http://localhost:3000/verify-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, otp: otpInput })
+        });
+        const data = await res.json();
+        if (data.success) {
+          // Save user data to localStorage
+          const userKey = 'user_' + email;
+          const userObj = { email: email, password: password };
+          localStorage.setItem(userKey, JSON.stringify(userObj));
+          
+          // Save current session
+          localStorage.setItem('currentUser', email);
+          
+          otpMsg.style.color = '#00eaff';
+          otpMsg.textContent = 'Registration successful! You are now logged in.';
+          
+          // Hide register form and show login form after 2 seconds
+          setTimeout(() => {
+            document.getElementById('register-form').style.display = 'none';
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('form-title').textContent = 'Login';
+            document.getElementById('switch-text').innerHTML = "Want to logout? <a id='switch-link'>Logout</a>";
+            document.getElementById('msg').textContent = '';
+            // Clear register form
+            document.getElementById('reg-email').value = '';
+            document.getElementById('reg-password').value = '';
+            document.getElementById('reg-confirm-password').value = '';
+            document.getElementById('reg-otp').value = '';
+            document.getElementById('reg-otp-section').style.display = 'none';
+          }, 2000);
+        } else {
+          otpMsg.style.color = '#ff4444';
+          otpMsg.textContent = 'Invalid OTP. Please try again.';
+        }
+      } catch (e) {
+        console.error('Error:', e);
+        otpMsg.style.color = '#ff4444';
+        otpMsg.textContent = 'Error verifying OTP.';
+      }
+    }
+  });
+
+
+
+
+
+  // Remove OTP box when switching forms
+  document.getElementById('switch-link').addEventListener('click', function() {
+    let oldOtp = document.getElementById('otp-box');
+    if (oldOtp) oldOtp.remove();
+    document.getElementById('msg').textContent = "";
+    // Hide OTP sections when switching
+    document.getElementById('login-otp-section').style.display = "none";
+    document.getElementById('reg-otp-section').style.display = "none";
+    
+    // Reset button states when switching forms
+    const loginBtn = document.getElementById('login-btn');
+    const registerBtn = document.getElementById('register-btn');
+    
+    if (loginBtn) {
+      loginBtn.disabled = false;
+      loginBtn.style.opacity = "1";
+      loginBtn.style.cursor = "pointer";
+    }
+    
+    if (registerBtn) {
+      registerBtn.disabled = false;
+      registerBtn.style.opacity = "1";
+      registerBtn.style.cursor = "pointer";
+    }
+  });
+
+
+
+
+});
+</script>
+<script>
+// Registration logic: Prevent duplicate Gmail registration
+function registerUser(email, password, profilePic, name) {
+  if (!email || !password) return false;
+  const userKey = 'user_' + email;
+  if (localStorage.getItem(userKey)) {
+    alert('This Gmail is already registered!');
+    return false;
+  }
+  const userObj = { email, password, profilePic, name };
+  localStorage.setItem(userKey, JSON.stringify(userObj));
+  alert('Registration successful!');
+  return true;
+}
+// ...existing code...
+
+// Function to check credentials and disable/enable Send OTP button
+function checkLoginCredentials() {
+  const email = document.getElementById('login-email').value.trim();
+  const password = document.getElementById('login-password').value.trim();
+  const sendOtpBtn = document.getElementById('login-btn');
+  const msg = document.getElementById('msg');
+  
+  // Reset button state
+  sendOtpBtn.disabled = false;
+  sendOtpBtn.style.opacity = "1";
+  sendOtpBtn.style.cursor = "pointer";
+  msg.textContent = "";
+  
+  // If either field is empty, disable button
+  if (!email || !password) {
+    sendOtpBtn.disabled = true;
+    sendOtpBtn.style.opacity = "0.5";
+    sendOtpBtn.style.cursor = "not-allowed";
+    return;
+  }
+  
+  // Check if user exists
+  const userKey = 'user_' + email;
+  const userData = localStorage.getItem(userKey);
+  
+  if (!userData) {
+    // User doesn't exist - disable button
+    sendOtpBtn.disabled = true;
+    sendOtpBtn.style.opacity = "0.5";
+    sendOtpBtn.style.cursor = "not-allowed";
+    msg.textContent = "No account found for this Gmail!";
+    return;
+  }
+  
+  // Check if password is correct
+  const userObj = JSON.parse(userData);
+  if (userObj.password !== password) {
+    // Password is wrong - disable button
+    sendOtpBtn.disabled = true;
+    sendOtpBtn.style.opacity = "0.5";
+    sendOtpBtn.style.cursor = "not-allowed";
+    msg.textContent = "Incorrect password!";
+    return;
+  }
+  
+  // Credentials are correct - enable button
+  sendOtpBtn.disabled = false;
+  sendOtpBtn.style.opacity = "1";
+  sendOtpBtn.style.cursor = "pointer";
+  msg.textContent = "";
+}
+
+// Function to check register credentials and disable/enable Send OTP button
+function checkRegisterCredentials() {
+  const email = document.getElementById('reg-email').value.trim();
+  const password = document.getElementById('reg-password').value.trim();
+  const confirmPassword = document.getElementById('reg-confirm-password').value.trim();
+  const sendOtpBtn = document.getElementById('register-btn');
+  const msg = document.getElementById('msg');
+  
+  // Reset button state
+  sendOtpBtn.disabled = false;
+  sendOtpBtn.style.opacity = "1";
+  sendOtpBtn.style.cursor = "pointer";
+  msg.textContent = "";
+  
+  // If any field is empty, disable button
+  if (!email || !password || !confirmPassword) {
+    sendOtpBtn.disabled = true;
+    sendOtpBtn.style.opacity = "0.5";
+    sendOtpBtn.style.cursor = "not-allowed";
+    return;
+  }
+  
+  // Check if passwords match
+  if (password !== confirmPassword) {
+    sendOtpBtn.disabled = true;
+    sendOtpBtn.style.opacity = "0.5";
+    sendOtpBtn.style.cursor = "not-allowed";
+    msg.textContent = "Passwords do not match!";
+    return;
+  }
+  
+  // Check if user already exists (for registration)
+  const userKey = 'user_' + email;
+  const userData = localStorage.getItem(userKey);
+  
+  if (userData) {
+    // User already exists - disable button
+    sendOtpBtn.disabled = true;
+    sendOtpBtn.style.opacity = "0.5";
+    sendOtpBtn.style.cursor = "not-allowed";
+    msg.textContent = "This Gmail is already registered! Please login instead.";
+    return;
+  }
+  
+  // All validations passed - enable button
+  sendOtpBtn.disabled = false;
+  sendOtpBtn.style.opacity = "1";
+  sendOtpBtn.style.cursor = "pointer";
+  msg.textContent = "";
+}
+
+// Function to check forgot password credentials and disable/enable Send OTP button
+function checkForgotPasswordCredentials() {
+  const email = document.getElementById('forgot-email').value.trim();
+  const password = document.getElementById('forgot-password').value.trim();
+  const confirmPassword = document.getElementById('forgot-confirm-password').value.trim();
+  const sendOtpBtn = document.getElementById('forgot-btn');
+  const msg = document.getElementById('msg');
+  
+  // Reset button state
+  sendOtpBtn.disabled = false;
+  sendOtpBtn.style.opacity = "1";
+  sendOtpBtn.style.cursor = "pointer";
+  msg.textContent = "";
+  
+  // If any field is empty, disable button
+  if (!email || !password || !confirmPassword) {
+    sendOtpBtn.disabled = true;
+    sendOtpBtn.style.opacity = "0.5";
+    sendOtpBtn.style.cursor = "not-allowed";
+    return;
+  }
+  
+  // Check if passwords match
+  if (password !== confirmPassword) {
+    sendOtpBtn.disabled = true;
+    sendOtpBtn.style.opacity = "0.5";
+    sendOtpBtn.style.cursor = "not-allowed";
+    msg.textContent = "Passwords do not match!";
+    return;
+  }
+  
+  // Check if user exists (for forgot password)
+  const userKey = 'user_' + email;
+  const userData = localStorage.getItem(userKey);
+  
+  if (!userData) {
+    // User doesn't exist - disable button
+    sendOtpBtn.disabled = true;
+    sendOtpBtn.style.opacity = "0.5";
+    sendOtpBtn.style.cursor = "not-allowed";
+    msg.textContent = "No account found for this Gmail!";
+    return;
+  }
+  
+  // All validations passed - enable button
+  sendOtpBtn.disabled = false;
+  sendOtpBtn.style.opacity = "1";
+  sendOtpBtn.style.cursor = "pointer";
+  msg.textContent = "";
+}
+
+// Add event listeners for real-time credential checking
+document.getElementById('login-email').addEventListener('input', checkLoginCredentials);
+document.getElementById('login-password').addEventListener('input', checkLoginCredentials);
+
+  // Add event listeners for register form real-time credential checking
+  document.getElementById('reg-email').addEventListener('input', checkRegisterCredentials);
+  document.getElementById('reg-password').addEventListener('input', checkRegisterCredentials);
+  document.getElementById('reg-confirm-password').addEventListener('input', checkRegisterCredentials);
+  
+  // Add event listeners for forgot password form real-time credential checking
+  document.getElementById('forgot-email').addEventListener('input', checkForgotPasswordCredentials);
+  document.getElementById('forgot-password').addEventListener('input', checkForgotPasswordCredentials);
+  document.getElementById('forgot-confirm-password').addEventListener('input', checkForgotPasswordCredentials);
+
+// Remove any duplicate login-form event listeners above this!
+
+document.getElementById('login-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  
+  // Check if button is disabled
+  const sendOtpBtn = document.getElementById('login-btn');
+  if (sendOtpBtn.disabled) {
+    return; // Don't proceed if button is disabled
+  }
+  
+  let msg = document.getElementById('msg');
+  msg.textContent = "";
+  let email = document.getElementById('login-email').value.trim();
+  let password = document.getElementById('login-password').value.trim();
+
+  // Local check for user (if using localStorage for demo)
+  const userKey = 'user_' + email;
+  const userData = localStorage.getItem(userKey);
+  if (!userData) {
+    msg.textContent = "No account found for this Gmail!";
+    document.getElementById('login-otp-section').style.display = "none";
+    return;
+  }
+  const userObj = JSON.parse(userData);
+  if (userObj.password !== password) {
+    // If password is wrong, clear all OTP UI and logic
+    msg.textContent = "Incorrect password!";
+    document.getElementById('login-otp-section').style.display = "none";
+    // Remove any dynamically added OTP box
+    let oldOtp = document.getElementById('otp-box');
+    if (oldOtp) oldOtp.remove();
+    // Stop all further logic
+    return;
+  }
+
+  // Sahi password pe hi OTP send karo
+  msg.textContent = "Sending OTP to your Gmail...";
+  try {
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
+    const res = await fetch('http://localhost:3000/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, otp })
+    });
+    const data = await res.json();
+    if (data.message === 'OTP sent') {
+      msg.textContent = "OTP sent to your Gmail. Please enter OTP below.";
+      document.getElementById('login-otp-section').style.display = "block";
+    } else {
+      msg.textContent = "Failed to send OTP: " + data.message;
+      document.getElementById('login-otp-section').style.display = "none";
+    }
+  } catch (e) {
+    msg.textContent = "Error sending OTP.";
+    document.getElementById('login-otp-section').style.display = "none";
+  }
+});
+
+// ...existing code...
+// ...existing code...  
+</script>
+
+<script>
+// Forgot Password Functionality
+document.addEventListener('DOMContentLoaded', function() {
+  
+  // Show forgot password form when "Forgot Password?" is clicked
+  document.getElementById('forgot-password-link').addEventListener('click', function() {
+    document.getElementById('login-form').style.display = 'none';
+    document.getElementById('register-form').style.display = 'none';
+    document.getElementById('forgot-password-form').style.display = 'block';
+    document.getElementById('msg').textContent = '';
+  });
+  
+  // Back to login button
+  document.getElementById('back-to-login').addEventListener('click', function() {
+    document.getElementById('forgot-password-form').style.display = 'none';
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('msg').textContent = '';
+    // Reset forgot password form
+    document.getElementById('forgot-email').value = '';
+    document.getElementById('forgot-password').value = '';
+    document.getElementById('forgot-confirm-password').value = '';
+    document.getElementById('forgot-otp').value = '';
+    document.getElementById('forgot-otp-section').style.display = 'none';
+    // Reset button states
+    const forgotBtn = document.getElementById('forgot-btn');
+    forgotBtn.disabled = false;
+    forgotBtn.style.opacity = "1";
+    forgotBtn.style.cursor = "pointer";
+  });
+  
+  // Forgot password form submit - using same logic as register form
+  document.getElementById('forgot-password-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    // Check if button is disabled
+    const sendOtpBtn = document.getElementById('forgot-btn');
+    if (sendOtpBtn.disabled) {
+      return; // Don't proceed if button is disabled
+    }
+    
+    let msg = document.getElementById('msg');
+    msg.textContent = "";
+    let email = document.getElementById('forgot-email').value.trim();
+    let password = document.getElementById('forgot-password').value.trim();
+    let confirmPassword = document.getElementById('forgot-confirm-password').value.trim();
+    
+    if (!email || !password || !confirmPassword) {
+      msg.textContent = "Please fill all fields.";
+      return;
+    }
+    
+    if (password !== confirmPassword) {
+      msg.textContent = "Passwords do not match!";
+      return;
+    }
+    
+    // Check if user exists
+    const userKey = 'user_' + email;
+    const userData = localStorage.getItem(userKey);
+    if (!userData) {
+      msg.textContent = "No account found for this Gmail!";
+      document.getElementById('forgot-otp-section').style.display = "none";
+      return;
+    }
+    
+    // Send OTP to backend
+    msg.textContent = "Sending OTP to your Gmail...";
+    try {
+      const otp = Math.floor(100000 + Math.random() * 900000).toString();
+      const res = await fetch('http://localhost:3000/send-otp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, otp })
+      });
+      const data = await res.json();
+      if (data.message === 'OTP sent') {
+        msg.textContent = "OTP sent to your Gmail. Please enter OTP below.";
+        document.getElementById('forgot-otp-section').style.display = "block";
+      } else {
+        msg.textContent = "Failed to send OTP: " + data.message;
+      }
+    } catch (e) {
+      msg.textContent = "Error sending OTP.";
+    }
+  });
+  
+  // Verify OTP for forgot password
+  document.getElementById('forgot-otp').addEventListener('input', async function() {
+    const otpInput = this.value.trim();
+    const otpMsg = document.getElementById('forgot-otp-msg');
+    const email = document.getElementById('forgot-email').value.trim();
+    const password = document.getElementById('forgot-password').value.trim();
+    
+    if (otpInput.length === 6) {
+      try {
+        const res = await fetch('http://localhost:3000/verify-otp', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, otp: otpInput })
+        });
+        const data = await res.json();
+        if (data.success) {
+          // Update password in localStorage
+          const userKey = 'user_' + email;
+          const userData = localStorage.getItem(userKey);
+          if (userData) {
+            const userObj = JSON.parse(userData);
+            userObj.password = password;
+            localStorage.setItem(userKey, JSON.stringify(userObj));
+            
+            otpMsg.style.color = '#00eaff';
+            otpMsg.textContent = 'Password updated successfully! You can now login with your new password.';
+            
+            // Reset form and go back to login after 2 seconds
+            setTimeout(() => {
+              document.getElementById('forgot-password-form').style.display = 'none';
+              document.getElementById('login-form').style.display = 'block';
+              document.getElementById('msg').textContent = '';
+              // Reset forgot password form
+              document.getElementById('forgot-email').value = '';
+              document.getElementById('forgot-password').value = '';
+              document.getElementById('forgot-confirm-password').value = '';
+              document.getElementById('forgot-otp').value = '';
+              document.getElementById('forgot-otp-section').style.display = 'none';
+            }, 2000);
+          }
+        } else {
+          otpMsg.style.color = '#ff4444';
+          otpMsg.textContent = 'Invalid OTP. Please try again.';
+        }
+      } catch (e) {
+        console.error('Error:', e);
+        otpMsg.style.color = '#ff4444';
+        otpMsg.textContent = 'Error verifying OTP.';
+      }
+    }
+  });
+});
+</script>
+ <script src="js/theme-sync.js"></script>
+</html>
+

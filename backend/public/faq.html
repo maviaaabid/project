@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>FAQ | GAMES-REALM</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="images/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <script type="text/javascript" src="https://unpkg.com/parse/dist/parse.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #151f28;
+      font-family: 'Roboto', Arial, sans-serif;
+      color: #e0d7f5;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .container {
+      max-width: 900px;
+      margin: 30px auto 40px auto;
+      background: rgba(24,18,43,0.93);
+      border-radius: 22px;
+      border: 2.5px solid #7f00ff;
+      box-shadow: 0 8px 40px #7b2ff288;
+      padding: 48px 32px 40px 32px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      animation: fadeInUp 1.2s cubic-bezier(.23,1.01,.32,1) both;
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(60px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    h1.page-title {
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 2.6em;
+      letter-spacing: 2px;
+      color: #fec53a;
+      text-shadow: 0 4px 24px #7b2ff2cc;
+      margin-bottom: 18px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      0% { text-shadow: 0 4px 24px #7b2ff2cc, 0 0 0 #fec53a;}
+      100% { text-shadow: 0 4px 32px #fec53a, 0 0 16px #7b2ff2;}
+    }
+    .faq-section {
+      font-size: 1.18em;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 1.7s cubic-bezier(.23,1.01,.32,1) both;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0;}
+      100% { opacity: 1;}
+    }
+    .faq-item {
+      background: rgba(24,18,43,0.93);
+      border: 1px solid #7b2ff2;
+      border-radius: 8px;
+      margin-bottom: 15px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .faq-item summary {
+      padding: 18px 25px;
+      cursor: pointer;
+      font-weight: bold;
+      color: #00ffff;
+      background: rgba(75, 0, 138, 0.3);
+      border-bottom: 1px solid #7b2ff2;
+      display: block;
+      position: relative;
+      user-select: none;
+      font-size: 1.1em;
+      transition: background-color 0.3s ease;
+    }
+    .faq-item summary:hover {
+      background-color: #7b2ff2;
+      color: #e0d7f5;
+    }
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    .faq-item summary::after {
+      content: "+";
+      position: absolute;
+      right: 25px;
+      font-size: 1.5em;
+      line-height: 1;
+      transition: transform 0.3s ease;
+    }
+    .faq-item[open] summary::after {
+      content: "-";
+      transform: rotate(0deg);
+    }
+    .faq-item[open] summary {
+      border-bottom: 1px solid #dda0dd;
+    }
+    .faq-item .faq-content {
+      padding: 20px 25px;
+      background: rgba(75, 0, 138, 0.3);
+      color: #e0d7f5;
+      border-top: 1px solid #7b2ff2;
+    }
+    /* Language Switcher */
+    .lang-switch {
+      position: absolute;
+      top: 10px;
+      right: 32px;
+      z-index: 10;
+      background: #232042;
+      border-radius: 8px;
+      padding: 6px 14px;
+      box-shadow: 0 2px 12px #7b2ff244;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 1em;
+      color: #fff;
+      border: 2px solid #7b2ff2;
+      outline: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-switch:focus {
+      background: #7b2ff2;
+      color: #fff;
+    }
+    .back-button {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      font-size: 24px;
+      color: #fff;
+      text-decoration: none;
+       background: rgba(24,18,43,0.93);
+      box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+      border: 2.5px solid #7f00ff;
+      padding: 5px 10px;
+      border-radius: 10px;
+      
+      z-index: 20;
+    }
+    .back-button:hover {
+        background: linear-gradient(135deg, #420072, #6a45a7);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .back-button i {
+      margin-right: 10px;
+    }
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #bbb;
+      font-size: 1.05em;
+      letter-spacing: 1px;
+      z-index: 2;
+      position: relative;
+    }
+        .about-highlight {
+      color: #00eaff;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+        .about-title {
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 2.6em;
+      letter-spacing: 2px;
+      color: #fec53a;
+      text-shadow: 0 4px 24px #7b2ff2cc;
+      margin-bottom: 18px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      animation: glow 2s infinite alternate;
+    }
+    
+    @keyframes glow {
+      0% { text-shadow: 0 4px 24px #7b2ff2cc, 0 0 0 #fec53a;}
+      100% { text-shadow: 0 4px 32px #fec53a, 0 0 16px #7b2ff2;}
+    }
+    /* --- Light Theme Styles for FAQ Page --- */
+body.light-theme {
+  background: #f5f5f5 !important;
+  color: #18122B !important;
+  min-height: 100vh;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* FAQ container in light theme */
+body.light-theme .container {
+  background: #fff !important;
+  border-radius: 22px;
+  box-shadow: 0 8px 32px 0 #e0c3fc55, 0 0 32px #7b2ff244;
+  border: 2.5px solid #e0c3fc !important;
+  color: #18122B !important;
+}
+
+/* Title in light theme */
+body.light-theme .about-title,
+body.light-theme .page-title {
+  color: #7b2ff2 !important;
+  text-shadow: 0 2px 16px #e0c3fc88, 0 1px 0 #f357a8;
+}
+
+/* Highlight in light theme */
+body.light-theme .about-highlight {
+  color: #7b2ff2 !important;
+}
+
+/* FAQ section text in light theme */
+body.light-theme .faq-section {
+  color: #18122B !important;
+}
+
+/* FAQ item in light theme */
+body.light-theme .faq-item {
+  background: #f5f5f5 !important;
+  border: 1px solid #e0c3fc !important;
+  border-radius: 8px;
+  color: #18122B !important;
+}
+
+body.light-theme .faq-item summary {
+  background: #e0c3fc !important;
+  color: #7b2ff2 !important;
+  border-bottom: 1px solid #e0c3fc !important;
+}
+
+body.light-theme .faq-item summary:hover {
+  background-color: #7b2ff2 !important;
+  color: #fff !important;
+}
+
+body.light-theme .faq-item .faq-content {
+  background: #fff !important;
+  color: #18122B !important;
+  border-top: 1px solid #e0c3fc !important;
+}
+
+/* Language switcher in light theme */
+body.light-theme .lang-switch {
+  background: #e0c3fc !important;
+  color: #18122B !important;
+  border: 2px solid #7b2ff2 !important;
+}
+
+body.light-theme .lang-switch:focus {
+  background: #7b2ff2 !important;
+  color: #fff !important;
+}
+
+/* Back button in light theme */
+body.light-theme .back-button {
+  color: #18122B !important;
+  background: #fff !important;
+  border: 2.5px solid #e0c3fc !important;
+  box-shadow: 0 4px 16px #e0c3fc44;
+}
+
+body.light-theme .back-button:hover {
+  background: linear-gradient(135deg, #e0c3fc 60%, #7b2ff2 100%) !important;
+  color: #7b2ff2 !important;
+  box-shadow: 0 0 10px #e0c3fc88;
+}
+
+/* Footer in light theme */
+body.light-theme footer {
+  background: #eaeaea !important;
+  color: #18122B !important;
+  border-top: 1px solid #d1d1d1;
+}
+
+/* Animated background shapes in light theme */
+body.light-theme .about-bg,
+body.light-theme .blog-bg {
+  background: radial-gradient(circle, #e0c3fc 0%, #fff 80%) !important;
+  opacity: 0.13 !important;
+}
+
+body.light-theme .about-bg2,
+body.light-theme .blog-bg2 {
+  background: radial-gradient(circle, #7b2ff2 0%, #fff 80%) !important;
+  opacity: 0.09 !important;
+}
+
+/* Responsive for mobile */
+@media (max-width: 700px) {
+  body.light-theme .container { padding: 28px 8px 24px 8px; }
+  body.light-theme .about-title,
+  body.light-theme .page-title { font-size: 2em; }
+  body.light-theme .faq-section { font-size: 1em; }
+  body.light-theme .faq-item { min-width: 160px; max-width: 98vw; padding: 18px 8px 14px 8px;}
+  body.light-theme .lang-switch { right: 10px; top: 10px; font-size: 0.95em; }
+}
+@media (max-width: 480px) {
+  body.light-theme .about-title,
+  body.light-theme .page-title { font-size: 1.3em; }
+  body.light-theme .faq-section { font-size: 0.98em; }
+  body.light-theme footer { font-size: 0.95em;}
+  body.light-theme .lang-switch { font-size: 0.9em; padding: 5px 8px;}
+}
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-button" aria-label="Back to Home">
+    <i class="fas fa-arrow-left"></i> Back
+  </a>
+  <div class="container">
+        <div class="about-bg"></div>
+    <div class="about-bg2"></div>
+    <div class="about-title" id="aboutTitle">
+      <i class="fa-solid fa-gamepad"></i><span id="header-subtitle">Frequently Asked Question</span> <span class="about-highlight" id="header-title">GAMES-REALM</span>
+    </div>
+    <select class="lang-switch" id="language-select" aria-label="Select Language">
+      <option value="en">English</option>
+      <option value="ur">Urdu</option>
+      <option value="hi">Hindi</option>
+      <option value="fr">French</option>
+      <option value="es">Spanish</option>
+      <option value="de">German</option>
+      <option value="ja">Japanese</option>
+      <option value="ko">Korean</option>
+      <option value="ar">Arabic</option>
+      <option value="zh">Chinese</option>
+      <option value="ru">Russian</option>
+      <option value="tr">Turkish</option>
+      <option value="pt">Portuguese</option>
+    </select>
+    <div class="faq-section" id="faq-content-display">
+      </div>
+  </div>
+  <footer>
+    <p id="footer-text">&copy; 2023 GAMES-REALM. All rights reserved. Powering your gaming adventures.</p>
+  </footer>
+  <script>
+    const faqData = {
+      en: [
+        {
+          question: "How can I download free games from GAMES-REALM?",
+          answer:
+            "Downloading free games is simple! Just browse our 'Free Games' section, select the game you want, and click the 'Download' button. No hidden fees, just pure gaming fun!",
+        },
+        {
+          question: "Are all games on GAMES-REALM completely free?",
+          answer:
+            "Yes, GAMES-REALM specializes in providing a curated collection of 100% free-to-play games. We believe everyone should have access to great gaming experiences without a price tag.",
+        },
+        {
+          question: "Do I need to create an account to download games?",
+          answer:
+            "While many games can be downloaded directly, creating a free GAMES-REALM account allows you to save your progress, manage your game library, and get personalized recommendations. It's quick and easy to sign up!",
+        },
+        {
+          question: "Are these free games safe and virus-free?",
+          answer:
+            "Absolutely! We rigorously test all games featured on GAMES-REALM to ensure they are safe, secure, and free from any malware or viruses. Your gaming safety is our top priority.",
+        },
+        {
+          question: "Can I play these games on any device?",
+          answer:
+            "Most of our free games are designed to be compatible with a wide range of devices, including Windows PCs, macOS, and Linux. Check the individual game's description for specific system requirements.",
+        },
+      ],
+      hi: [
+        {
+          question: "GAMES-REALM से मुफ्त गेम कैसे डाउनलोड कर सकता हूँ?",
+          answer:
+            "मुफ्त गेम डाउनलोड करना बहुत आसान है! बस हमारे 'मुफ्त गेम' सेक्शन में जाएं, जो गेम आप चाहते हैं उसे चुनें, और 'डाउनलोड' बटन पर क्लिक करें। कोई छिपी हुई फीस नहीं, बस शुद्ध गेमिंग मज़ा!",
+        },
+        {
+          question: "क्या GAMES-REALM पर सभी गेम पूरी तरह से मुफ्त हैं?",
+          answer:
+            "हाँ, GAMES-REALM 100% मुफ्त-खेलने वाले गेम्स का एक विशेष संग्रह प्रदान करने में माहिर है। हमारा मानना है कि हर किसी को बिना किसी कीमत के शानदार गेमिंग अनुभवों तक पहुंच मिलनी चाहिए।",
+        },
+        {
+          question: "क्या गेम डाउनलोड करने के लिए मुझे अकाउंट बनाना होगा?",
+          answer:
+            "जबकि कई गेम सीधे डाउनलोड किए जा सकते हैं, एक मुफ्त GAMES-REALM अकाउंट बनाने से आप अपनी प्रगति को सहेज सकते हैं, अपनी गेम लाइब्रेरी का प्रबंधन कर सकते हैं, और व्यक्तिगत सिफारिशें प्राप्त कर सकते हैं। साइन अप करना त्वरित और आसान है!",
+        },
+        {
+          question: "क्या ये मुफ्त गेम सुरक्षित और वायरस-मुक्त हैं?",
+          answer:
+            "बिल्कुल! हम GAMES-REALM पर दिखाए गए सभी गेम्स का कठोरता से परीक्षण करते हैं ताकि यह सुनिश्चित हो सके कि वे सुरक्षित, और किसी भी मैलवेयर या वायरस से मुक्त हैं। आपकी गेमिंग सुरक्षा हमारी सर्वोच्च प्राथमिकता है।",
+        },
+        {
+          question: "क्या मैं इन गेम्स को किसी भी डिवाइस पर खेल सकता हूँ?",
+          answer:
+            "हमारे अधिकांश मुफ्त गेम विंडोज पीसी, मैकओएस और लिनक्स सहित विभिन्न प्रकार के उपकरणों के साथ संगत होने के लिए डिज़ाइन किए गए हैं। विशिष्ट सिस्टम आवश्यकताओं के लिए व्यक्तिगत गेम के विवरण की जांच करें।",
+        },
+      ],
+      ur: [
+        {
+          question: "GAMES-REALM سے مفت گیمز کیسے ڈاؤن لوڈ کریں؟",
+          answer:
+            "مفت گیمز ڈاؤن لوڈ کرنے کے لیے، براہ کرم اپنی پسند کی زبان منتخب کریں۔ (نوٹ: مکمل ترجمہ کے لیے بیک اینڈ انٹیگریشن درکار ہے۔)",
+        },
+        {
+          question: "GAMES-REALM کے اس پر کل گیمز کیا ہے؟",
+          answer:
+            "جی ہاں، GAMES-REALM 100% مفت کھیلنے کے قابل گیمز کا ایک مجموعہ فراہم کرتا ہے۔ ہم یقین رکھتے ہیں کہ ہر کسی کو بغیر قیمت کے بہترین گیمنگ تجربات تک رسائی حاصل ہونی چاہیے۔",
+        },
+        {
+          question: "کیا مجھے گیمز ڈاؤن لوڈ کرنے کے لیے اکاؤنٹ بنانا ہوگا؟",
+          answer:
+            "اگرچہ بہت سے گیمز کو براہ راست ڈاؤن لوڈ کیا جا سکتا ہے، لیکن ایک مفت GAMES-REALM اکاؤنٹ بنانے سے آپ اپنی پیشرفت کو محفوظ کر سکتے ہیں، اپنی گیم لائبریری کا انتظام کر سکتے ہیں، اور ذاتی نوعیت کی سفارشات حاصل کر سکتے ہیں۔ سائن اپ کرنا تیز اور آسان ہے!",
+        },
+        {
+          question: "کیا یہ مفت گیمز محفوظ اور وائرس سے پاک ہیں؟",
+          answer:
+            "بالکل! ہم GAMES-REALM پر موجود تمام گیمز کو سختی سے جانچتے ہیں تاکہ یہ یقینی بنایا جا سکے کہ وہ محفوظ، محفوظ اور کسی بھی مالویئر یا وائرس سے پاک ہیں۔ آپ کی گیمنگ کی حفاظت ہماری اولین ترجیح ہے۔",
+        },
+        {
+          question: "کیا میں ان گیمز کو کسی بھی ڈیوائس پر کھیل سکتا ہوں؟",
+          answer:
+            "ہماری زیادہ تر مفت گیمز کو مختلف ڈیوائسز کے ساتھ ہم آہنگ ہونے کے لیے ڈیزائن کیا گیا ہے، بشمول ونڈوز پی سی، میک او ایس اور لینکس۔ مخصوص سسٹم کی ضروریات کے لیے انفرادی گیم کی تفصیل کو چیک کریں۔",
+        },
+      ],
+      fr: [
+        {
+          question: 
+         "Comment puis-je télécharger des jeux gratuits depuis GAMES-REALM ?",
+          answer:
+            "Télécharger des jeux gratuits est simple ! Il suffit de parcourir notre section 'Jeux Gratuits', de sélectionner le jeu souhaité et de cliquer sur le bouton 'Télécharger'. Pas de frais cachés, juste du pur plaisir de jeu !",
+        },
+        {
+          question: "Tous les jeux sur GAMES-REALM sont-ils entièrement gratuits ?",
+          answer:
+            "Oui, GAMES-REALM se spécialise dans la fourniture d'une collection de jeux 100% gratuits. Nous croyons que tout le monde devrait avoir accès à de grandes expériences de jeu sans étiquette de prix.",
+        },
+        {
+          question: "Dois-je créer un compte pour télécharger des jeux ?",
+          answer:
+            "Bien que de nombreux jeux puissent être téléchargés directement, créer un compte gratuit GAMES-REALM vous permet de sauvegarder vos progrès, de gérer votre bibliothèque de jeux et d'obtenir des recommandations personnalisées. C'est rapide et facile à s'inscrire !",
+        },
+        {
+          question: "Ces jeux gratuits sont-ils sûrs et sans virus ?",
+          answer:
+            "Absolument ! Nous testons rigoureusement tous les jeux présentés sur GAMES-REALM pour garantir qu'ils sont sûrs, sécurisés et exempts de logiciels malveillants ou de virus. Votre sécurité de jeu est notre priorité absolue.",
+        },
+        {
+          question: "Puis-je jouer à ces jeux sur n'importe quel appareil ?",
+          answer:
+            "La plupart de nos jeux gratuits sont conçus pour être compatibles avec une large gamme d'appareils, y compris les PC Windows, macOS et Linux. Vérifiez la description du jeu individuel pour les exigences spécifiques du système.",
+        },
+      ],
+      de: [
+        {
+          question:
+            "Wie lade ich kostenlose Spiele von GAMES-REALM herunter? (German)",
+          answer:
+            "Um kostenlose Spiele herunterzuladen, wählen Sie bitte Ihre bevorzugte Sprache. (Hinweis: Eine vollständige Übersetzung erfordert Backend-Integration.)",
+        },
+        {
+          question: "Alle Spiele auf GAMES-REALM sind sie 100% kostenlos?",
+          answer:
+            "Ja, GAMES-REALM spezialisiert sich auf die Bereitstellung einer Sammlung von 100% kostenlosen Spiele. Wir glauben, dass jedermann, die Spiele haben möchten, ohne Preisangabe, Zugang zu ihnen haben sollte.",
+        },
+        {
+          question: "Muss ich ein Konto erstellen, um Spiele zu herunterzuladen?",
+          answer:
+            "Obwohl viele Spiele direkt heruntergeladen werden können, erstellen Sie ein kostenlos",
+        },
+        {
+          question: "Sind diese kostenlosen Spiele sicher und frei von Viren?",
+          answer:
+            "Absolut! Wir testen alle Spiele auf GAMES-REALM gründlich, um sicherzustellen, dass sie sicher, geschützt und frei von Malware oder Viren sind. Ihre Spielesicherheit hat für uns höchste Priorität.",
+        },
+        {
+          question: "Kann ich diese Spiele auf jedem Gerät spielen?",
+          answer:
+            "Die meisten unserer kostenlosen Spiele wurden mit einer breiten Palette von Geräten entwickelt, darunter Windows, macOS und Linux. Bitte überprüfen Sie die Anforderungen des jeweiligen Spiels.",
+        }
+      ],
+      ja: [
+        {
+          question:
+            "GAMES-REALMから無料ゲームをダウンロードするには？ (Japanese)",
+          answer:
+            "無料ゲームをダウンロードするには、ご希望の言語を選択してください。(注：完全な翻訳にはバックエンドの統合が必要です。)",
+        },
+        {
+          question: "GAMES-REALMのすべてのゲームは100％無料ですか？",
+          answer:
+            "はい、GAMES-REALMは100％無料でプレイできるゲームのコレクションを提供しています。誰もが価格なしで素晴らしいゲーム体験にアクセスできるべきだと考えています。",
+        },
+        {
+          question: "GAMES-REALMのゲームをダウンロードするには、会員登録する必要がありますか？",
+          answer:
+            "多くのゲームは直接ダウンロードできますが、無料のGAMES-REALMアカウントを作成すると、進行状況を保存したり、ゲームライブラリを管理したり、パーソナライズされたおすすめを受け取ることができます。登録は簡単で迅速です！",
+        },
+        {
+          question: "GAMES-REALMの無料ゲームは安全でウイルスから守られているのでしょうか？",
+          answer:
+            "もちろんです！GAMES-REALMに掲載されているすべてのゲームは、安全で、マルウェアやウイルスから保護されていることを確認するために厳格にテストされています。あなたのゲームの安全が私たちの最優先事項です。",
+        },
+        {
+          question: "GAMES-REALMのゲームはすべてのデバイスでプレイできますか？",
+          answer:
+            "多くのゲームは、Windows、macOSおよびLinuxなどの多くのデバイスでプレイできます。ゲームの要求を確認してください。",
+        }
+      ],
+      ko: [
+        {
+          question:
+            "GAMES-REALM에서 무료 게임을 다운로드하는 방법은 무엇입니까? (Korean)",
+          answer:
+            "무료 게임을 다운로드하려면 선호하는 언어를 선택하십시오. (참고: 전체 번역에는 백엔드 통합이 필요합니다.)",
+        },
+        {
+          question: "GAMES-REALM의 모든 게임은 100% 무료인가요?",
+          answer:
+            "네, GAMES-REALM는 100% 무료로 플레이할 수 있는 게임 컬렉션을 제공합니다. 누구나 가격 없이 훌륭한 게임 경험에 접근할 수 있어야 한다고 믿습니다.",
+        },
+        {
+          question: "게임을 다운로드하려면 계정을 만들어야 하나요?",
+          answer:
+            "많은 게임을 직접 다운로드할 수 있지만, 무료 GAMES-REALM 계정을 만들면 진행 상황을 저장하고, 게임 라이브러리를 관리하며, 개인화된 추천을 받을 수 있습니다. 가입은 빠르고 간단합니다!",
+        },
+        {
+          question: "이 무료 게임은 안전하고 바이러스가 없나요?",
+          answer:
+            "물론입니다! GAMES-REALM에 있는 모든 게임은 안전하고 보안이 유지되며, 맬웨어나 바이러스가 없는지 철저히 테스트합니다. 당신의 게임 안전이 우리의 최우선 사항입니다.",
+        },
+        {
+          question: "이 게임들은 어떤 기기에서 플레이할 수 있나요?",
+          answer:
+            "대부분의 무료 게임은 Windows PC, macOS 및 Linux 등 다양한 기기에서 호환되도록 설계되었습니다. 개별 게임의 설명에서 특정 시스템 요구 사항을 확인하세요.",
+        }
+      ],
+      zh: [
+        {
+          question: "如何从GAMES-REALM下载免费游戏？ (Chinese)",
+          answer:
+            "要下载免费游戏，请选择您的首选语言。(注意：完整翻译需要后端集成。)",
+        },
+        {
+          question: "GAMES-REALM的所有游戏都是100%免费的吗？",
+          answer:
+            "是的，GAMES-REALM提供了一个免费的游戏集合，任何人都可以免费玩。我们相信每个人都可以享受良好的游戏体验。",
+        },
+        {
+          question: "我需要创建一个免费的GAMES-REALM账户吗？",
+          answer:
+            "许多游戏可以直接下载，但免费的GAMES-REALM账户可以让您保存进度并管理游戏库，接收个性化的推荐。注册非常快速和简单！",
+        },
+        {
+          question: "这些免费游戏是安全的吗？",
+          answer:
+            "当然！GAMES-REALM上所有的游戏都是安全的，并且经过严格测试以确保没有恶意软件或病毒。您的游戏安全是我们的首要任务。",
+        },
+          {
+              question: "我可以在任何设备上玩这些游戏吗？",
+              answer:
+              "大多数免费游戏都设计为与各种设备兼容，包括Windows PC、macOS和Linux。请查看单个游戏的描述以获取特定的系统要求。",
+          },
+      ],
+    };
+
+    const headerFooterData = {
+      en: {
+        title: "GAMES-REALM",
+        subtitle: "Frequently Asked Question",
+        footer: "© 2023 GAMES-REALM. All rights reserved. Powering your gaming adventures."
+      },
+      hi: {
+        title: "गेम्स-रेअल्म",
+        subtitle: "हमेशा पूछे जाने वालसा सवालात",
+        footer: "© 2023 GAMES-REALM। सर्वाधिकार सुरक्षित। आपकी गेमिंग यात्राओं को शक्ति प्रदान करना।"
+      },
+      ur: {
+        title: "گیمز-ریالم",
+        subtitle: " اکثر پوچھے جانے والے سوالات",
+        footer: "© 2023 GAMES-REALM۔ جملہ حقوق محفوظ ہیں۔ آپ کے گیمنگ کے سفر کو طاقت فراہم کرنا۔"
+      },
+      fr: {
+        title: "JEUX-REALM",
+        subtitle: "Questions Fréquemment Posées",
+        footer: "© 2023 GAMES-REALM. Tous droits réservés. Alimenter vos aventures de jeu."
+      },
+      de: {
+        title: "SPIELREALM",
+        subtitle: "Frequently Asked Questions",
+        footer: "© 2023 GAMES-REALM. Alle Rechte vorbehalten. Unterstützung Ihrer Gaming-Abenteuer."
+      },
+      ja: {
+        title: "ゲームレルム",
+        subtitle: "よくある質問",
+        footer: "© 2023 GAMES-REALM。全著作権所有。あなたのゲームの冒険を支援します。"
+      },
+      ko: {
+        title: "게임스렐름",
+        subtitle: "자주 묻는 질문",
+        footer: "© 2023 GAMES-REALM. 판권 소유. 당신의 게임 모험을 지원합니다."
+      },
+      zh: {
+        title: "游戏领域",
+        subtitle: "常见问题解答",
+        footer: "© 2023 GAMES-REALM。版权所有。为您的游戏冒险提供动力。"
+      },
+      ru: {
+        title: "ИГРЫ-РЕАЛМ",
+        subtitle: "Часто задаваемые вопросы",
+        footer: "© 2023 GAMES-REALM. Все права защищены. Поддержка ваших игровых приключений."
+      },
+      ar: {
+        title: "عالم الألعاب",
+        subtitle: "الأسئلة الشائعة",
+        footer: "© 2023 GAMES-REALM. جميع الحقوق محفوظة. تمكين مغامرات الألعاب الخاصة بك."
+      },
+      tr: {
+        title: "GAMES-REALM",
+        subtitle: "Sıkça Sorulan Sorular",
+        footer: "© 2023 GAMES-REALM. Tüm hakları saklıdır. Oyun maceralarınıza güç veriyor."
+      },
+      es: {
+        title: "JUEGOS-REALM",
+        subtitle: "Preguntas Frecuentes",
+        footer: "© 2023 GAMES-REALM. Todos los derechos reservados. Apoyo a tus aventuras de juegos."
+      },
+      pt: {
+        title: "JOGOS-REALM",
+        subtitle: "Perguntas Frequentes",
+        footer: "© 2023 GAMES-REALM. Todos os direitos reservados. Apoio a suas aventuras de jogos."
+      }
+    };
+
+    function renderHeaderFooter(lang) {
+      const headerTitle = document.getElementById("header-title");
+      const headerSubtitle = document.getElementById("header-subtitle");
+      const footerText = document.getElementById("footer-text");
+
+      const hf = headerFooterData[lang] || headerFooterData.en;
+
+      headerTitle.textContent = hf.title;
+      headerSubtitle.textContent = hf.subtitle;
+      footerText.textContent = hf.footer;
+    }
+
+    function renderFaqs(lang) {
+      const faqSection = document.getElementById("faq-content-display");
+      faqSection.innerHTML = ""; // Clear current FAQs
+
+      const faqs = faqData[lang] || faqData.en; // Fallback to English if language not found
+
+      faqs.forEach((item) => {
+        const faqItemDiv = document.createElement("div");
+        faqItemDiv.classList.add("faq-item");
+
+        const detailsElement = document.createElement("details");
+
+        const summaryElement = document.createElement("summary");
+        summaryElement.textContent = item.question;
+
+        const faqContentDiv = document.createElement("div");
+        faqContentDiv.classList.add("faq-content");
+
+        const paragraphElement = document.createElement("p");
+        paragraphElement.textContent = item.answer;
+
+        faqContentDiv.appendChild(paragraphElement);
+        detailsElement.appendChild(summaryElement);
+        detailsElement.appendChild(faqContentDiv);
+        faqItemDiv.appendChild(detailsElement);
+        faqSection.appendChild(faqItemDiv);
+      });
+    }
+
+    // Initial render on page load
+    document.addEventListener("DOMContentLoaded", () => {
+      const languageSelect = document.getElementById("language-select");
+      // Set default language to English or previously selected if stored
+      const initialLang = localStorage.getItem("selectedLang") || "en";
+      languageSelect.value = initialLang;
+      renderFaqs(initialLang);
+      renderHeaderFooter(initialLang);
+    });
+
+    // Language display names mapping
+    const languageNames = {
+      'en': 'English',
+      'zh': 'Chinese',
+      'ja': 'Japanese',
+      'ar': 'Arabic',
+      'es': 'Spanish',
+      'tr': 'Turkish',
+      'fr': 'French',
+      'ru': 'Russian',
+      'de': 'German',
+      'hi': 'Hindi',
+      'pt': 'Portuguese',
+      'ko': 'Korean',
+      'ur': 'Urdu'
+    };
+
+    // Event listener for language change
+    document
+      .getElementById("language-select")
+      .addEventListener("change", function () {
+        const selectedLang = this.value;
+        localStorage.setItem("site-lang", selectedLang); // Store selected language
+        renderFaqs(selectedLang);
+        renderHeaderFooter(selectedLang);
+      });
+  </script>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Language display names mapping
+  const languageNames = {
+    'en': 'English',
+    'zh': 'Chinese',
+    'ja': 'Japanese',
+    'ar': 'Arabic',
+    'es': 'Spanish',
+    'tr': 'Turkish',
+    'fr': 'French',
+    'ru': 'Russian',
+    'de': 'German',
+    'hi': 'Hindi',
+    'pt': 'Portuguese',
+    'ko': 'Korean',
+    'ur': 'Urdu'
+  };
+
+  function setLanguage(lang) {
+    const faqSection = document.getElementById("faq-content-display");
+    faqSection.innerHTML = ""; // Clear current FAQs
+
+    const faqs = faqData[lang] || faqData.en; // Fallback to English if language not found
+
+    faqs.forEach((item) => {
+      const faqItemDiv = document.createElement("div");
+      faqItemDiv.classList.add("faq-item");
+
+      const detailsElement = document.createElement("details");
+
+      const summaryElement = document.createElement("summary");
+      summaryElement.textContent = item.question;
+
+      const faqContentDiv = document.createElement("div");
+      faqContentDiv.classList.add("faq-content");
+
+      const paragraphElement = document.createElement("p");
+      paragraphElement.textContent = item.answer;
+
+      faqContentDiv.appendChild(paragraphElement);
+      detailsElement.appendChild(summaryElement);
+      detailsElement.appendChild(faqContentDiv);
+      faqItemDiv.appendChild(detailsElement);
+      faqSection.appendChild(faqItemDiv);
+    });
+
+    renderHeaderFooter(lang);
+  }
+
+  const savedLang = localStorage.getItem('site-lang') || 'en';
+  setLanguage(savedLang);
+  
+  // Update language select to show current language
+  const languageSelect = document.getElementById("language-select");
+  if (languageSelect && languageNames[savedLang]) {
+    languageSelect.value = savedLang;
+  }
+});
+</script>
+
+<script src="js/theme-sync.js"></script>
+<!-- Navbar hover effect for language changes -->
+<script src="js/navbar-hover.js"></script>
+</body>
+</html>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Blog | Games-Realm</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="images/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <script type="text/javascript" src="https://unpkg.com/parse/dist/parse.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #151f28;
+      font-family: 'Roboto', Arial, sans-serif;
+      color: #e0d7f5;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    .blog-container {
+      max-width: 900px;
+      margin: -60px auto 40px auto;
+      background: rgba(24,18,43,0.93);
+      box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+      border: 2.5px solid #7f00ff;
+      border-radius: 22px;
+      padding: 48px 32px 40px 32px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      animation: fadeInUp 1.2s cubic-bezier(.23,1.01,.32,1) both;
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(60px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    .blog-title {
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 2.6em;
+      letter-spacing: 2px;
+      color: #fec53a;
+      text-shadow: 0 4px 24px #7b2ff2cc;
+      margin-bottom: 18px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      0% { text-shadow: 0 4px 24px #7b2ff2cc, 0 0 0 #fec53a;}
+      100% { text-shadow: 0 4px 32px #fec53a, 0 0 16px #7b2ff2;}
+    }
+    .blog-section {
+      font-size: 1.18em;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 1.7s cubic-bezier(.23,1.01,.32,1) both;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0;}
+      100% { opacity: 1;}
+    }
+    .blog-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+    .feature-card {
+      background: linear-gradient(120deg, #232042 60%, #7b2ff2 100%);
+      border-radius: 16px;
+      box-shadow: 0 2px 18px #7b2ff244;
+      padding: 28px 22px 22px 22px;
+      min-width: 220px;
+      max-width: 320px;
+      flex: 1 1 220px;
+      text-align: center;
+      transition: transform 0.18s, box-shadow 0.18s;
+      position: relative;
+      z-index: 2;
+      animation: popIn 1.2s cubic-bezier(.23,1.01,.32,1) both;
+    }
+    .feature-card:hover {
+      transform: translateY(-8px) scale(1.04);
+      box-shadow: 0 8px 32px #fec53a55;
+    }
+    @keyframes popIn {
+      0% { opacity: 0; transform: scale(0.8);}
+      100% { opacity: 1; transform: scale(1);}
+    }
+    .feature-icon {
+      font-size: 2.2em;
+      color: #fec53a;
+      margin-bottom: 10px;
+      animation: iconPulse 2s infinite alternate;
+    }
+    @keyframes iconPulse {
+      0% { filter: drop-shadow(0 0 0 #fec53a);}
+      100% { filter: drop-shadow(0 0 8px #fec53a);}
+    }
+    .feature-title {
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 1.18em;
+      color: #00eaff;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+    .feature-desc {
+      font-size: 1em;
+      color: #fff;
+      opacity: 0.92;
+    }
+    .blog-footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #bbb;
+      font-size: 1.05em;
+      letter-spacing: 1px;
+      z-index: 2;
+      position: relative;
+    }
+    /* Animated background shapes */
+    .blog-bg {
+      position: absolute;
+      top: -80px;
+      left: -80px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, #7b2ff2 0%, #18122b 80%);
+      opacity: 0.18;
+      border-radius: 50%;
+      z-index: 0;
+      animation: moveBg 8s linear infinite alternate;
+    }
+    .blog-bg2 {
+      position: absolute;
+      bottom: -100px;
+      right: -100px;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, #fec53a 0%, #18122b 80%);
+      opacity: 0.13;
+      border-radius: 50%;
+      z-index: 0;
+      animation: moveBg2 10s linear infinite alternate;
+    }
+    @keyframes moveBg {
+      0% { transform: scale(1) translateY(0);}
+      100% { transform: scale(1.1) translateY(30px);}
+    }
+    @keyframes moveBg2 {
+      0% { transform: scale(1) translateY(0);}
+      100% { transform: scale(1.05) translateY(-30px);}
+    }
+    /* Language Switcher */
+    .lang-switch {
+      position: absolute;
+      top: 22px;
+      right: 32px;
+      z-index: 10;
+      background: #232042;
+      border-radius: 8px;
+      padding: 6px 14px;
+      box-shadow: 0 2px 12px #7b2ff244;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 1em;
+      color: #fff;
+      border: 2px solid #7b2ff2;
+      outline: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-switch:focus {
+      background: #7b2ff2;
+      color: #fff;
+    }
+    @media (max-width: 700px) {
+      .blog-container { padding: 28px 8px 24px 8px; }
+      .blog-title { font-size: 2em; }
+      .blog-section { font-size: 1em; }
+      .feature-card { min-width: 160px; max-width: 98vw; padding: 18px 8px 14px 8px;}
+      .lang-switch { right: 10px; top: 10px; font-size: 0.95em; }
+    }
+    @media (max-width: 480px) {
+      .blog-title { font-size: 1.3em; }
+      .blog-section { font-size: 0.98em; }
+      .blog-footer { font-size: 0.95em;}
+      .lang-switch { font-size: 0.9em; padding: 5px 8px;}
+    }
+    .back-icon {
+      position: relative;
+      display: inline-block;
+      margin: 20px;
+      font-size: 24px;
+      color: #fff;
+      text-decoration: none;
+      background: rgba(24,18,43,0.93);
+      box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+      border: 2.5px solid #7f00ff;
+      padding: 5px 10px;
+      border-radius: 10px;
+    }
+    .back-icon:hover {
+      background: linear-gradient(135deg, #420072, #6a45a7);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .back-icon i { margin-right: 10px; }
+    /* --- Light Theme Styles for Blog Page --- */
+body.light-theme {
+  background: #f5f5f5 !important;
+  color: #18122B !important;
+  min-height: 100vh;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Blog container in light theme */
+body.light-theme .blog-container {
+  background: #fff !important;
+  border-radius: 22px;
+  box-shadow: 0 8px 32px 0 #e0c3fc55, 0 0 32px #7b2ff244;
+  border: 2.5px solid #e0c3fc !important;
+  color: #18122B !important;
+}
+
+/* Title in light theme */
+body.light-theme .blog-title {
+  color: #7b2ff2 !important;
+  text-shadow: 0 2px 16px #e0c3fc88, 0 1px 0 #f357a8;
+}
+
+/* Section text in light theme */
+body.light-theme .blog-section {
+  color: #18122B !important;
+}
+
+/* Features in light theme */
+body.light-theme .feature-card {
+  background: linear-gradient(120deg, #e0c3fc 60%, #fff 100%) !important;
+  border-radius: 16px;
+  box-shadow: 0 2px 18px #e0c3fc44;
+  color: #18122B !important;
+  border: 2px solid #e0c3fc !important;
+}
+
+body.light-theme .feature-icon {
+  color: #7b2ff2 !important;
+}
+
+body.light-theme .feature-title {
+  color: #7b2ff2 !important;
+}
+
+body.light-theme .feature-desc {
+  color: #18122B !important;
+}
+
+/* Blog footer in light theme */
+body.light-theme .blog-footer {
+  color: #7b2ff2 !important;
+}
+
+/* Back icon in light theme */
+body.light-theme .back-icon {
+  color: #18122B !important;
+  background: #fff !important;
+  border: 2.5px solid #e0c3fc !important;
+  box-shadow: 0 4px 16px #e0c3fc44;
+  margin-left: -1250px;
+}
+
+body.light-theme .back-icon:hover {
+  background: linear-gradient(135deg, #e0c3fc 60%, #7b2ff2 100%) !important;
+  color: #7b2ff2 !important;
+  box-shadow: 0 0 10px #e0c3fc88;
+}
+
+/* Language switcher in light theme */
+body.light-theme .lang-switch {
+  background: #e0c3fc !important;
+  color: #18122B !important;
+  border: 2px solid #7b2ff2 !important;
+}
+
+body.light-theme .lang-switch:focus {
+  background: #7b2ff2 !important;
+  color: #fff !important;
+}
+
+/* Animated background shapes in light theme */
+body.light-theme .blog-bg {
+  background: radial-gradient(circle, #e0c3fc 0%, #fff 80%) !important;
+  opacity: 0.13 !important;
+}
+
+body.light-theme .blog-bg2 {
+  background: radial-gradient(circle, #7b2ff2 0%, #fff 80%) !important;
+  opacity: 0.09 !important;
+}
+
+/* Responsive for mobile */
+@media (max-width: 700px) {
+  body.light-theme .blog-container { padding: 28px 8px 24px 8px; }
+  body.light-theme .blog-title { font-size: 2em; }
+  body.light-theme .blog-section { font-size: 1em; }
+  body.light-theme .feature-card { min-width: 160px; max-width: 98vw; padding: 18px 8px 14px 8px;}
+  body.light-theme .lang-switch { right: 10px; top: 10px; font-size: 0.95em; }
+}
+@media (max-width: 480px) {
+  body.light-theme .blog-title { font-size: 1.3em; }
+  body.light-theme .blog-section { font-size: 0.98em; }
+  body.light-theme .blog-footer { font-size: 0.95em;}
+  body.light-theme .lang-switch { font-size: 0.9em; padding: 5px 8px;}
+}
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-icon">
+    <i class="fas fa-arrow-left"></i> Back
+  </a>
+  <div class="blog-container">
+    <label for="langSwitch" id="langLabel" style="font-weight:bold;margin-right:8px;">Change Language:</label>
+    <select class="lang-switch" id="langSwitch">
+      <option value="en">English</option>
+      <option value="ur">Urdu</option>
+      <option value="hi">Hindi</option>
+      <option value="fr">French</option>
+      <option value="es">Spanish</option>
+      <option value="de">German</option>
+      <option value="ja">Japanese</option>
+      <option value="ko">Korean</option>
+      <option value="ar">Arabic</option>
+      <option value="zh">Chinese</option>
+      <option value="ru">Russian</option>
+      <option value="tr">Turkish</option>
+      <option value="pt">Portuguese</option>
+    </select>
+    <div class="blog-bg"></div>
+    <div class="blog-bg2"></div>
+    <div class="blog-title" id="blogTitle">
+      <i class="fa-solid fa-newspaper"></i> Blog <span class="about-highlight">Games-Realm</span>
+    </div>
+    <div class="blog-section" id="blogSection1">
+      Welcome to the official <span class="about-highlight">Games-Realm Blog</span>! Here you’ll find the latest news, reviews, and tips about the best PC and console games. Stay tuned for updates, guides, and exclusive content for gamers!
+    </div>
+    <div class="blog-features" id="blogFeatures">
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-fire"></i></div>
+        <div class="feature-title">Top 5 Games of 2024</div>
+        <div class="feature-desc">Palworld, GTA V, Forza Motorsport, Fortnite, Call of Duty: Black Ops III</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-gamepad"></i></div>
+        <div class="feature-title">Why Gaming is Awesome</div>
+        <div class="feature-desc">Gaming brings people together, improves reflexes, and provides endless entertainment.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon"><i class="fa-solid fa-lightbulb"></i></div>
+        <div class="feature-title">Tips for New Gamers</div>
+        <div class="feature-desc">Start with easy games, join communities, and always have fun!</div>
+      </div>
+    </div>
+    <div class="blog-section" id="blogSection2">
+      <b>Games-Realm</b> is your one-stop destination for free, premium, and exclusive games. Whether you’re a casual player or a hardcore gamer, you’ll find something exciting here. Join our community and level up your gaming journey!
+    </div>
+    <div class="blog-footer" id="blogFooter">
+      <i class="fa-solid fa-star"></i> <b>Games-Realm</b> – Latest news, reviews, and more! <i class="fa-solid fa-star"></i>
+    </div>
+  </div>
+  <script>
+    // Blog content translations
+    const blogContent = {
+      en: {
+        langLabel: 'Change Language:',
+        title: '<i class="fa-solid fa-newspaper"></i> Blog <span class="about-highlight">Games-Realm</span>',
+        section1: 'Welcome to the official <span class="about-highlight">Games-Realm Blog</span>! Here you’ll find the latest news, reviews, and tips about the best PC and console games. Stay tuned for updates, guides, and exclusive content for gamers!',
+        features: [
+          {
+            icon: '<i class="fa-solid fa-fire"></i>',
+            title: 'Top 5 Games of 2024',
+            desc: 'Palworld, GTA V, Forza Motorsport, Fortnite, Call of Duty: Black Ops III'
+          },
+          {
+            icon: '<i class="fa-solid fa-gamepad"></i>',
+            title: 'Why Gaming is Awesome',
+            desc: 'Gaming brings people together, improves reflexes, and provides endless entertainment.'
+          },
+          {
+            icon: '<i class="fa-solid fa-lightbulb"></i>',
+            title: 'Tips for New Gamers',
+            desc: 'Start with easy games, join communities, and always have fun!'
+          }
+        ],
+        section2: '<b>Games-Realm</b> is your one-stop destination for free, premium, and exclusive games. Whether you’re a casual player or a hardcore gamer, you’ll find something exciting here. Join our community and level up your gaming journey!',
+        footer: '<i class="fa-solid fa-star"></i> <b>Games-Realm</b> – Latest news, reviews, and more! <i class="fa-solid fa-star"></i>'
+      },
+      ur: {
+        langLabel: 'زبان تبدیل کریں:',
+        title: '<i class="fa-solid fa-newspaper"></i> بلاگ <span class="about-highlight">گیمز-ریالم</span>',
+        section1: 'سرکاری <span class="about-highlight">گیمز-ریالم بلاگ</span> میں خوش آمدید! یہاں آپ کو بہترین پی سی اور کنسول گیمز کی تازہ ترین خبریں، ریویوز اور ٹپس ملیں گی۔ اپڈیٹس، گائیڈز اور خصوصی مواد کے لیے ہمارے ساتھ رہیں!',
+        features: [
+          {
+            icon: '<i class="fa-solid fa-fire"></i>',
+            title: '2024 کے بہترین 5 گیمز',
+            desc: 'Palworld، GTA V، Forza Motorsport، Fortnite، Call of Duty: Black Ops III'
+          },
+          {
+            icon: '<i class="fa-solid fa-gamepad"></i>',
+            title: 'گیمنگ کیوں زبردست ہے',
+            desc: 'گیمنگ لوگوں کو قریب لاتی ہے، ریفلیکسز بہتر کرتی ہے اور بے انتہا تفریح فراہم کرتی ہے۔'
+          },
+          {
+            icon: '<i class="fa-solid fa-lightbulb"></i>',
+            title: 'نئے گیمرز کے لیے ٹپس',
+            desc: 'آسان گیمز سے شروع کریں، کمیونٹی جوائن کریں، اور ہمیشہ انجوائے کریں!'
+          }
+        ],
+        section2: '<b>گیمز-ریالم</b> آپ کی ایک ہی جگہ ہے جہاں آپ کو مفت، پریمیم اور خصوصی گیمز ملتی ہیں۔ چاہے آپ کیجول پلیئر ہوں یا ہارڈکور گیمر، یہاں سب کے لیے کچھ نہ کچھ ہے۔ ہماری کمیونٹی کا حصہ بنیں اور اپنی گیمنگ کو اگلے لیول پر لے جائیں!',
+        footer: '<i class="fa-solid fa-star"></i> <b>گیمز-ریالم</b> – تازہ ترین خبریں، ریویوز اور مزید! <i class="fa-solid fa-star"></i>'
+      },
+      hi: {
+        langLabel: 'भाषा बदलें:',
+        title: '<i class="fa-solid fa-newspaper"></i> ब्लॉग <span class="about-highlight">गेम्स-रेअल्म</span>',
+        section1: 'आधिकारिक <span class="about-highlight">गेम्स-रेअल्म ब्लॉग</span> में आपका स्वागत है! यहां आपको सर्वोत्तम पीसी और कंसोल गेम्स के बारे में नवीनतम समाचार, समीक्षाएं और सुझाव मिलेंगे। अपडेट, गाइड और गेमर्स के लिए विशेष सामग्री के लिए हमारे साथ रहें!',
+        features: [
+          {
+            icon: '<i class="fa-solid fa-fire"></i>',
+            title: '2024 के शीर्ष 5 गेम',
+            desc: 'Palworld, GTA V, Forza Motorsport, Fortnite, Call of Duty: Black Ops III'
+          },
+          {
+            icon: '<i class="fa-solid fa-gamepad"></i>',
+            title: 'गेमिंग क्यों शानदार है',
+            desc: 'गेमिंग लोगों को एक साथ लाता है, रिफ्लेक्सेस बेहतर बनाता है और असीमित मनोरंजन प्रदान करता है।'
+          },
+          {
+            icon: '<i class="fa-solid fa-lightbulb"></i>',
+            title: 'नए गेमर्स के लिए सुझाव',
+            desc: 'आसान गेम से शुरू करें, समुदाय में शामिल हों और हमेशा मज़ा लें!'
+          }
+        ],
+        section2: '<b>गेम्स-रेअल्म</b> आपके लिए एक स्थान है जहां आपको मुफ्त, प्रीमियम और विशेष गेम मिलते हैं। चाहे आप काजुअल प्लेयर हों या हार्डकोर गेमर, यहां आपके लिए कुछ नया मिलेगा। हमारे समुदाय का हिस्सा बनें और अपने गेमिंग को अगले स्तर पर ले जाएं!',
+        footer: '<i class="fa-solid fa-star"></i> <b>गेम्स-रेअल्म</b> - नवीनतम समाचार, समीक्षाएं और बहुत कुछ! <i class="fa-solid fa-star"></i>'
+      },
+      fr: {
+        langLabel: 'Changer de langue :',
+        title: '<i class="fa-solid fa-newspaper"></i> Blog <span class="about-highlight">GAMES-REALM</span>',
+        section1: 'Bienvenue sur le blog officiel de <span class="about-highlight">GAMES-REALM</span> ! Ici, vous trouverez les dernières nouvelles, critiques et conseils sur les meilleurs jeux PC et console. Restez à l\'écoute pour les mises à jour, guides et contenu exclusif pour les joueurs !',
+        features: [
+          {
+            icon: '<i class="fa-solid fa-fire"></i>',
+            title: 'Top 5 des jeux de 2024',
+            desc: 'Palworld, GTA V, Forza Motorsport, Fortnite, Call of Duty: Black Ops III'
+          },
+          {
+            icon: '<i class="fa-solid fa-gamepad"></i>',
+            title: 'Pourquoi le jeu est génial',
+            desc: 'Le jeu rapproche les gens, améliore les réflexes et offre une divertissement sans fin.'
+          },
+          {
+            icon: '<i class="fa-solid fa-lightbulb"></i>',
+            title: 'Conseils pour les nouveaux joueurs',
+            desc: 'Commencez par des jeux faciles, rejoignez des communautés et amusez-vous toujours !'
+          }
+        ],
+        section2: '<b>GAMES-REALM</b> est votre destination unique pour des jeux gratuits, premium et exclusifs. Que vous soyez un joueur occasionnel ou un joueur hardcore, vous trouverez quelque chose d\'excitant ici. Rejoignez notre communauté et améliorez votre parcours de jeu !',
+        footer: '<i class="fa-solid fa-star"></i> <b>GAMES-REALM</b> - Dernières nouvelles, critiques et plus encore ! <i class="fa-solid fa-star"></i>'
+      },
+      es: {
+        langLabel: 'Cambiar idioma:',
+        title: '<i class="fa-solid fa-newspaper"></i> Blog <span class="about-highlight">GAMES-REALM</span>',
+        section1: '¡Bienvenido al blog oficial de <span class="about-highlight">GAMES-REALM</span>! Aquí encontrarás las últimas noticias, reseñas y consejos sobre los mejores juegos de PC y consola. ¡Mantente atento para actualizaciones, guías y contenido exclusivo para jugadores!',
+        features: [
+          {
+            icon: '<i class="fa-solid fa-fire"></i>',
+            title: 'Top 5 juegos de 2024',
+            desc: 'Palworld, GTA V, Forza Motorsport, Fortnite, Call of Duty: Black Ops III'
+          },
+          {
+            icon: '<i class="fa-solid fa-gamepad"></i>',
+            title: '¿Por qué el juego es genial?',
+            desc: 'El juego une a la gente, mejora los reflejos y ofrece entretenimiento sin fin.'
+          },
+          {
+            icon: '<i class="fa-solid fa-lightbulb"></i>',
+            title: 'Consejos para nuevos jugadores',
+            desc: '¡Empieza con juegos fáciles, únete a comunidades y diviértete siempre!'
+          }
+        ],
+        section2: '<b>GAMES-REALM</b> es tu destino único para juegos gratuitos, premium y exclusivos. Ya seas un jugador casual o un jugador hardcore, encontrarás algo emocionante aquí. ¡Únete a nuestra comunidad y lleva tu experiencia de juego al siguiente nivel!',
+        footer: '<i class="fa-solid fa-star"></i> <b>GAMES-REALM</b> - Últimas noticias, reseñas y más <i class="fa-solid fa-star"></i>'
+      },
+      de: {
+        langLabel: 'Sprache ändern:',
+        title: '<i class="fa-solid fa-newspaper"></i> Blog <span class="about-highlight">GAMES-REALM</span>',
+        section1: 'Willkommen auf dem offiziellen <span class="about-highlight">GAMES-REALM Blog</span>! Hier findest du die neuesten Nachrichten, Rezensionen und Tipps zu den besten PC- und Konsolenspielen. Bleib auf dem Laufenden für Updates, Anleitungen und exklusive Inhalte für Gamer!',
+        features: [
+          {
+            icon: '<i class="fa-solid fa-fire"></i>',
+            title: 'Top 5 Spiele 2024',
+            desc: 'Palworld, GTA V, Forza Motorsport, Fortnite, Call of Duty: Black Ops III'
+          },
+          {
+            icon: '<i class="fa-solid fa-gamepad"></i>',
+            title: 'Warum Gaming großartig ist',
+            desc: 'Gaming bringt Menschen zusammen, verbessert die Reflexe und bietet endlosen Spaß.'
+          },
+          {
+            icon: '<i class="fa-solid fa-lightbulb"></i>',
+            title: 'Tipps für Neueinsteiger',
+            desc: 'Beginne mit einfachen Spielen, tritt Gemeinschaften bei und habe immer Spaß!'
+          }
+        ],
+        section2: '<b>GAMES-REALM</b> ist dein einzigartiger Ort für kostenlose, Premium- und exklusive Spiele. Egal, ob du ein Casual Gamer oder ein Hardcore Gamer bist, hier findest du etwas Aufregendes. Tritt unserer Gemeinschaft bei und hebe deine Gaming-Reise auf das nächste Level!',
+        footer: '<i class="fa-solid fa-star"></i> <b>GAMES-REALM</b> - Neueste Nachrichten, Rezensionen und mehr! <i class="fa-solid fa-star"></i>'
+      },
+      ja: {
+        langLabel: '言語を変更:',
+        title: '<i class="fa-solid fa-newspaper"></i> ブログ <span class="about-highlight">GAMES-REALM</span>',
+        section1: '公式 <span class="about-highlight">GAMES-REALM ブログ</span> へようこそ！ ここでは、最新のPCおよびコンソールゲームに関する最新ニュース、レビュー、およびヒントを見つけることができます。 アップデート、ガイド、およびゲーマー専用の特別コンテンツについては、お知らせをお待ちください！',
+        features: [
+          {
+            icon: '<i class="fa-solid fa-fire"></i>',
+            title: '2024年のトップ5ゲーム',
+            desc: 'Palworld, GTA V, Forza Motorsport, Fortnite, Call of Duty: Black Ops III'
+          },
+          {
+            icon: '<i class="fa-solid fa-gamepad"></i>',
+            title: 'ゲーミングが素晴らしい理由',
+            desc: 'ゲーミングは人々を結びつけ、反射神経を向上させ、無限の娯楽を提供します。'
+          },
+          {
+            icon: '<i class="fa-solid fa-lightbulb"></i>',
+            title: '新しいゲーマーのためのヒント',
+            desc: '簡単なゲームから始め、コミュニティに参加し、いつも楽しむように！'
+          }
+        ],
+        section2: '<b>GAMES-REALM</b> は、無料、プレミアム、およびエクスクルーシブゲームのためのあなただけの一席です。 キャジュアルプレーヤーであるかハードコアゲーマーであるかに関係なく、ここでは興味深いものが見つかります。 私たちのコミュニティに参加し、ゲーミングの旅を次のレベルに引き上げましょう！',
+        footer: '<i class="fa-solid fa-star"></i> <b>GAMES-REALM</b> - 最新ニュース、レビュー、その他 <i class="fa-solid fa-star"></i>'
+      },
+      ko: {
+        langLabel: '언어 변경:',
+        title: '<i class="fa-solid fa-newspaper"></i> 블로그 <span class="about-highlight">GAMES-REALM</span>',
+        section1: '공식 <span class="about-highlight">GAMES-REALM 블로그</span>에 오신 것을 환영합니다! 여기에서 최신 PC 및 콘솔 게임에 대한 최신 뉴스, 리뷰 및 팁을 찾을 수 있습니다. 업데이트, 가이드 및 게이머를 위한 독점 콘텐츠에 대한 소식을 기다려주세요!',
+        features: [
+          {
+            icon: '<i class="fa-solid fa-fire"></i>',
+            title: '2024년 상위 5개 게임',
+            desc: 'Palworld, GTA V, Forza Motorsport, Fortnite, Call of Duty: Black Ops III'
+          },
+          {
+            icon: '<i class="fa-solid fa-gamepad"></i>',
+            title: '게이밍이 멋진 이유',
+            desc: '게이밍은 사람들을 모으고 반사 신경을 향상시키며 무한한 즐거움을 제공합니다.'
+          },
+          {
+            icon: '<i class="fa-solid fa-lightbulb"></i>',
+            title: '새로운 게이머를 위한 팁',
+            desc: '쉬운 게임으로 시작하고 커뮤니티에 참여하며 항상 즐기세요!'
+          }
+        ],
+        section2: '<b>GAMES-REALM</b>는 무료, 프리미엄 및 독점 게임을 위한 당신만의 장소입니다. 캐주얼 플레이어이든 하드코어 게이머이든 상관없이 여기서 흥미로운 것을 찾을 수 있습니다. 우리 커뮤니티에 참여하고 게이밍 여정을 다음 단계로 끌어올리세요!',
+        footer: '<i class="fa-solid fa-star"></i> <b>GAMES-REALM</b> - 최신 뉴스, 리뷰 및 기타 <i class="fa-solid fa-star"></i>'
+      },
+      ar: {
+        langLabel: 'تغيير اللغة:',
+        title: '<i class="fa-solid fa-newspaper"></i> مدونة <span class="about-highlight">GAMES-REALM</span>',
+        section1: 'مرحبًا بك في مدونة <span class="about-highlight">GAMES-REALM</span> الرسمية! هنا ستجد أحدث الأخبار والمراجعات والنصائح حول أفضل الألعاب على جهاز الكمبيوتر والكونسول. ابق على اطلاع بالتحديثات والإرشادات والمحتوى الحصري لللاعبين!',
+        features: [
+          {
+            icon: '<i class="fa-solid fa-fire"></i>',
+            title: 'أفضل 5 ألعاب 2024',
+            desc: 'Palworld, GTA V, Forza Motorsport, Fortnite, Call of Duty: Black Ops III'
+          },
+          {
+            icon: '<i class="fa-solid fa-gamepad"></i>',
+            title: 'لماذا اللعب رائع',
+            desc: 'اللعب يجمع الناس ويحسن الاستجابة ويوفر ترفيهًا لا نهاية له.'
+          },
+          {
+            icon: '<i class="fa-solid fa-lightbulb"></i>',
+            title: 'نصائح للاعبين الجدد',
+            desc: 'ابدأ بالألعاب السهلة وانضم إلى المجتمعات واستمتع دائمًا!'
+          }
+        ],
+        section2: '<b>GAMES-REALM</b> هي وجهتك الوحيدة للألعاب المجانية والمميزة والحصرية. سواء كنت لاعبًا حرفيًا أو لاعبًا حارس الكورة، ستجد هنا شيئًا مثيرًا. انضم إلى مجتمعنا وارفع مستوى لعبتك!',
+        footer: '<i class="fa-solid fa-star"></i> <b>GAMES-REALM</b> - أحدث الأخبار والمراجعات والمزيد <i class="fa-solid fa-star"></i>'
+      },
+      zh: {
+        langLabel: '更改语言：',
+        title: '<i class="fa-solid fa-newspaper"></i> 博客 <span class="about-highlight">GAMES-REALM</span>',
+        section1: '欢迎来到官方 <span class="about-highlight">GAMES-REALM 博客</span>！在这里，您将找到有关最新 PC 和游戏机游戏的最新新闻、评论和技巧。敬请关注更新、指南和专为游戏玩家准备的独家内容！',
+        features: [
+          {
+            icon: '<i class="fa-solid fa-fire"></i>',
+            title: '2024年前5款游戏',
+            desc: 'Palworld, GTA V, Forza Motorsport, Fortnite, Call of Duty: Black Ops III'
+          },
+          {
+            icon: '<i class="fa-solid fa-gamepad"></i>',
+            title: '为什么游戏很棒',
+            desc: '游戏可以让人们聚在一起，提高反应能力，并提供无尽的娱乐。'
+          },
+          {
+            icon: '<i class="fa-solid fa-lightbulb"></i>',
+            title: '新手游戏提示',
+            desc: '从简单的游戏开始，加入社区，一直保持乐趣！'
+          }
+        ],
+        section2: '<b>GAMES-REALM</b> 是您的一站式免费、高级和独家游戏目的地。无论您是休闲玩家还是硬核玩家，这里都有令人兴奋的东西。加入我们的社区，提升您的游戏之旅！',
+        footer: '<i class="fa-solid fa-star"></i> <b>GAMES-REALM</b> - 最新新闻、评论等 <i class="fa-solid fa-star"></i>'
+      },
+      ru: {
+        langLabel: 'Сменить язык:',
+        title: '<i class="fa-solid fa-newspaper"></i> Блог <span class="about-highlight">GAMES-REALM</span>',
+        section1: 'Добро пожаловать в официальный <span class="about-highlight">GAMES-REALM Блог</span>! Здесь вы найдете последние новости, обзоры и советы о лучших играх на ПК и консолях. Следите за обновлениями, руководствами и эксклюзивным контентом для игроков!',
+        features: [
+          {
+            icon: '<i class="fa-solid fa-fire"></i>',
+            title: 'Топ 5 игр 2024 года',
+            desc: 'Palworld, GTA V, Forza Motorsport, Fortnite, Call of Duty: Black Ops III'
+          },
+          {
+            icon: '<i class="fa-solid fa-gamepad"></i>',
+            title: 'Почему игры крутые',
+            desc: 'Игры собирают людей, улучшают реакцию и обеспечивают бесконечное развлечение.'
+          },
+          {
+            icon: '<i class="fa-solid fa-lightbulb"></i>',
+            title: 'Советы для новичков',
+            desc: 'Начинайте с простых игр, присоединяйтесь к сообществам и всегда веселитесь!'
+          }
+        ],
+        section2: '<b>GAMES-REALM</b> - это ваш единственный источник бесплатных, премиум и эксклюзивных игр. Будь то случайный игрок или железный фанат, здесь вы найдете что-то захватывающее. Присоединяйтесь к нашему сообществу и повышайте уровень своего игрового пути!',
+        footer: '<i class="fa-solid fa-star"></i> <b>GAMES-REALM</b> - Последние новости, обзоры и многое другое <i class="fa-solid fa-star"></i>'
+      },
+      tr: {
+        langLabel: 'Dili değiştir:',
+        title: '<i class="fa-solid fa-newspaper"></i> Blog <span class="about-highlight">GAMES-REALM</span>',
+        section1: 'Resmi <span class="about-highlight">GAMES-REALM Blog</span>\'a hoş geldiniz! Burada en iyi PC ve konsol oyunları hakkında en son haberler, incelemeler ve ipuçlarını bulacaksınız. Güncellemeler, kılavuzlar ve oyuncular için özel içerikler için bizi takip edin!',
+        features: [
+          {
+            icon: '<i class="fa-solid fa-fire"></i>',
+            title: '2024\'ün En İyi 5 Oyunu',
+            desc: 'Palworld, GTA V, Forza Motorsport, Fortnite, Call of Duty: Black Ops III'
+          },
+          {
+            icon: '<i class="fa-solid fa-gamepad"></i>',
+            title: 'Oynamanın Neden Harika Olduğu',
+            desc: 'Oynamak insanları bir araya getirir, refleksleri geliştirir ve sonsuza kadar eğlence sunar.'
+          },
+          {
+            icon: '<i class="fa-solid fa-lightbulb"></i>',
+            title: 'Yeni Oyuncular İçin İpuçları',
+            desc: 'Kolay oyunlarla başlayın, topluluklara katılın ve her zaman eğlenin!'
+          }
+        ],
+        section2: '<b>GAMES-REALM</b>, ücretsiz, premium ve özel oyunlar için tek adresinizdir. Casual oyuncu olun veya hardcore oyuncu olun, burada heyecan verici bir şey bulacaksınız. Topluluğumuza katılın ve oyunculuk yolculuğunuzu bir sonraki seviyeye taşıyın!',
+        footer: '<i class="fa-solid fa-star"></i> <b>GAMES-REALM</b> - En son haberler, incelemeler ve daha fazlası <i class="fa-solid fa-star"></i>'
+      },
+      pt: {
+        langLabel: 'Mudar idioma:',
+        title: '<i class="fa-solid fa-newspaper"></i> Blog <span class="about-highlight">GAMES-REALM</span>',
+        section1: 'Bem-vindo ao blog oficial da <span class="about-highlight">GAMES-REALM</span>! Aqui você encontrará as últimas notícias, análises e dicas sobre os melhores jogos de PC e console. Fique atento a atualizações, guias e conteúdo exclusivo para jogadores!',
+        features: [
+          {
+            icon: '<i class="fa-solid fa-fire"></i>',
+            title: 'Top 5 Jogos de 2024',
+            desc: 'Palworld, GTA V, Forza Motorsport, Fortnite, Call of Duty: Black Ops III'
+          },
+          {
+            icon: '<i class="fa-solid fa-gamepad"></i>',
+            title: 'Por que Jogar é Legal',
+            desc: 'Jogar une as pessoas, melhora a reflexão e oferece entretenimento sem fim.'
+          },
+          {
+            icon: '<i class="fa-solid fa-lightbulb"></i>',
+            title: 'Dicas para Novatos',
+            desc: 'Comece com jogos fáceis, junte-se às comunidades e divirta-se sempre!'
+          }
+        ],
+        section2: '<b>GAMES-REALM</b> é o seu destino único para jogos gratuitos, premium e exclusivos. Seja você um jogador casual ou um jogador hardcore, você encontrará algo emocionante aqui. Junte-se à nossa comunidade e leve seu jogo ao próximo nível!',
+        footer: '<i class="fa-solid fa-star"></i> <b>GAMES-REALM</b> - Últimas notícias, análises e muito mais <i class="fa-solid fa-star"></i>'
+      }
+    };
+
+    // Language display names mapping
+    const languageNames = {
+      'en': 'English',
+      'zh': 'Chinese',
+      'ja': 'Japanese',
+      'ar': 'Arabic',
+      'es': 'Spanish',
+      'tr': 'Turkish',
+      'fr': 'French',
+      'ru': 'Russian',
+      'de': 'German',
+      'hi': 'Hindi',
+      'pt': 'Portuguese',
+      'ko': 'Korean',
+      'ur': 'Urdu'
+    };
+
+    const langSwitch = document.getElementById('langSwitch');
+    function setBlogLang(lang) {
+      const c = blogContent[lang] || blogContent['en'];
+      document.getElementById('langLabel').textContent = c.langLabel || blogContent['en'].langLabel;
+      document.getElementById('blogTitle').innerHTML = c.title;
+      document.getElementById('blogSection1').innerHTML = c.section1;
+      // Features
+      const featuresDiv = document.getElementById('blogFeatures');
+      featuresDiv.innerHTML = '';
+      c.features.forEach(f => {
+        featuresDiv.innerHTML += `<div class="feature-card"><div class="feature-icon">${f.icon}</div><div class="feature-title">${f.title}</div><div class="feature-desc">${f.desc}</div></div>`;
+      });
+      document.getElementById('blogSection2').innerHTML = c.section2;
+      document.getElementById('blogFooter').innerHTML = c.footer;
+    }
+    langSwitch.addEventListener('change', function() {
+      setBlogLang(this.value);
+      localStorage.setItem('site-lang', this.value);
+    });
+    // On page load, set language from localStorage
+    const savedLang = localStorage.getItem('site-lang') || 'en';
+    langSwitch.value = savedLang;
+    setBlogLang(savedLang);
+  </script>
+  
+  <script src="js/theme-sync.js"></script>
+</body>
+</html>

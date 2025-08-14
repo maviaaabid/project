@@ -1,0 +1,315 @@
+:root {
+  --main-bg: #f5f5f5;
+  --header-bg: #eaeaea;
+  --text-color: #18122B;
+  --box-bg: #fff;
+  --logo-bg: #e0c3fc;
+}
+body.light-theme {
+  --main-bg: #f5f5f5;
+  --header-bg: #eaeaea;
+  --text-color: #18122B;
+  --box-bg: #fff;
+  --logo-bg: #e0c3fc;
+}
+
+/* Light theme for footer */
+body.light-theme footer,
+html.light-theme footer {
+  background: #eaeaea !important;
+  color: #18122B !important;
+  border-top: 1px solid #d1d1d1;
+  margin-top: -70px;
+}
+
+/* Light theme for footer content */
+body.light-theme footer *,
+html.light-theme footer * {
+  color: #18122B !important;
+}
+
+/* Light theme for logo */
+body.light-theme .logo {
+  background: var(--logo-bg) !important;
+  color: #18122B !important;
+}
+
+/* Light theme for links */
+body.light-theme a {
+  color: #7f00ff !important;
+}
+
+/* Light theme for input fields */
+body.light-theme input,
+body.light-theme textarea,
+body.light-theme select {
+  background: #fff !important;
+  color: #18122B !important;
+  border: 1px solid #d1d1d1 !important;
+}
+
+/* Light theme for buttons */
+body.light-theme button {
+  background: #e0c3fc !important;
+  color: #18122B !important;
+  border: 1px solid #d1d1d1 !important;
+}
+body.dark-theme {
+  --main-bg: #151f28;
+  --header-bg: rgb(102, 102, 102);
+  --text-color: #fff;
+  --box-bg: #1c1c1c;
+  --logo-bg: #550381;
+}
+
+/* Remove or comment out this block: */
+/*
+html, body {
+  background: var(--main-bg) !important;
+  color: var(--text-color) !important;
+}
+*/
+
+/* Add theme-specific selectors: */
+body.light-theme, html.light-theme {
+  background: #f5f5f5 !important;
+  color: #18122B !important;
+}
+
+body.dark-theme, html.dark-theme {
+  background: #151f28 !important;
+  color: #fff !important;
+}
+
+header {
+  background: var(--header-bg) !important;
+}
+.logo {
+  background: var(--logo-bg) !important;
+  color: var(--logo) !important;
+}
+.box, .box-2 {
+  background: var(--box-bg) !important;
+  color: var(--text-color) !important;
+}
+#theme-icon{
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  margin-top: -1px;
+  min-height: 42px;
+  min-width: 48px;
+}
+label[for="light-switch"] {
+  cursor: pointer;
+  user-select: none;
+}
+label[for="light-switch"] svg {
+  pointer-events: none;
+}
+@media screen and (max-width: 1024px) {
+  #theme-icon{
+    right: 100%;
+    margin-right: px;
+    margin-top: -10px;    
+  }
+  body.light-theme footer,
+html.light-theme footer {
+  background: #eaeaea !important;
+  color: #18122B !important;
+  border-top: 1px solid #d1d1d1;
+  margin-top: -70px;
+}
+}
+@media screen and (max-width: 800px) {
+  #theme-icon{
+    right: 100%;
+    margin-right: px;
+    margin-top: -10px;    
+  }
+}
+
+/* Fix for light theme body height in responsive mode */
+body.light-theme, html.light-theme {
+  background: #f5f5f5 !important;
+  color: #18122B !important;
+  min-height: 100vh;
+  height: auto !important;
+  display: block !important;
+}
+
+/* Make sure your main container stretches */
+.container, .boxes-container, main {
+  min-height: 60vh;
+  margin-bottom: 40px;
+}
+
+/* Footer stays at bottom only if content is less */
+footer, .footer-gaming {
+  width: 100%;
+  background: #eaeaea !important;
+  color: #18122B !important;
+  border-top: 1px solid #d1d1d1;
+  margin-top: 0 !important;
+  position: relative;
+}
+
+/* ----------- LIGHT THEME CSS (DARK THEME KI TARAH BEHAVE KARE) ----------- */
+
+/* Variables for light theme */
+body.light-theme, html.light-theme {
+  --main-bg: #f5f5f5;
+  --header-bg: #eaeaea;
+  --text-color: #18122B;
+  --box-bg: #fff;
+  --logo-bg: #e0c3fc;
+}
+
+/* Body background and text color */
+body.light-theme, html.light-theme {
+  background: var(--main-bg) !important;
+  color: var(--text-color) !important;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header/navbar */
+body.light-theme header,
+html.light-theme header {
+  background: var(--header-bg) !important;
+  color: var(--text-color) !important;
+}
+
+/* Logo */
+body.light-theme .logo,
+html.light-theme .logo {
+  background: var(--logo-bg) !important;
+  color: var(--text-color) !important;
+}
+
+/* Main content area stretches to push footer down */
+body.light-theme main,
+body.light-theme .container,
+body.light-theme .boxes-container,
+html.light-theme main,
+html.light-theme .container,
+html.light-theme .boxes-container {
+  flex: 1 0 auto;
+  background: transparent;
+  margin-bottom: 0;
+}
+
+/* Boxes */
+body.light-theme .box,
+body.light-theme .box-2,
+html.light-theme .box,
+html.light-theme .box-2 {
+  background: var(--box-bg) !important;
+  color: var(--text-color) !important;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+}
+
+/* Footer sticks to bottom, no extra gap */
+body.light-theme footer,
+html.light-theme footer,
+body.light-theme .footer-gaming,
+html.light-theme .footer-gaming {
+  background: var(--header-bg) !important;
+  color: var(--text-color) !important;
+  border-top: 1px solid #d1d1d1;
+  margin: 0 !important;
+  padding: 16px 0;
+  width: 100%;
+  flex-shrink: 0;
+  position: relative;
+}
+
+/* Footer content */
+body.light-theme footer *,
+html.light-theme footer * {
+  color: var(--text-color) !important;
+}
+
+/* Inputs, buttons, links */
+body.light-theme input,
+body.light-theme textarea,
+body.light-theme select,
+html.light-theme input,
+html.light-theme textarea,
+html.light-theme select {
+  background: #fff !important;
+  color: var(--text-color) !important;
+  border: 1px solid #d1d1d1 !important;
+}
+
+body.light-theme button,
+html.light-theme button {
+  background: var(--logo-bg) !important;
+  color: var(--text-color) !important;
+  border: 1px solid #d1d1d1 !important;
+}
+
+body.light-theme a,
+html.light-theme a {
+  color: #7f00ff !important;
+}
+
+/* Responsive: mobile fix */
+@media (max-width: 800px) {
+  body.light-theme, html.light-theme {
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  body.light-theme main,
+  body.light-theme .container,
+  body.light-theme .boxes-container,
+  html.light-theme main,
+  html.light-theme .container,
+  html.light-theme .boxes-container {
+    flex: 1 0 auto;
+    margin-bottom: 0;
+  }
+  body.light-theme footer,
+  html.light-theme footer {
+    padding: 12px 0;
+    width: 100vw;
+  }
+}
+
+/* ----------- END LIGHT THEME CSS ----------- */
+
+/* Footer theme should match body theme using style.css colors */
+
+/* Light theme footer (matches style.css) */
+body.light-theme footer,
+html.light-theme footer,
+body.light-theme .footer-gaming,
+html.light-theme .footer-gaming {
+  background: #eaeaea !important;
+  color: #18122B !important;
+  border-top: 1px solid #d1d1d1;
+  margin: 0 !important;
+  padding: 16px 0;
+  width: 100%;
+  position: relative;
+}
+
+/* Dark theme footer (matches style.css) */
+body.dark-theme footer,
+html.dark-theme footer,
+body.dark-theme .footer-gaming,
+html.dark-theme .footer-gaming {
+  background: #151f28 !important;
+  color: #fff !important;
+  border-top: 1px solid #222;
+  margin: 0 !important;
+  padding: 16px 0;
+  width: 100%;
+  position: relative;
+}
