@@ -26,7 +26,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Parastoo:wght@400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  <script type="text/javascript" src="https://unpkg.com/parse/dist/parse.min.js"></script>
 </head>
   <style>
     html {
@@ -338,8 +337,6 @@ function logoutProfile() {
 <script src="js/search.js"></script>
 <!-- Category filter logic -->
 <script src="js/category-filter.js"></script>
-<!-- Navbar hover effect for language changes -->
-<script src="js/navbar-hover.js"></script>
 <div id="theme-toggle-placeholder" style="display: none;"></div>
 <script>
   fetch('theme-toggle.html')
@@ -408,64 +405,6 @@ function logoutProfile() {
   }
 </script>
 <script src="js/theme-toggle.js"></script>
-
-<!-- Favorite functionality script -->
-<script>
-function toggleFavorite(icon) {
-  // Toggle active class
-  icon.classList.toggle('active');
-  
-  // Get game information
-  const gameBox = icon.closest('.box') || icon.closest('.box-2');
-  const gameTitle = gameBox.querySelector('h1').innerText;
-  const gameImage = gameBox.querySelector('img').src;
-  const gameType = gameBox.querySelector('.type p, .type-2 p').innerText;
-  
-  // Get existing favorites from localStorage
-  let favorites = JSON.parse(localStorage.getItem('favoriteGames')) || [];
-  
-  // Check if game is already in favorites
-  const existingIndex = favorites.findIndex(game => game.title === gameTitle);
-  
-  if (icon.classList.contains('active')) {
-    // Add to favorites if not already there
-    if (existingIndex === -1) {
-      favorites.push({
-        title: gameTitle,
-        image: gameImage,
-        type: gameType,
-        addedOn: new Date().toISOString()
-      });
-      alert(gameTitle + ' added to favorites!');
-    }
-  } else {
-    // Remove from favorites
-    if (existingIndex !== -1) {
-      favorites.splice(existingIndex, 1);
-      alert(gameTitle + ' removed from favorites!');
-    }
-  }
-  
-  // Save updated favorites to localStorage
-  localStorage.setItem('favoriteGames', JSON.stringify(favorites));
-}
-
-// Check if games are in favorites when page loads
-document.addEventListener('DOMContentLoaded', function() {
-  const favorites = JSON.parse(localStorage.getItem('favoriteGames')) || [];
-  const favoriteIcons = document.querySelectorAll('.favorite-icon');
-  
-  favoriteIcons.forEach(icon => {
-    const gameBox = icon.closest('.box') || icon.closest('.box-2');
-    const gameTitle = gameBox.querySelector('h1').innerText;
-    
-    // If game is in favorites, mark icon as active
-    if (favorites.some(game => game.title === gameTitle)) {
-      icon.classList.add('active');
-    }
-  });
-});
-</script>
 </div>
 <!--end nav-->
 
@@ -476,7 +415,6 @@ document.addEventListener('DOMContentLoaded', function() {
                       <form action="#">
                         <div class="image">
                           <img src="images/forzamotorspot.webp">
-                          <i class="fa fa-heart favorite-icon" onclick="toggleFavorite(this)" title="Add to favorites"></i>
                         </div>
                     
                 <div class="content">
@@ -518,7 +456,6 @@ document.addEventListener('DOMContentLoaded', function() {
                       <form-2 action="#">
                         <div class="image-2">
                           <img src="images/fortnit.png">
-                          <i class="fa fa-heart favorite-icon" onclick="toggleFavorite(this)" title="Add to favorites"></i>
                         </div>
                     
                 <div class="content-2">
@@ -559,7 +496,6 @@ document.addEventListener('DOMContentLoaded', function() {
                       <form action="#">
                         <div class="image">
                           <img src="images/gta 5.png">
-                          <i class="fa fa-heart favorite-icon" onclick="toggleFavorite(this)" title="Add to favorites"></i>
                         </div>
                     
                 <div class="content">
@@ -605,7 +541,6 @@ document.addEventListener('DOMContentLoaded', function() {
                       <form-2 action="#">
                         <div class="image-2">
                           <img src="images/palworld.jpg">
-                          <i class="fa fa-heart favorite-icon" onclick="toggleFavorite(this)" title="Add to favorites"></i>
                         </div>
                     
                 <div class="content-2">
@@ -646,7 +581,6 @@ document.addEventListener('DOMContentLoaded', function() {
                       <form-2 action="#">
                         <div class="image-2">
                           <img src="images/call of duty.png">
-                          <i class="fa fa-heart favorite-icon" onclick="toggleFavorite(this)" title="Add to favorites"></i>
                         </div>
                     
                 <div class="content-2">
@@ -690,7 +624,6 @@ document.addEventListener('DOMContentLoaded', function() {
                       <form action="#">
                         <div class="image">
                           <img src="images/forzamotorspot.webp">
-                          <i class="fa fa-heart favorite-icon" onclick="toggleFavorite(this)" title="Add to favorites"></i>
                         </div>
                     
                 <div class="content">
@@ -732,7 +665,6 @@ document.addEventListener('DOMContentLoaded', function() {
                       <form-2 action="#">
                         <div class="image-2">
                           <img src="images/fortnit.png">
-                          <i class="fa fa-heart favorite-icon" onclick="toggleFavorite(this)" title="Add to favorites"></i>
                         </div>
                     
                 <div class="content-2">
@@ -773,7 +705,6 @@ document.addEventListener('DOMContentLoaded', function() {
                       <form action="#">
                         <div class="image">
                           <img src="images/gta 5.png">
-                          <i class="fa fa-heart favorite-icon" onclick="toggleFavorite(this)" title="Add to favorites"></i>
                         </div>
                     
                 <div class="content">
@@ -819,7 +750,6 @@ document.addEventListener('DOMContentLoaded', function() {
                       <form-2 action="#">
                         <div class="image-2">
                           <img src="images/palworld.jpg">
-                          <i class="fa fa-heart favorite-icon" onclick="toggleFavorite(this)" title="Add to favorites"></i>
                         </div>
                     
                 <div class="content-2">
@@ -860,7 +790,6 @@ document.addEventListener('DOMContentLoaded', function() {
                       <form-2 action="#">
                         <div class="image-2">
                           <img src="images/call of duty.png">
-                          <i class="fa fa-heart favorite-icon" onclick="toggleFavorite(this)" title="Add to favorites"></i>
                         </div>
                     
                 <div class="content-2">
@@ -1530,8 +1459,7 @@ document.addEventListener('DOMContentLoaded', function() {
       try {
         let userObj = JSON.parse(user);
         if (userObj.profilePic) pic = userObj.profilePic;
-        if (userObj.displayName) name = userObj.displayName;
-        else if (userObj.name) name = userObj.name;
+        if (userObj.name) name = userObj.name;
       } catch(e){}
     }
   }

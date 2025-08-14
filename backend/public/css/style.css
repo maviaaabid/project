@@ -773,32 +773,6 @@ img{
     opacity: 0;
     transition: 0.6s;
 }
-
-.favorite-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    color: white;
-    font-size: 22px;
-    cursor: pointer;
-    z-index: 10;
-    transition: all 0.3s ease;
-    opacity: 0;
-}
-
-.image:hover .favorite-icon,
-.image-2:hover .favorite-icon {
-    opacity: 1;
-}
-
-.favorite-icon:hover {
-    transform: scale(1.2);
-}
-
-.favorite-icon.active {
-    color: #ff3366;
-    opacity: 1;
-}
 .box .content:hover{
     opacity: 1;
     border-radius: 12px;
@@ -2282,6 +2256,34 @@ head .favicon{
     padding: 8px 10px;
     font-size: 0.98em;
   }
+}
+@media (max-width: 400px) {
+  .sidebar-dropdown {
+    width: 70%;
+    padding: 6px 10px;
+  }
+  .sidebar-dropdown a {
+    padding: 10px 90px;
+    font-size: 0.98em;
+  }
+  .sidebar-dropdown a:nth-child(1) {
+        width: 82%;
+}
+  .sidebar-dropdown a:nth-child(2) {
+        width: 82%;
+}
+  .sidebar-dropdown a:nth-child(4) {
+        margin-left: -49px;
+}
+  .sidebar-dropdown a:nth-child(3) {
+        margin-left: 12px;
+}
+  .sidebar-dropdown a:nth-child(6) {
+        margin-left: 12px;
+}
+  .sidebar-dropdown a:nth-child(5) {
+      padding: 10px 90px;
+}
 }
 
 
