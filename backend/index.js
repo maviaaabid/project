@@ -28,6 +28,7 @@ app.get('/api/games', (req, res) => {
 
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
+const REDIRECT_URI = process.env.GOOGLE_OAUTH_CALLBACK_URL || process.env.REDIRECT_URI;
 
 // NOTE: OAuth endpoints are now handled by oauth-server.js
 // This endpoint is commented out to avoid conflicts
