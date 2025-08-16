@@ -675,7 +675,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
 
 // Google OAuth Configuration
 const GOOGLE_CLIENT_ID = '522632399270-girk71r0ofjk7ci2mrh9fbc9hblaeiku.apps.googleusercontent.com';
-const GOOGLE_REDIRECT_URI = 'http://localhost:3001/login.html';
+const REDIRECT_URI = process.env.GOOGLE_OAUTH_CALLBACK_URL || process.env.REDIRECT_URI;
 const BACKEND_URL = 'http://localhost:3001';
 
 // Social Login Functions
