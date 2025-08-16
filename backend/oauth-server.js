@@ -28,7 +28,7 @@ app.get('/api/test', (req, res) => {
 // Google OAuth Configuration
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-const REDIRECT_URI = process.env.REDIRECT_URI || 'http://localhost:3001/login.html';
+const REDIRECT_URI = process.env.GOOGLE_OAUTH_CALLBACK_URL || process.env.REDIRECT_URI;
 
 console.log('Using redirect URI:', REDIRECT_URI);
 
