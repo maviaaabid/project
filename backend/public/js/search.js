@@ -1,8 +1,21 @@
+// Voice Search Variables - Global scope
+let recognition;
+let isListening = false;
+let continuousRecognition;
+let voiceBtn;
+let micIcon;
+let stopIcon;
+let floatingInput;
+let suggestionsBox;
+let modal;
+let boxes;
+let searchVisible = false;
+
 // Toggle search bar modal ONLY when clicking the icon (not background)
 document.addEventListener('DOMContentLoaded', function() {
   const fab = document.getElementById('search-fab');
   const fabBg = document.getElementById('fab-bg');
-  const modal = document.getElementById('search-modal');
+  modal = document.getElementById('search-modal');
   if (fab && fabBg && modal) {
     // Only toggle when clicking the SVG icon
     const icon = fab.querySelector('.gaming-search-icon');
@@ -43,6 +56,256 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add more products as needed
   ];
 
+  // Initialize voice search elements
+  voiceBtn = document.getElementById('voice-search-btn');
+  micIcon = document.getElementById('mic-icon');
+  stopIcon = document.getElementById('stop-icon');
+  
+  // Ensure modal is available
+  if (!modal) {
+    modal = document.getElementById('search-modal');
+  }
+  
+  floatingInput = modal ? modal.querySelector('#search-input') : null;
+  suggestionsBox = modal ? modal.querySelector('#suggestions') : null;
+  boxes = document.querySelectorAll('.box, .box-2, .box-1, .box-3, .box-fortnite, .box-palworld, .box-callofduty');
+
+  console.log('Voice search elements initialized:', {
+    voiceBtn: !!voiceBtn,
+    micIcon: !!micIcon,
+    stopIcon: !!stopIcon,
+    floatingInput: !!floatingInput,
+    suggestionsBox: !!suggestionsBox,
+    boxesCount: boxes.length,
+    modal: !!modal
+  });
+
+  // Initialize Speech Recognition
+  function initVoiceSearch() {
+    console.log('Checking voice search support...');
+    
+    // Check if we're on HTTPS or localhost
+    const isSecure = location.protocol === 'https:' || location.hostname === 'localhost' || location.hostname === '127.0.0.1';
+    console.log('Is secure context:', isSecure, 'Protocol:', location.protocol, 'Hostname:', location.hostname);
+    
+    if (!isSecure) {
+      console.log('Voice search requires HTTPS or localhost');
+      showErrorMessage('Voice search requires HTTPS connection. Using text search only.');
+      return false;
+    }
+    
+    if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+      console.log('Speech recognition not supported in this browser');
+      return false;
+    }
+    
+    try {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      
+      recognition.continuous = false;
+      recognition.interimResults = false;
+      recognition.lang = 'en-US';
+      recognition.maxAlternatives = 1;
+      
+      recognition.onstart = function() {
+        console.log('Voice recognition started');
+        isListening = true;
+        if (voiceBtn) voiceBtn.classList.add('listening');
+        if (micIcon) micIcon.style.display = 'none';
+        if (stopIcon) stopIcon.style.display = 'block';
+        if (floatingInput) floatingInput.placeholder = 'Listening... Speak now!';
+      };
+      
+      recognition.onresult = function(event) {
+        console.log('Voice recognition result:', event.results);
+        let transcript = event.results[0][0].transcript.toLowerCase().trim();
+        console.log('Transcript:', transcript);
+        
+        // Clean up common speech recognition errors for game names
+        transcript = cleanTranscript(transcript);
+        console.log('Cleaned transcript:', transcript);
+        
+        if (floatingInput) {
+          floatingInput.value = transcript;
+          
+          // Trigger search with voice input
+          const inputEvent = new Event('input', { bubbles: true });
+          floatingInput.dispatchEvent(inputEvent);
+          
+          // Auto-search for exact matches after a short delay
+          setTimeout(() => {
+            const enterEvent = new KeyboardEvent('keydown', { key: 'Enter', bubbles: true });
+            floatingInput.dispatchEvent(enterEvent);
+          }, 800);
+        }
+      };
+      
+      recognition.onerror = function(event) {
+        console.log('Voice search error:', event.error);
+        resetVoiceButton();
+        
+        // Don't show error for 'aborted' as it's usually intentional
+        if (event.error === 'aborted') {
+          console.log('Voice search was aborted (likely intentional)');
+          // Restart continuous listening
+          setTimeout(() => {
+            startContinuousListening();
+          }, 1000);
+          return;
+        }
+        
+        if (event.error === 'not-allowed') {
+          showErrorMessage('Microphone access denied. Please allow microphone access to use voice search.');
+        } else if (event.error === 'no-speech') {
+          if (floatingInput) {
+            floatingInput.placeholder = 'No speech detected. Try again!';
+            setTimeout(() => {
+              floatingInput.placeholder = 'Search games or say \'Hey Search\'...';
+            }, 2000);
+          }
+          // Restart continuous listening
+          setTimeout(() => {
+            startContinuousListening();
+          }, 2000);
+        } else if (event.error === 'network') {
+          showErrorMessage('Network error. Please check your internet connection.');
+          // Restart continuous listening
+          setTimeout(() => {
+            startContinuousListening();
+          }, 3000);
+        } else {
+          showErrorMessage('Voice search error: ' + event.error);
+          // Restart continuous listening
+          setTimeout(() => {
+            startContinuousListening();
+          }, 2000);
+        }
+      };
+      
+      recognition.onend = function() {
+        console.log('Voice recognition ended');
+        resetVoiceButton();
+        // Restart continuous listening after manual search ends
+        setTimeout(() => {
+          startContinuousListening();
+        }, 1000);
+      };
+      
+      console.log('Voice search initialized successfully');
+      return true;
+    } catch (error) {
+      console.error('Error initializing voice search:', error);
+      return false;
+    }
+  }
+  
+  // Clean transcript for better game name matching
+  function cleanTranscript(transcript) {
+    const gameNameMappings = {
+      'forza motor sport': 'ForzaMotorspot',
+      'forza motorsport': 'ForzaMotorspot',
+      'forza': 'ForzaMotorspot',
+      'fortnight': 'Fortnite-Cauchemars',
+      'fortnite': 'Fortnite-Cauchemars',
+      'fort night': 'Fortnite-Cauchemars',
+      'call of duty': 'CALL of DUTY-BLACK OPS III',
+      'cod': 'CALL of DUTY-BLACK OPS III',
+      'black ops': 'CALL of DUTY-BLACK OPS III',
+      'gta': 'GTA-V',
+      'gta 5': 'GTA-V',
+      'gta five': 'GTA-V',
+      'grand theft auto': 'GTA-V',
+      'pal world': 'PalWorld',
+      'paul world': 'PalWorld'
+    };
+    
+    // Check for exact mappings first
+    for (const [spoken, actual] of Object.entries(gameNameMappings)) {
+      if (transcript.includes(spoken)) {
+        return actual;
+      }
+    }
+    
+    return transcript;
+  }
+  
+  // Show error message to user
+  function showErrorMessage(message) {
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'voice-notification';
+    errorDiv.style.background = 'linear-gradient(135deg, #ff4757, #ff6b9d)';
+    errorDiv.innerHTML = `<i class="fas fa-exclamation-triangle"></i> ${message}`;
+    
+    document.body.appendChild(errorDiv);
+    
+    setTimeout(() => {
+      errorDiv.classList.add('hide');
+      setTimeout(() => {
+        if (document.body.contains(errorDiv)) {
+          document.body.removeChild(errorDiv);
+        }
+      }, 500);
+    }, 4000);
+    
+    errorDiv.addEventListener('click', () => {
+      errorDiv.classList.add('hide');
+      setTimeout(() => {
+        if (document.body.contains(errorDiv)) {
+          document.body.removeChild(errorDiv);
+        }
+      }, 500);
+    });
+  }
+  
+  function resetVoiceButton() {
+    console.log('Resetting voice button');
+    isListening = false;
+    if (voiceBtn) {
+      voiceBtn.classList.remove('listening', 'processing');
+    }
+    if (micIcon) micIcon.style.display = 'block';
+    if (stopIcon) stopIcon.style.display = 'none';
+    if (floatingInput) {
+      floatingInput.placeholder = 'Search games or say \'Hey Search\'...';
+    }
+  }
+  
+  function startVoiceSearch() {
+    console.log('Starting voice search. Recognition available:', !!recognition, 'Is listening:', isListening);
+    
+    // Stop continuous recognition to prevent conflicts
+    if (continuousRecognition) {
+      try {
+        continuousRecognition.stop();
+      } catch (e) {
+        console.log('Could not stop continuous recognition:', e);
+      }
+    }
+    
+    if (recognition && !isListening) {
+      try {
+        console.log('Starting recognition...');
+        recognition.start();
+      } catch (error) {
+        console.error('Voice search start error:', error);
+        resetVoiceButton();
+        // Restart continuous listening after error
+        setTimeout(() => {
+          startContinuousListening();
+        }, 2000);
+        showErrorMessage('Could not start voice search: ' + error.message);
+      }
+    } else if (isListening && recognition) {
+      console.log('Stopping recognition...');
+      recognition.stop();
+      resetVoiceButton();
+    } else {
+      console.log('Voice recognition not available');
+      showErrorMessage('Voice search is not available in this browser.');
+    }
+  }
+
   // Remove the header search bar (if present)
   const headerSearchBar = document.querySelector('header .search-bar-container');
   if(headerSearchBar) headerSearchBar.style.display = 'none';
@@ -50,11 +313,12 @@ document.addEventListener('DOMContentLoaded', function() {
   // Floating search icon logic (now in navbar, replaces #btn)
   const fab = document.getElementById('search-fab');
   const fabBg = document.getElementById('fab-bg');
-  const modal = document.getElementById('search-modal');
-  const floatingInput = modal ? modal.querySelector('#search-input') : null;
-  const suggestionsBox = modal ? modal.querySelector('#suggestions') : null;
-  const boxes = document.querySelectorAll('.box, .box-2');
-  let searchVisible = false;
+  
+  console.log('Search elements found:', {
+    fab: !!fab,
+    fabBg: !!fabBg,
+    modal: !!modal
+  });
 
   // Add this class to your search-fab (icon container) in HTML:
   // <div id="search-fab" class="search-fab-no-blur">...</div>
@@ -76,37 +340,71 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function toggleSearchModal(force) {
+    console.log('Toggling search modal. Current visible:', searchVisible, 'Force:', force);
+    
     if (force === true || (force === undefined && !searchVisible)) {
       searchVisible = true;
       modal.style.display = 'block';
-      fabBg.style.filter = 'blur(200px) brightness(0.5)';
+      const fabBg = document.getElementById('fab-bg');
+      if (fabBg) fabBg.style.filter = 'blur(200px) brightness(0.5)';
       setAllBlur(true);
-      setTimeout(()=>{ floatingInput && floatingInput.focus(); }, 200);
+      setTimeout(() => {
+        if (floatingInput) {
+          floatingInput.focus();
+          console.log('Search input focused');
+        }
+      }, 200);
     } else {
       searchVisible = false;
       modal.style.display = 'none';
-      fabBg.style.filter = '';
+      const fabBg = document.getElementById('fab-bg');
+      if (fabBg) fabBg.style.filter = '';
       setAllBlur(false);
-      floatingInput && floatingInput.blur();
+      if (floatingInput) floatingInput.blur();
     }
   }
 
   // Only toggle if the icon itself is clicked
-  fab.addEventListener('click', function(e) {
-    if (
-      e.target.classList.contains('gaming-search-icon') ||
-      e.target.classList.contains('fa-search') ||
-      e.target.tagName === 'I' ||
-      e.target.tagName === 'SVG'
-    ) {
-      toggleSearchModal();
-    }
-  });
+  // fab variable already declared above
+  if (fab) {
+    fab.addEventListener('click', function(e) {
+      console.log('Fab clicked, target:', e.target.tagName, e.target.className);
+      if (
+        e.target.classList.contains('gaming-search-icon') ||
+        e.target.classList.contains('fa-search') ||
+        e.target.tagName === 'I' ||
+        e.target.tagName === 'SVG' ||
+        e.target.tagName === 'PATH'
+      ) {
+        console.log('Valid search icon clicked, toggling modal');
+        toggleSearchModal();
+      }
+    });
+  } else {
+    console.log('Search fab element not found!');
+  }
 
   // Escape closes modal and removes blur
   document.addEventListener('keydown', function(e){
     if(e.key === 'Escape') {
       toggleSearchModal(false);
+      if (isListening && recognition) {
+        recognition.stop();
+        resetVoiceButton();
+      }
+    }
+    
+    // Ctrl/Cmd + Shift + V for voice search
+    if ((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'v') {
+      e.preventDefault();
+      if (!searchVisible) {
+        toggleSearchModal(true);
+        setTimeout(() => {
+          startVoiceSearch();
+        }, 300);
+      } else {
+        startVoiceSearch();
+      }
     }
   });
 
@@ -138,6 +436,170 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // --- SEARCH/AUTOCOMPLETE/FILTER LOGIC ---
   if(floatingInput && suggestionsBox && boxes.length) {
+    
+    // Initialize voice search if available
+    const voiceAvailable = initVoiceSearch();
+    
+    // Update debug status
+    const debugEl = document.getElementById('voice-debug');
+    const statusEl = document.getElementById('voice-status');
+    if (debugEl && statusEl) {
+      debugEl.style.display = 'block';
+      statusEl.textContent = voiceAvailable ? 'Available ✓' : 'Not Available ✗';
+      
+      // Hide debug after 5 seconds
+      setTimeout(() => {
+        debugEl.style.display = 'none';
+      }, 5000);
+    }
+    
+    // Show voice search notification
+    function showVoiceNotification() {
+      if (localStorage.getItem('voiceSearchNotificationShown')) {
+        return;
+      }
+      
+      const notification = document.createElement('div');
+      notification.className = 'voice-notification';
+      notification.innerHTML = `
+        <i class="fas fa-microphone"></i> 
+        Voice search enabled! Say "Hey Search" or click the mic button
+      `;
+      
+      document.body.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.classList.add('hide');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 500);
+      }, 4000);
+      
+      notification.addEventListener('click', () => {
+        notification.classList.add('hide');
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 500);
+      });
+      
+      localStorage.setItem('voiceSearchNotificationShown', 'true');
+    }
+    
+    // Voice button click handler
+    if (voiceBtn && voiceAvailable) {
+      console.log('Setting up voice button event listener');
+      voiceBtn.addEventListener('click', function(e) {
+        console.log('Voice button clicked!');
+        e.preventDefault();
+        e.stopPropagation();
+        startVoiceSearch();
+      });
+      
+      // Show voice button
+      voiceBtn.style.display = 'flex';
+      console.log('Voice button is now visible');
+      
+      // Show notification about voice search
+      setTimeout(() => {
+        showVoiceNotification();
+      }, 1000);
+    } else if (voiceBtn) {
+      console.log('Voice not available, hiding voice button');
+      // Hide voice button if not supported
+      voiceBtn.style.display = 'none';
+      if (floatingInput) floatingInput.style.width = '100%';
+    } else {
+      console.log('Voice button element not found!');
+    }
+    
+    // Continuous listening for "Hey Search" wake word
+    let continuousRecognition;
+    let continuousListeningActive = false;
+    
+    function startContinuousListening() {
+      // Don't start if manual recognition is active or if continuous is already running
+      if (isListening || continuousListeningActive) {
+        console.log('Cannot start continuous listening - manual recognition active or already running');
+        return;
+      }
+      
+      if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        
+        try {
+          continuousRecognition = new SpeechRecognition();
+          
+          continuousRecognition.continuous = true;
+          continuousRecognition.interimResults = true;
+          continuousRecognition.lang = 'en-US';
+          
+          continuousRecognition.onstart = function() {
+            continuousListeningActive = true;
+            console.log('Continuous listening started');
+          };
+          
+          continuousRecognition.onresult = function(event) {
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+              const transcript = event.results[i][0].transcript.toLowerCase();
+              
+              if (transcript.includes('hey search') || transcript.includes('voice search')) {
+                console.log('Wake word detected:', transcript);
+                continuousRecognition.stop();
+                continuousListeningActive = false;
+                
+                // Open search modal and start voice search
+                toggleSearchModal(true);
+                setTimeout(() => {
+                  startVoiceSearch();
+                }, 500);
+                
+                return; // Don't restart continuous listening immediately
+              }
+            }
+          };
+          
+          continuousRecognition.onerror = function(event) {
+            continuousListeningActive = false;
+            if (event.error !== 'aborted') {
+              console.log('Continuous listening error:', event.error);
+              // Restart after error (but not immediately to avoid loops)
+              setTimeout(() => {
+                if (!isListening) { // Only restart if manual recognition isn't active
+                  startContinuousListening();
+                }
+              }, 5000);
+            }
+          };
+          
+          continuousRecognition.onend = function() {
+            continuousListeningActive = false;
+            console.log('Continuous listening ended');
+            // Restart continuous listening if manual recognition isn't active
+            setTimeout(() => {
+              if (!isListening) {
+                startContinuousListening();
+              }
+            }, 2000);
+          };
+          
+          continuousRecognition.start();
+        } catch (error) {
+          continuousListeningActive = false;
+          console.log('Could not start continuous listening:', error);
+          // Retry after longer delay
+          setTimeout(() => {
+            if (!isListening) {
+              startContinuousListening();
+            }
+          }, 10000);
+        }
+      }
+    }
+    
+    // Start continuous listening when page loads
+    setTimeout(() => {
+      startContinuousListening();
+    }, 2000);
     // Autocomplete suggestions
     floatingInput.addEventListener('input', function () {
       const value = this.value.trim().toLowerCase();
