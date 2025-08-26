@@ -137,7 +137,7 @@
   100% { color: #7f00ff; filter: drop-shadow(0 0 12px #7f00ffcc); }
 }
 #search-input {
-  width: 100%;
+  width: calc(100% - 60px); /* Make space for voice button */
   padding: 12px 16px;
   border-radius: 10px;
   border: none;
@@ -150,6 +150,72 @@
   box-shadow: 0 0 8px #7f00ff33 inset;
   transition: background 0.2s, color 0.2s;
   z-index: 1;
+}
+
+/* Voice Search Button Styles */
+#voice-search-btn {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f357a8, #7b2ff2);
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 12px rgba(123, 47, 242, 0.4);
+  z-index: 2;
+}
+
+#voice-search-btn:hover {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 4px 20px rgba(123, 47, 242, 0.6);
+  background: linear-gradient(135deg, #ff6b9d, #9b59b6);
+}
+
+#voice-search-btn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Voice search active state */
+#voice-search-btn.listening {
+  background: linear-gradient(135deg, #ff4757, #ff6348);
+  animation: pulse-red 1s infinite;
+  box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7);
+}
+
+@keyframes pulse-red {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 71, 87, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(255, 71, 87, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 71, 87, 0);
+  }
+}
+
+/* Voice search processing state */
+#voice-search-btn.processing {
+  background: linear-gradient(135deg, #ffa502, #ff9ff3);
+  animation: rotate 2s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  to {
+    transform: translateY(-50%) rotate(360deg);
+  }
 }
 #search-input:focus {
   background: #2d1e4a;
@@ -206,6 +272,21 @@
 }
 @media (max-width: 800px) {
   #search-fab { right:12px; width:48px; height:48px; }
+  
+  /* Voice search button adjustments for mobile */
+  #voice-search-btn {
+    width: 40px;
+    height: 40px;
+    right: 6px;
+    font-size: 1.1rem;
+  }
+  
+  #search-input {
+    width: calc(100% - 50px);
+    font-size: 1rem;
+    padding: 10px 14px;
+  }
+  
   .gaming-search-icon {
     margin-left: 0;
     margin-top: 0;
@@ -288,6 +369,19 @@ body.search-blur-active #fab-bg .gaming-search-icon {
       padding: px 15px;
       left: 35px;
     }
+    
+    #voice-search-btn {
+      width: 36px;
+      height: 36px;
+      right: 4px;
+      font-size: 1rem;
+    }
+    
+    #search-input {
+      width: calc(100% - 45px);
+      font-size: 0.95rem;
+      padding: 8px 12px;
+    }
 }
 @media screen and (max-width: 1024px) {
   .fab-bg {
@@ -331,6 +425,65 @@ body.search-blur-active #fab-bg .gaming-search-icon {
     transform: translate(-50%, -50%);
   }
 }
+/* Voice Search Notification */
+.voice-notification {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  background: linear-gradient(135deg, #f357a8, #7b2ff2);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  box-shadow: 0 4px 20px rgba(123, 47, 242, 0.3);
+  z-index: 2000;
+  animation: slideInRight 0.5s ease-out;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.voice-notification:hover {
+  transform: translateX(-5px);
+  box-shadow: 0 6px 25px rgba(123, 47, 242, 0.4);
+}
+
+.voice-notification.hide {
+  animation: slideOutRight 0.5s ease-in;
+  pointer-events: none;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .voice-notification {
+    top: 80px;
+    right: 10px;
+    font-size: 0.8rem;
+    padding: 10px 16px;
+  }
+}
+
 @media screen and (max-width: 380px) {
   .fab-bg {
     padding: 1px 200% 1px 330%;
@@ -345,6 +498,3 @@ body.search-blur-active #fab-bg .gaming-search-icon {
     transform: translate(-50%, -50%);
   }
 }
-
-
-
