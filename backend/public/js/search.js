@@ -68,9 +68,14 @@ document.addEventListener('DOMContentLoaded', function() {
   
   floatingInput = modal ? modal.querySelector('#search-input') : null;
   suggestionsBox = modal ? modal.querySelector('#suggestions') : null;
-  boxes = document.querySelectorAll('.box, .box-2, .box-1, .box-3, .box-fortnite, .box-palworld, .box-callofduty');
+  boxes = document.querySelectorAll('.box, .box-2, .box-3, .box-4, .box-5');
 
-  console.log('Voice search elements initialized:', {
+  // Add smooth transitions to all game boxes for better search experience
+  boxes.forEach(box => {
+    box.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)';
+  });
+
+  console.log('Search initialized with', {
     voiceBtn: !!voiceBtn,
     micIcon: !!micIcon,
     stopIcon: !!stopIcon,
@@ -623,6 +628,7 @@ document.addEventListener('DOMContentLoaded', function() {
           e.preventDefault(); // Prevent input blur before handler
           floatingInput.value = product.name;
           suggestionsBox.style.display = 'none';
+          
           // Hide the modal and blur first
           if (modal && fabBg) {
             modal.style.display = 'none';
@@ -630,28 +636,52 @@ document.addEventListener('DOMContentLoaded', function() {
             searchVisible = false;
           }
           floatingInput.blur();
-          // Show only the selected box (case-insensitive, matches h1)
+          
+          // Show only the selected box (exact match first)
           let found = false;
+          let matchingBoxes = [];
+          
           boxes.forEach(box => {
             const title = box.querySelector('h1')?.textContent.trim().toLowerCase() || '';
             if (title === product.name.trim().toLowerCase()) {
-              box.style.display = '';
+              box.style.display = 'block';
+              box.style.opacity = '1';
+              box.style.transform = 'scale(1.05)';
+              box.style.transition = 'all 0.3s ease';
+              matchingBoxes.push(box);
               found = true;
             } else {
               box.style.display = 'none';
+              box.style.opacity = '0';
+              box.style.transform = 'scale(0.8)';
             }
           });
+          
           // If no exact h1 match, show all partial matches (by box content)
           if (!found) {
             boxes.forEach(box => {
               const text = box.textContent.toLowerCase();
               if (text.includes(product.name.trim().toLowerCase())) {
-                box.style.display = '';
+                box.style.display = 'block';
+                box.style.opacity = '1';
+                box.style.transform = 'scale(1)';
+                box.style.transition = 'all 0.3s ease';
+                matchingBoxes.push(box);
               } else {
                 box.style.display = 'none';
+                box.style.opacity = '0';
+                box.style.transform = 'scale(0.8)';
               }
             });
           }
+          
+          // Center and highlight the selected results
+          centerSearchResults(matchingBoxes, product.name, found);
+          
+          // Show search result count
+          showSearchResultCount(matchingBoxes.length, product.name);
+          
+          console.log(`Autocomplete selection: "${product.name}" - ${matchingBoxes.length} games shown`);
         });
         suggestionsBox.appendChild(div);
       });
@@ -684,7 +714,13 @@ document.addEventListener('DOMContentLoaded', function() {
             filterBoxes(value);
           } else {
             // No match at all, hide all
-            boxes.forEach(box => box.style.display = 'none');
+            boxes.forEach(box => {
+              box.style.display = 'none';
+              box.style.opacity = '0';
+              box.style.transform = 'scale(0.8)';
+            });
+            // Show no results notification
+            showSearchResultCount(0, value);
           }
         }
         suggestionsBox.style.display = 'none';
@@ -700,34 +736,125 @@ document.addEventListener('DOMContentLoaded', function() {
     // Show all boxes that match the query (partial match in title, type, or year)
     function filterBoxes(query) {
       const q = query.trim().toLowerCase();
+      let visibleCount = 0;
+      let matchingBoxes = [];
+      
+      // Reset any category highlighting
+      boxes.forEach(box => {
+        box.style.boxShadow = '';
+        box.classList.remove('search-highlighted');
+      });
+      
+      // Hide any category notifications
+      const categoryNotification = document.getElementById('category-result-notification');
+      if (categoryNotification) {
+        categoryNotification.remove();
+      }
+      
       boxes.forEach(box => {
         // Get all visible text inside the box
         const text = box.textContent.toLowerCase();
-        if (!q || text.includes(q)) {
-          box.style.display = '';
+        const title = box.querySelector('h1')?.textContent.trim().toLowerCase() || '';
+        
+        // Check if query matches game title, type, or year
+        if (!q) {
+          // Show all if no query
+          box.style.display = 'block';
+          box.style.opacity = '1';
+          box.style.transform = 'scale(1)';
+          visibleCount++;
+        } else if (title.includes(q) || text.includes(q)) {
+          // Show matching games
+          box.style.display = 'block';
+          box.style.opacity = '1';
+          box.style.transform = 'scale(1)';
+          matchingBoxes.push(box);
+          visibleCount++;
         } else {
+          // Hide non-matching games completely
           box.style.display = 'none';
+          box.style.opacity = '0';
+          box.style.transform = 'scale(0.8)';
         }
       });
+      
+      // Center and highlight matching boxes
+      if (q && matchingBoxes.length > 0) {
+        centerSearchResults(matchingBoxes, q);
+      }
+      
+      // Show search result count
+      showSearchResultCount(visibleCount, q);
+      
+      console.log(`Search filter complete. Showing ${visibleCount} out of ${boxes.length} games for query: "${q}"`);
     }
 
     // Show only the box with the given name (exact match)
     function showOnlyBox(name) {
+      let matchingBoxes = [];
+      let visibleCount = 0;
+      
+      // Reset any category highlighting
+      boxes.forEach(box => {
+        box.style.boxShadow = '';
+        box.classList.remove('search-highlighted');
+      });
+      
+      // Hide any category notifications
+      const categoryNotification = document.getElementById('category-result-notification');
+      if (categoryNotification) {
+        categoryNotification.remove();
+      }
+      
       boxes.forEach(box => {
         const title = box.querySelector('h1')?.textContent.trim().toLowerCase() || '';
         if (title === name.trim().toLowerCase()) {
-          box.style.display = '';
+          box.style.display = 'block';
+          box.style.opacity = '1';
+          box.style.transform = 'scale(1.05)';
+          box.style.transition = 'all 0.3s ease';
+          matchingBoxes.push(box);
+          visibleCount++;
         } else {
           box.style.display = 'none';
+          box.style.opacity = '0';
+          box.style.transform = 'scale(0.8)';
         }
       });
+      
+      // Center and highlight the exact match
+      centerSearchResults(matchingBoxes, name, true);
+      
+      // Show search result count
+      showSearchResultCount(visibleCount, name);
+      
+      console.log(`Exact match search complete. Showing ${visibleCount} game for: "${name}"`);
     }
 
     // Show all boxes
     function showAllBoxes() {
       boxes.forEach(box => {
-        box.style.display = '';
+        box.style.display = 'block';
+        box.style.opacity = '1';
+        box.style.transform = 'scale(1)';
+        box.style.transition = 'all 0.3s ease';
+        box.style.boxShadow = '';
+        box.classList.remove('search-highlighted');
       });
+      
+      // Remove search result indicator
+      hideSearchResultCount();
+      
+      // Remove category notifications
+      const categoryNotification = document.getElementById('category-result-notification');
+      if (categoryNotification) {
+        categoryNotification.remove();
+      }
+      
+      // Reset any centering effects
+      resetSearchLayout();
+      
+      console.log('Showing all games - search and category filters cleared');
     }
 
     // Optional: show all on empty
