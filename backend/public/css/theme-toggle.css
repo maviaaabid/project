@@ -92,6 +92,28 @@ header {
   background: var(--box-bg) !important;
   color: var(--text-color) !important;
 }
+
+/* Add missing box classes for theme support */
+.box-3, .box-4, .box-5 {
+  background: var(--box-bg) !important;
+  color: var(--text-color) !important;
+}
+
+/* Dark theme for all boxes */
+body.dark-theme .box,
+body.dark-theme .box-2,
+body.dark-theme .box-3,
+body.dark-theme .box-4,
+body.dark-theme .box-5,
+html.dark-theme .box,
+html.dark-theme .box-2,
+html.dark-theme .box-3,
+html.dark-theme .box-4,
+html.dark-theme .box-5 {
+  background: var(--box-bg) !important;
+  color: var(--text-color) !important;
+ 
+}
 #theme-icon{
   cursor: pointer;
   display: flex;
@@ -141,7 +163,7 @@ body.light-theme, html.light-theme {
 
 /* Make sure your main container stretches */
 .container, .boxes-container, main {
-  min-height: 60vh;
+  min-height: 50vh;
   margin-bottom: 40px;
 }
 
@@ -204,15 +226,40 @@ html.light-theme .boxes-container {
   margin-bottom: 0;
 }
 
+/* First box special positioning in light theme */
+body.light-theme .box,
+html.light-theme .box {
+  margin-top: -600px !important;
+}
+
+/* Second box and others proper spacing */
+body.light-theme .box-2,
+body.light-theme .box-3,
+body.light-theme .box-4,
+body.light-theme .box-5,
+html.light-theme .box-2,
+html.light-theme .box-3,
+html.light-theme .box-4,
+html.light-theme .box-5 {
+margin-top: -600px !important;
+}
+
 /* Boxes */
 body.light-theme .box,
 body.light-theme .box-2,
+body.light-theme .box-3,
+body.light-theme .box-4,
+body.light-theme .box-5,
 html.light-theme .box,
-html.light-theme .box-2 {
+html.light-theme .box-2,
+html.light-theme .box-3,
+html.light-theme .box-4,
+html.light-theme .box-5 {
   background: var(--box-bg) !important;
   color: var(--text-color) !important;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
+  
 }
 
 /* Footer sticks to bottom, no extra gap */
@@ -279,6 +326,7 @@ html.light-theme a {
   html.light-theme footer {
     padding: 12px 0;
     width: 100vw;
+
   }
 }
 
