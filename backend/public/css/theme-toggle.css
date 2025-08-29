@@ -223,13 +223,13 @@ html.light-theme .container,
 html.light-theme .boxes-container {
   flex: 1 0 auto;
   background: transparent;
-  margin-bottom: 0;
+  margin-bottom: 40px;
 }
 
 /* First box special positioning in light theme */
 body.light-theme .box,
 html.light-theme .box {
-  margin-top: -600px !important;
+  margin-top: -550px !important;
 }
 
 /* Second box and others proper spacing */
@@ -241,7 +241,30 @@ html.light-theme .box-2,
 html.light-theme .box-3,
 html.light-theme .box-4,
 html.light-theme .box-5 {
-margin-top: -600px !important;
+margin-top: -550px !important;
+}
+
+body.light-theme .box-7,
+body.light-theme .box-8,
+body.light-theme .box-9,
+body.light-theme .box-10,
+html.light-theme .box-7,
+html.light-theme .box-8,
+html.light-theme .box-9,
+html.light-theme .box-10 {
+margin-top: -200px !important;
+}
+
+body.light-theme .box-12,
+body.light-theme .box-13,
+body.light-theme .box-14,
+body.light-theme .box-15,
+html.light-theme .box-12,
+html.light-theme .box-13,
+html.light-theme .box-14,
+html.light-theme .box-15 {
+margin-top: 150px !important;
+margin-bottom: 80px;
 }
 
 /* Boxes */
@@ -254,12 +277,43 @@ html.light-theme .box,
 html.light-theme .box-2,
 html.light-theme .box-3,
 html.light-theme .box-4,
-html.light-theme .box-5 {
+html.light-theme .box-5{
   background: var(--box-bg) !important;
   color: var(--text-color) !important;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
-  
+}
+
+body.light-theme .box-6,
+body.light-theme .box-7,
+body.light-theme .box-8,
+body.light-theme .box-9,
+body.light-theme .box-10,
+html.light-theme .box-6,
+html.light-theme .box-7,
+html.light-theme .box-8,
+html.light-theme .box-9,
+html.light-theme .box-10{
+  background: var(--box-bg) !important;
+  color: var(--text-color) !important;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+}
+
+body.light-theme .box-11,
+body.light-theme .box-12,
+body.light-theme .box-13,
+body.light-theme .box-14,
+body.light-theme .box-15,
+html.light-theme .box-11,
+html.light-theme .box-12,
+html.light-theme .box-13,
+html.light-theme .box-14,
+html.light-theme .box-15{
+  background: var(--box-bg) !important;
+  color: var(--text-color) !important;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
 }
 
 /* Footer sticks to bottom, no extra gap */
