@@ -1,7 +1,7 @@
 // Category filter functionality
 document.addEventListener('DOMContentLoaded', function() {
     // Add data-category attributes to all game boxes based on their type
-    const gameBoxes = document.querySelectorAll('.box, .box-2, .box-3, .box-4, .box-5');
+    const gameBoxes = document.querySelectorAll('.box, .box-1, .box-2, .box-3, .box-4, .box-5, .box-6, .box-7, .box-8, .box-9, .box-10, .box-11, .box-12, .box-13, .box-14, .box-15, .game-card');
     
     // Add smooth transitions to all game boxes
     gameBoxes.forEach(box => {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize all boxes as visible
     gameBoxes.forEach(box => {
         // Get the category from the type element
-        const typeElement = box.querySelector('.type p, .type-2 p, .type-3 p, .type-4 p, .type-5 p');
+        const typeElement = box.querySelector('.type p, .type-2 p, .type-3 p, .type-4 p, .type-5 p, .type-6 p, .type-7 p, .type-8 p, .type-9 p, .type-10 p, .type-11 p, .type-12 p, .type-13 p, .type-14 p, .type-15 p');
         if (typeElement) {
             // Get the text content and normalize it (remove spaces, make lowercase)
             let category = typeElement.textContent.trim();
