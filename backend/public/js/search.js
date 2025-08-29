@@ -50,9 +50,19 @@ document.addEventListener('DOMContentLoaded', function() {
   const products = [
     { name: "ForzaMotorspot", type: "Racing", year: 2023 },
     { name: "Fortnite-Cauchemars", type: "Action", year: 2013 },
-    { name: "CALL of DUTY-BLACK OPS III", type: "Fighting", year: 2015 },
-    { name: "GTA-V", type: "openworld", year: 2013 },
+    { name: "GTA-V", type: "OpenWorld", year: 2013 },
     { name: "PalWorld", type: "Action", year: 2024 },
+    { name: "CALL of DUTY-BLACK OPS III", type: "Fighting", year: 2015 },
+    { name: "WAR-X-ZONE", type: "Fighting", year: 2013 },
+    { name: "WAR-X-ZONE", type: "Fighting", year: 2013 },
+    { name: "WAR-X-ZONE", type: "Fighting", year: 2013 },
+    { name: "WAR-X-ZONE", type: "Fighting", year: 2013 },
+    { name: "WAR-X-ZONE", type: "Fighting", year: 2013 },
+    { name: "WAR-X-ZONE", type: "Fighting", year: 2013 },
+    { name: "WAR-X-ZONE", type: "Fighting", year: 2013 },
+    { name: "WAR-X-ZONE", type: "Fighting", year: 2013 },
+    { name: "WAR-X-ZONE", type: "Fighting", year: 2013 },
+    { name: "WAR-X-ZONE", type: "Fighting", year: 2013 }
     // Add more products as needed
   ];
 
@@ -68,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   floatingInput = modal ? modal.querySelector('#search-input') : null;
   suggestionsBox = modal ? modal.querySelector('#suggestions') : null;
-  boxes = document.querySelectorAll('.box, .box-2, .box-3, .box-4, .box-5');
+  boxes = document.querySelectorAll('.box, .box-1, .box-2, .box-3, .box-4, .box-5, .box-6, .box-7, .box-8, .box-9, .box-10, .box-11, .box-12, .box-13, .box-14, .box-15, .game-card');
 
   // Add smooth transitions to all game boxes for better search experience
   boxes.forEach(box => {
@@ -222,7 +232,11 @@ document.addEventListener('DOMContentLoaded', function() {
       'gta five': 'GTA-V',
       'grand theft auto': 'GTA-V',
       'pal world': 'PalWorld',
-      'paul world': 'PalWorld'
+      'paul world': 'PalWorld',
+      'war x zone': 'WAR-X-ZONE',
+      'war zone': 'WAR-X-ZONE',
+      'warzone': 'WAR-X-ZONE',
+      'war ex zone': 'WAR-X-ZONE'
     };
     
     // Check for exact mappings first
@@ -863,3 +877,159 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 });
+
+// Helper functions for search results
+function centerSearchResults(matchingBoxes, query, isExactMatch = false) {
+  // Add search highlighting to matching boxes
+  matchingBoxes.forEach(box => {
+    box.classList.add('search-highlighted');
+    box.style.boxShadow = isExactMatch 
+      ? '0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.4)'
+      : '0 0 15px rgba(0, 234, 255, 0.6), 0 0 30px rgba(0, 234, 255, 0.3)';
+  });
+  
+  // Scroll to first matching box if any
+  if (matchingBoxes.length > 0) {
+    matchingBoxes[0].scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'center' 
+    });
+  }
+}
+
+function showSearchResultCount(count, query) {
+  // Remove existing indicator
+  const existing = document.getElementById('search-result-count');
+  if (existing) {
+    existing.remove();
+  }
+  
+  if (!query) return;
+  
+  const indicator = document.createElement('div');
+  indicator.id = 'search-result-count';
+  indicator.className = 'search-result-indicator';
+  
+  indicator.innerHTML = `
+    <div class="search-result-content">
+      <i class="fas fa-search"></i>
+      <span class="result-text">
+        ${count > 0 
+          ? `Found ${count} game${count !== 1 ? 's' : ''} for "${query}"`
+          : `No games found for "${query}"`
+        }
+      </span>
+      ${count > 0 ? '<i class="fas fa-gamepad result-icon"></i>' : '<i class="fas fa-times-circle result-icon"></i>'}
+    </div>
+  `;
+  
+  // Style the indicator
+  indicator.style.cssText = `
+    position: fixed;
+    top: 120px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: ${count > 0 
+      ? 'linear-gradient(135deg, #00eaff, #7f00ff)' 
+      : 'linear-gradient(135deg, #ff4757, #ff6b9d)'};
+    color: white;
+    padding: 12px 24px;
+    border-radius: 25px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 15px ${count > 0 ? 'rgba(0, 234, 255, 0.4)' : 'rgba(255, 71, 87, 0.4)'};
+    font-family: 'Segoe UI', Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    z-index: 1200;
+    opacity: 0;
+    animation: searchSlideIn 0.4s ease-out forwards;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  `;
+  
+  document.body.appendChild(indicator);
+  
+  // Auto-hide after 3 seconds
+  setTimeout(() => {
+    if (document.getElementById('search-result-count')) {
+      indicator.style.animation = 'searchSlideOut 0.3s ease-in forwards';
+      setTimeout(() => {
+        if (indicator.parentNode) {
+          indicator.parentNode.removeChild(indicator);
+        }
+      }, 300);
+    }
+  }, 3000);
+}
+
+function hideSearchResultCount() {
+  const indicator = document.getElementById('search-result-count');
+  if (indicator) {
+    indicator.remove();
+  }
+}
+
+function resetSearchLayout() {
+  // Reset any search-specific layout changes
+  const container = document.querySelector('.boxes-container');
+  if (container) {
+    container.style.justifyContent = '';
+    container.style.alignItems = '';
+  }
+}
+
+// Add CSS animations for search indicators
+const searchStyles = document.createElement('style');
+searchStyles.textContent = `
+  @keyframes searchSlideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-20px) scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+  }
+  
+  @keyframes searchSlideOut {
+    from {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-20px) scale(0.9);
+    }
+  }
+  
+  .search-result-content {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .search-result-content .result-text {
+    margin: 0 4px;
+  }
+  
+  .search-result-content .result-icon {
+    font-size: 12px;
+    opacity: 0.9;
+  }
+  
+  .search-highlighted {
+    transition: all 0.3s ease !important;
+  }
+  
+  /* Responsive adjustments for search indicator */
+  @media (max-width: 768px) {
+    #search-result-count {
+      top: 100px;
+      font-size: 12px;
+      padding: 10px 20px;
+      max-width: 90vw;
+    }
+  }
+`;
+
+document.head.appendChild(searchStyles);
