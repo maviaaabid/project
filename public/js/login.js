@@ -120,13 +120,26 @@ regForm.addEventListener('submit', async function(e) {
       if (data.success) {
         regOtpMsg.style.color = "#00eaff";
         regOtpMsg.textContent = "Registration successful! Redirecting to login...";
+        
+        // Save user to localStorage
+        const email = regEmail.value.trim();
+        const password = regPassword.value;
+        const newUser = {
+          email: email,
+          password: password,
+          displayName: '',
+          profilePic: '',
+          provider: 'email',
+          createdAt: new Date().toISOString()
+        };
+        localStorage.setItem('user_' + email, JSON.stringify(newUser));
+        
         setTimeout(() => {
           regOtpSection.style.display = "none";
           regOtpInput.value = "";
           regOtpMsg.textContent = "";
           regOtpSent = false;
           regBtn.textContent = "Send OTP";
-          // Optionally, save user to localStorage here
           showLogin();
         }, 1200);
       } else {
