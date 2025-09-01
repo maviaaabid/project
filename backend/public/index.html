@@ -2323,34 +2323,59 @@ document.addEventListener('DOMContentLoaded', function() {
   const welcomeName = document.getElementById('welcomeName');
   const closeWelcomeModal = document.getElementById('closeWelcomeModal');
 
-  // Show welcome modal on every visit
-  welcomeModal.style.display = 'flex';
-  
-  // Profile logic
-  let pic = null;
-  let name = "";
-  const email = localStorage.getItem('last_login_email');
-  if (email) {
-    let user = localStorage.getItem('user_' + email);
-    if (user) {
-      try {
-        let userObj = JSON.parse(user);
-        if (userObj.profilePic) pic = userObj.profilePic;
-        if (userObj.name) name = userObj.name;
-      } catch(e){}
+  // Function to update welcome modal with latest user info
+  function updateWelcomeModal() {
+    // Profile logic
+    let pic = null;
+    let name = "";
+    const email = localStorage.getItem('last_login_email');
+    if (email) {
+      let user = localStorage.getItem('user_' + email);
+      if (user) {
+        try {
+          let userObj = JSON.parse(user);
+          if (userObj.profilePic) pic = userObj.profilePic;
+          if (userObj.displayName) name = userObj.displayName;
+          else if (userObj.name) name = userObj.name;
+          // If no name is set, use email prefix as fallback
+          else name = email.split('@')[0];
+        } catch(e){}
+      }
     }
+
+    if (pic) {
+      welcomePic.src = pic;
+      welcomePic.style.display = 'block';
+      welcomeAvatar.style.display = 'none';
+    } else {
+      welcomePic.style.display = 'none';
+      welcomeAvatar.style.display = 'block';
+    }
+    
+    welcomeName.textContent = name ? name : "Guest";
   }
 
-  if (pic) {
-    welcomePic.src = pic;
-    welcomePic.style.display = 'block';
-    welcomeAvatar.style.display = 'none';
-  } else {
-    welcomePic.style.display = 'none';
-    welcomeAvatar.style.display = 'block';
-  }
+  // Check if user is coming from settings or profile page (via referrer or URL parameter)
+  const referrer = document.referrer;
+  const fromSettings = referrer.includes('setting.html') || window.location.search.includes('from=settings');
+  const fromProfile = referrer.includes('my profile.html') || window.location.search.includes('from=profile');
   
-  welcomeName.textContent = name ? name : "Guest";
+  // Show welcome modal when coming from settings/profile, or once per day
+  if (fromSettings || fromProfile || !localStorage.getItem('welcome_shown_today')) {
+    // Update modal with latest info and show
+    updateWelcomeModal();
+    welcomeModal.style.display = 'flex';
+    localStorage.setItem('welcome_shown_today', new Date().toDateString());
+  } else {
+    // Check if it's been shown today
+    const lastShown = localStorage.getItem('welcome_shown_today');
+    const today = new Date().toDateString();
+    if (lastShown !== today) {
+      updateWelcomeModal();
+      welcomeModal.style.display = 'flex';
+      localStorage.setItem('welcome_shown_today', today);
+    }
+  }
 
   // Close logic
   closeWelcomeModal.onclick = function() {
