@@ -260,6 +260,7 @@ document.getElementById('settingsForm').addEventListener('submit', function(e){
 
   // Update user object
   userObj.name = newName;
+  userObj.displayName = newName;  // Ensure both name and displayName are updated
   userObj.email = newEmail;
   userObj.profilePic = newPic;
 
@@ -276,7 +277,7 @@ document.getElementById('settingsForm').addEventListener('submit', function(e){
 
   // Redirect to index.html after 2 seconds
   setTimeout(function() {
-    window.location.href = "index.html";
+    window.location.href = "index.html?from=settings";
   }, 2000);
 });
 
