@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Palworld Free Download (v0.6.1 + Co-Op) | GAMES-REALM</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="images/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Theme Toggle CSS -->
+   \<script type="text/javascript" src="https://unpkg.com/parse/dist/parse.min.js"></script>
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+  <style>
+    body {
+      margin: 0;
+      background: linear-gradient(120deg, #18122b 0%, #7b2ff2 100%);
+      font-family: 'Roboto', Arial, sans-serif;
+      color: #fff;
+      min-height: 100vh;
+    }
+    .game-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 66px 10px 18px 10px;
+     background: rgba(24,18,43,0.93);
+      box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+      border-radius: 0 0 32px 32px;
+      box-shadow: 0 8px 32px #7b2ff288;
+      position: relative;
+      margin-top: -10px;
+    }
+    .game-title {
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 2.7em;
+      color: #fec53a;
+      margin: 0 0 10px 0;
+      letter-spacing: 2px;
+      text-shadow: 0 4px 24px #7b2ff2cc;
+      text-align: center;
+    }
+    .game-meta {
+      display: flex;
+      gap: 22px;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .game-meta span {
+      background: #232042;
+      color: #fec53a;
+      border-radius: 8px;
+      padding: 6px 18px;
+      font-size: 1em;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 12px #7b2ff244;
+      margin-bottom: 4px;
+    }
+    .game-cover {
+      width: 260px;
+      height: 340px;
+      object-fit: cover;
+      border-radius: 18px;
+      box-shadow: 0 4px 18px #0008;
+      border: 3px solid #fec53a44;
+      background: #232042;
+      margin: 18px 0 0 0;
+      display: block;
+    }
+    .btn-row {
+      display: flex;
+      gap: 18px;
+      margin: 22px 0 0 0;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .download-btn, .trailer-btn, .discord-btn, .feature-btn{
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(90deg, #7b2ff2 60%, #fec53a 100%);
+      color: #fff;
+      font-size: 1.1em;
+      font-family: 'Orbitron', Arial, sans-serif;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 12px #7b2ff244;
+      padding: 12px 28px;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      text-decoration: none;
+      margin-bottom: 6px;
+    }
+    .download-btn:hover, .trailer-btn:hover, .discord-btn:hover, .feature-btn:hover {
+      background: linear-gradient(90deg, #fec53a 0%, #7b2ff2 100%);
+      color: #18122b;
+      box-shadow: 0 4px 18px #fec53a44;
+    }
+    .feature-panel {
+      display: none;
+       background: rgba(24,18,43,0.93);
+      box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+       border: 2.5px solid #7f00ff;
+      border-radius: 14px;
+      box-shadow: 0 2px 12px #7b2ff244;
+      padding: 22px 18px;
+      margin: 18px 0 0 0;
+      max-width: 420px;
+      width: 100%;
+      color: #e0d7f5;
+      position: relative;
+      z-index: 10;
+      animation: fadeInUp 0.7s;
+    }
+    .feature-panel.active { display: block; }
+    .feature-panel h3 {
+      color: #fec53a;
+      font-family: 'Orbitron', Arial, sans-serif;
+      margin-top: 0;
+      margin-bottom: 12px;
+      font-size: 1.2em;
+    }
+    .trailer-modal {
+      display: none;
+      position: fixed;
+      z-index: 1001;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(24,18,43,0.92);
+      align-items: center;
+      justify-content: center;
+    }
+    .trailer-modal.active { display: flex; }
+    .trailer-content {
+      background: #232042;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 4px 32px #7b2ff288;
+      max-width: 90vw;
+      max-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .trailer-content iframe {
+      width: 480px;
+      height: 270px;
+      border: none;
+      border-radius: 10px;
+      max-width: 80vw;
+      max-height: 50vw;
+      background: #000;
+    }
+    .close-trailer {
+      background: none;
+      border: none;
+      color: #fec53a;
+      font-size: 2em;
+      position: absolute;
+      top: 18px;
+      right: 28px;
+      cursor: pointer;
+      z-index: 1002;
+    }
+    .section {
+      max-width: 900px;
+      margin: 38px auto 0 auto;
+       background: rgba(24,18,43,0.93);
+      box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+      border-radius: 22px;
+      box-shadow: 0 8px 32px #7b2ff288;
+      padding: 32px 24px;
+    }
+    .section h2 {
+      font-family: 'Orbitron', Arial, sans-serif;
+      color: #fec53a;
+      font-size: 1.5em;
+      margin-top: 0;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+    }
+    .section ul, .section ol {
+      margin: 0 0 0 18px;
+      padding: 0;
+      color: #e0d7f5;
+    }
+    .section p {
+      color: #e0d7f5;
+      font-size: 1.08em;
+      margin-bottom: 18px;
+      text-align: justify;
+    }
+    .screenshots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+      margin-top: 18px;
+    }
+    .screenshots img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 2px 12px #7b2ff244;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    .screenshots img:hover {
+      transform: scale(1.04);
+      box-shadow: 0 4px 18px #fec53a44;
+    }
+    .info-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 18px;
+      color: #e0d7f5;
+    }
+    .info-table th, .info-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid #7b2ff244;
+      text-align: left;
+    }
+    .info-table th {
+      color: #fec53a;
+      font-weight: 700;
+      width: 180px;
+    }
+    /* Discussion Panel */
+    .discussion-section {
+      max-width: 2000px;
+      margin: 38px auto 0 auto;
+      background: rgba(24,18,43,0.93);
+      box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+       border-radius: 32px 32px 0 0;
+      box-shadow: 0 8px 32px #7b2ff288;
+      padding: 36px 10px 18px 10px;
+    }
+    .discussion-section h2 {
+      font-family: 'Orbitron', Arial, sans-serif;
+      color: #fec53a;
+      font-size: 1.5em;
+      margin-top: 0;
+      margin-bottom: 18px;
+      letter-spacing: 1px;
+    }
+    .comment-form {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 24px;
+      align-items: flex-start;
+    }
+    .comment-form img {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #7b2ff2;
+      background: #232042;
+    }
+    .comment-form textarea {
+      flex: 1;
+      min-height: 44px;
+      border-radius: 10px;
+      border: none;
+      padding: 10px 12px;
+      font-size: 1em;
+      background: #232042;
+      color: #fff;
+      resize: vertical;
+      box-shadow: 0 2px 8px #7b2ff244;
+      outline: none;
+    }
+    .comment-form button {
+      background: linear-gradient(90deg, #7b2ff2 60%, #fec53a 100%);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 18px;
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 1em;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      margin-left: 8px;
+    }
+    .comment-form button:hover {
+      background: linear-gradient(90deg, #fec53a 0%, #7b2ff2 100%);
+      color: #18122b;
+    }
+    .comments-list {
+      margin: 0;
+      padding: 100px;
+      margin-left: -45px;
+      margin-top: -100px;
+      list-style: none;
+    }
+    .comment-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 34px;
+      margin-bottom: 18px;
+      background: #232042;
+      border-radius: 12px;
+      padding: 14px 14px 10px 14px;
+      box-shadow: 0 2px 8px #7b2ff244;
+      position: relative;
+    }
+    .comment-userpic {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #fec53a;
+      background: #18122b;
+    }
+    .comment-content {
+      flex: 1;
+    }
+    .comment-username {
+      font-weight: 700;
+      color: #fec53a;
+      font-size: 1em;
+      margin-bottom: 2px;
+      font-family: 'Orbitron', Arial, sans-serif;
+    }
+    .comment-text {
+      color: #e0d7f5;
+      font-size: 1.05em;
+      margin-bottom: 4px;
+    }
+    .comment-actions {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      margin-top: 2px;
+    }
+    .comment-actions .like, .comment-actions .dislike {
+      color: #7b2ff2;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: color 0.2s;
+      border: none;
+      background: none;
+      padding: 0 4px;
+    }
+    .comment-actions .like.liked, .comment-actions .dislike.disliked {
+      color: #fec53a;
+    }
+    .comment-actions .count {
+      font-size: 0.98em;
+      color: #e0d7f5;
+      margin-left: 2px;
+      margin-right: 8px;
+    }
+    @media (max-width: 320px) {
+      .game-header{
+        padding: 28px 2vw 10px 2vw; 
+        margin-top: -5px;
+      }
+    }
+    @media (max-width: 700px) {
+      .game-header { 
+        padding: 28px 2vw 10px 2vw; 
+        margin-top: -5px;
+      }
+      .game-title { font-size: 1.3em;}
+      .game-cover { width: 140px; height: 180px;}
+      .section, .discussion-section { padding: 12px 4vw;}
+      .screenshots { grid-template-columns: 1fr; }
+    }
+    /* Footer */
+    .footer {
+      margin-top: 48px;
+    background: rgba(24,18,43,0.93);
+      box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+      color: #e0d7f5;
+      text-align: center;
+      padding: 28px 10px 18px 10px;
+      border-radius: 22px 22px 0 0;
+      font-size: 1.08em;
+      box-shadow: 0 -2px 18px #7b2ff244;
+      letter-spacing: 0.5px;
+    }
+    .footer .footer-title {
+      color: #fec53a;
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 1.2em;
+      margin-bottom: 8px;
+      display: block;
+    }
+    .footer .footer-links {
+      margin: 12px 0 0 0;
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .footer .footer-links a {
+      color: #7b2ff2;
+      text-decoration: none;
+      font-weight: 700;
+      transition: color 0.2s;
+    }
+    .footer .footer-links a:hover {
+      color: #fec53a;
+    }
+    .footer .footer-copy {
+      margin-top: 12px;
+      font-size: 0.95em;
+      color: #bdb6d7;
+    }
+    /* Language Switcher */
+    .lang-switch {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 1002;
+      background: #232042;
+      border-radius: 8px;
+      padding: 8px 15px;
+      min-width: 140px;
+      box-shadow: 0 2px 12px #7b2ff244;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 1em;
+      color: #fff;
+      border: 2px solid #7b2ff2;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      letter-spacing: 0.5px;
+    }
+    
+    .lang-switch:hover {
+      background: #2a1f45;
+      border-color: #8b3ff2;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 16px rgba(123, 47, 242, 0.4);
+    }
+    
+    .lang-switch option {
+      padding: 8px 0;
+      background: #232042;
+      color: #fff;
+    }
+
+    /* Responsive Language Switch */
+    @media (max-width: 800px) {
+      .lang-switch {
+        font-size: 0.9em;
+        padding: 6px 12px;
+        min-width: 120px;
+        top: 15px;
+        right: 15px;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .lang-switch {
+        font-size: 0.85em;
+        padding: 5px 10px;
+        min-width: 100px;
+        top: 10px;
+        right: 10px;
+        border-radius: 6px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .lang-switch {
+        font-size: 0.8em;
+        padding: 4px 8px;
+        min-width: 90px;
+        top: 8px;
+        right: 8px;
+        border-radius: 5px;
+      }
+    }
+    
+    @media (max-width: 380px) {
+      .lang-switch {
+        font-size: 0.75em;
+        padding: 3px 6px;
+        min-width: 80px;
+        top: 5px;
+        right: 5px;
+        border-radius: 4px;
+      }
+    }
+    
+    @media (max-width: 320px) {
+      .lang-switch {
+        font-size: 0.7em;
+        padding: 2px 4px;
+        min-width: 70px;
+        top: 3px;
+        right: 3px;
+        border-radius: 3px;
+      }
+      .game-header {
+        margin-top: 10px;
+        padding: 15px 2vw 8px 2vw;
+      }
+    }
+
+    /* Back to Home Arrow */
+    .back-arrow {
+      position: fixed; 
+      top: 20px;
+      left: 20px;
+      z-index: 1001;
+      background: #232042;
+      color: #fec53a;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5em;
+      box-shadow: 0 2px 12px #7b2ff244;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+    .back-arrow:hover {
+      background: #fec53a;
+      color: #232042;
+    }
+    @media (max-width: 600px) {
+      .back-arrow { 
+        width: 36px; 
+        height: 36px; 
+        font-size: 1.1em;
+        top: 15px;
+        left: 15px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .back-arrow { 
+        width: 32px; 
+        height: 32px; 
+        font-size: 1em;
+        top: 10px;
+        left: 10px;
+      }
+    }
+    
+    @media (max-width: 380px) {
+      .back-arrow { 
+        width: 30px; 
+        height: 30px; 
+        font-size: 0.9em;
+        top: 8px;
+        left: 8px;
+      }
+    }
+    .scroll-top-btn {
+      position: fixed;
+      right: 32px;
+      bottom: 38px;
+      z-index: 1200;
+      background: #232042;
+      color: #fec53a;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.7em;
+      box-shadow: 0 2px 12px #7b2ff244;
+      text-decoration: none;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, background 0.2s, color 0.2s;
+}
+.scroll-top-btn.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.scroll-top-btn:hover {
+  background: #fec53a;
+  color: #232042;
+}
+@media (max-width: 600px) {
+  #scrollTopBtn {
+    right: 14px;
+    bottom: 18px;
+    width: 42px;
+    height: 42px;
+  }
+}
+/* --- Light Theme Styles for ForzaMotorspot Page --- */
+body.light-theme {
+  background: #f5f5f5 !important;
+  color: #18122B !important;
+  min-height: 100vh;
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  overflow-x: hidden;
+}
+
+/* Game header in light theme */
+body.light-theme .game-header {
+  margin: 0 auto;
+  width: 100%;
+  background: #fff !important;
+  color: #18122B !important;
+  box-shadow: 0 8px 32px 0 #e0c3fc55, 0 0 32px #7b2ff244;
+  border-radius: 0 0 32px 32px;
+}
+
+/* Game title in light theme */
+body.light-theme .game-title {
+  color: #7b2ff2 !important;
+  text-shadow: 0 4px 24px #e0c3fc88;
+}
+
+/* Game meta in light theme */
+body.light-theme .game-meta span {
+  background: #e0c3fc !important;
+  color: #7b2ff2 !important;
+  box-shadow: 0 2px 12px #e0c3fc44;
+}
+
+/* Game cover in light theme */
+body.light-theme .game-cover {
+  background: #e0c3fc !important;
+  border: 3px solid #7b2ff244 !important;
+  box-shadow: 0 4px 18px #e0c3fc88;
+}
+
+/* Buttons in light theme */
+body.light-theme .download-btn,
+body.light-theme .trailer-btn,
+body.light-theme .discord-btn,
+body.light-theme .feature-btn {
+  background: linear-gradient(90deg, #e0c3fc 60%, #7b2ff2 100%) !important;
+  color: #18122B !important;
+  box-shadow: 0 2px 12px #e0c3fc44;
+}
+
+body.light-theme .download-btn:hover,
+body.light-theme .trailer-btn:hover,
+body.light-theme .discord-btn:hover,
+body.light-theme .feature-btn:hover {
+  background: linear-gradient(90deg, #7b2ff2 0%, #e0c3fc 100%) !important;
+  color: #fff !important;
+  box-shadow: 0 4px 18px #7b2ff288;
+}
+
+/* Feature panel in light theme */
+body.light-theme .feature-panel {
+  background: #fff !important;
+  color: #18122B !important;
+  border: 2.5px solid #e0c3fc !important;
+  box-shadow: 0 2px 12px #e0c3fc44;
+}
+
+/* Feature panel title */
+body.light-theme .feature-panel h3 {
+  color: #7b2ff2 !important;
+}
+
+/* Section in light theme */
+body.light-theme .section {
+  max-width: 900px;
+  margin: 38px auto 0 auto;
+  background: #fff !important;
+  color: #18122B !important;
+  box-shadow: 0 8px 32px #e0c3fc55;
+  border-radius: 22px;
+  padding: 32px 24px;
+  width: 100%;
+}
+
+/* Section headings */
+body.light-theme .section h2 {
+  color: #7b2ff2 !important;
+  text-shadow: 0 0 10px #e0c3fc;
+}
+
+/* Section text */
+body.light-theme .section p,
+body.light-theme .section ul,
+body.light-theme .section ol {
+  color: #18122B !important;
+}
+
+/* Screenshots in light theme */
+body.light-theme .screenshots img {
+  box-shadow: 0 2px 12px #e0c3fc44;
+  border: 2px solid #e0c3fc !important;
+}
+
+/* Info table in light theme */
+body.light-theme .info-table th {
+  color: #7b2ff2 !important;
+}
+
+body.light-theme .info-table td {
+  color: #18122B !important;
+}
+
+/* Discussion panel in light theme */
+body.light-theme .discussion-section {
+  max-width: 2000px;
+  margin: 38px auto 0 auto;
+  background: #fff !important;
+  color: #18122B !important;
+  box-shadow: 0 8px 32px #e0c3fc55;
+  border-radius: 32px 32px 0 0;
+  padding: 36px 10px 18px 10px;
+  width: 99%;
+}
+
+/* Comment form in light theme */
+body.light-theme .comment-form img {
+  border: 2px solid #e0c3fc !important;
+  background: #fff !important;
+}
+
+body.light-theme .comment-form textarea {
+  background: #e0c3fc !important;
+  color: #18122B !important;
+  box-shadow: 0 2px 8px #e0c3fc33;
+}
+
+body.light-theme .comment-form button {
+  background: #e0c3fc !important;
+  color: #18122B !important;
+}
+
+body.light-theme .comment-form button:hover {
+  background: linear-gradient(90deg, #7b2ff2 0%, #e0c3fc 100%) !important;
+  color: #fff !important;
+}
+
+/* Comments list in light theme */
+body.light-theme .comment-item {
+  background: #e0c3fc !important;
+  color: #18122B !important;
+  box-shadow: 0 2px 8px #e0c3fc33;
+}
+
+body.light-theme .comment-userpic {
+  border: 2px solid #7b2ff2 !important;
+  background: #fff !important;
+}
+
+body.light-theme .comment-username {
+  color: #7b2ff2 !important;
+}
+
+body.light-theme .comment-text {
+  color: #18122B !important;
+}
+
+body.light-theme .comment-actions .like,
+body.light-theme .comment-actions .dislike {
+  color: #7b2ff2 !important;
+}
+
+body.light-theme .comment-actions .like.liked,
+body.light-theme .comment-actions .dislike.disliked {
+  color: #e0c3fc !important;
+}
+
+body.light-theme .comment-actions .count {
+  color: #18122B !important;
+}
+
+/* Footer in light theme */
+body.light-theme .footer {
+  background: #eaeaea !important;
+  color: #18122B !important;
+  box-shadow: 0 -2px 18px #e0c3fc44;
+  border-radius: 22px 22px 0 0;
+}
+
+body.light-theme .footer .footer-title {
+  color: #7b2ff2 !important;
+}
+
+body.light-theme .footer .footer-links a {
+  color: #7b2ff2 !important;
+}
+
+body.light-theme .footer .footer-links a:hover {
+  color: #e0c3fc !important;
+}
+
+body.light-theme .footer .footer-copy {
+  color: #7b2ff2 !important;
+}
+
+/* Language switcher in light theme */
+body.light-theme .lang-switch {
+  background: #e0c3fc !important;
+  color: #18122B !important;
+  border: 2px solid #7b2ff2 !important;
+}
+
+body.light-theme .lang-switch:focus {
+  background: #7b2ff2 !important;
+  color: #fff !important;
+}
+
+/* Back arrow in light theme */
+body.light-theme .back-arrow {
+  background: #e0c3fc !important;
+  color: #7b2ff2 !important;
+}
+
+body.light-theme .back-arrow:hover {
+  background: #7b2ff2 !important;
+  color: #fff !important;
+}
+
+/* Scroll top button in light theme */
+body.light-theme .scroll-top-btn {
+  background: #e0c3fc !important;
+  color: #7b2ff2 !important;
+}
+
+body.light-theme .scroll-top-btn:hover {
+  background: #7b2ff2 !important;
+  color: #fff !important;
+}
+
+/* Download modal in light theme */
+body.light-theme #downloadModal {
+  background: rgba(224,195,252,0.92) !important;
+}
+
+body.light-theme #downloadModal > div {
+  background: #fff !important;
+  border: 2px solid #e0c3fc !important;
+  box-shadow: 0 8px 32px #e0c3fc77, 0 1.5px 0 #7b2ff2;
+}
+
+body.light-theme #realDownloadBtn {
+  background: linear-gradient(90deg,#e0c3fc 60%,#7b2ff2 100%) !important;
+  color: #18122B !important;
+}
+
+body.light-theme #realDownloadBtn:hover {
+  background: linear-gradient(90deg,#7b2ff2 0%,#e0c3fc 100%) !important;
+  color: #fff !important;
+}
+
+/* Responsive for mobile */
+@media (max-width: 700px) {
+  body.light-theme .game-header { padding: 28px 2vw 10px 2vw; }
+  body.light-theme .game-title { font-size: 1.3em;}
+  body.light-theme .game-cover { width: 140px; height: 180px;}
+  body.light-theme .section, body.light-theme .discussion-section { padding: 12px 4vw;}
+  body.light-theme .screenshots { grid-template-columns: 1fr; }
+  body.light-theme .lang-switch { font-size: 0.95em; padding: 6px 12px; min-width: 120px; top: 15px; right: 15px;}
+}
+@media (max-width: 480px) {
+  body.light-theme .lang-switch { font-size: 0.9em; padding: 5px 8px; min-width: 90px; top: 8px; right: 8px;}
+  body.light-theme .game-header { margin-top: 10px; padding: 15px 2vw 8px 2vw;}
+}
+  </style>
+</head>
+<body>
+  <a href="#" class="scroll-top-btn" id="scrollTopBtn" title="Scroll to Top">
+  <i class="fa fa-arrow-up"></i>
+</a>
+  <!-- Language Switcher -->
+  <select class="lang-switch" id="langSwitch" title="Change Language">
+    <option value="en">English</option>
+    <option value="ur">Urdu</option>
+    <option value="hi">Hindi</option>
+    <option value="fr">French</option>
+    <option value="es">Spanish</option>
+    <option value="de">German</option>
+    <option value="ja">Japanese</option>
+    <option value="ko">Korean</option>
+    <option value="ar">Arabic</option>
+    <option value="zh">Chinese</option>
+    <option value="ru">Russian</option>
+    <option value="tr">Turkish</option>
+    <option value="pt">Portuguese</option>
+  </select>
+
+  <!-- Back to Home Arrow -->
+  <a href="index.html" class="back-arrow" title="Back to Home">
+    <i class="fa fa-arrow-left"></i>
+  </a>
+
+  <div class="game-header">
+    <div class="game-title" id="gameTitle">Palworld (v0.1.5.1 + Co-Op)</div>
+    <div class="game-meta">
+      <span>PC</span>
+      <span>20.08 GB</span>
+      <span>2024</span>
+      <span>Multiplayer</span>
+      <span>Action, Adventure, Indie, RPG</span>
+    </div>
+    <img class="game-cover" src="images/palworld.jpg" alt="Palworld Cover">
+    <div class="btn-row">
+      <a
+        class="download-btn"
+        id="download-Btn"
+        href="https://88-198-16-50.top/Oceanofgames.com/Palworld_v0_1_5_0_Early_Access.zip?md5=xXnfmHxBtggS8CsbTnh8pA&expires=1756132049"
+        target="_blank"
+        rel="noopener"
+      >
+        <i class="fa fa-download"></i> Download
+      </a>
+      <button class="trailer-btn" id="trailerBtn"><i class="fa fa-play"></i> Watch Trailer</button>
+      <button class="discord-btn" id="discordBtn"><i class="fab fa-discord"></i> Join Discord</button>
+      <button class="feature-btn" id="featureBtn"><i class="fa fa-star"></i> Game Features</button>
+    </div>
+    <div class="feature-panel" id="featurePanel">
+      <h3>Game Features</h3>
+      <ul>
+        <li>Open world adventure with unique creatures called Pals.</li>
+        <li>Co-op multiplayer and online play.</li>
+        <li>Build, farm, craft, and battle in a dynamic world.</li>
+        <li>Mount, train, and use Pals for combat and work.</li>
+        <li>Survive, explore, and fight poachers in a harsh environment.</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Trailer Modal -->
+  <div class="trailer-modal" id="trailerModal">
+    <div class="trailer-content">
+      <button class="close-trailer" id="closeTrailer" title="Close">&times;</button>
+     <iframe id="trailerFrame" src="https://www.youtube.com/embed/ZPu9yAOEYkQ" title="Palworld Official Early Access Gameplay Launch Trailer" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Game Review</h2>
+    <p>
+      In a harsh environment where food is scarce and vicious <strong>poachers</strong> roam, danger waits around every corner. To survive, you must tread carefully and make difficult choices...even if that means eating your own Pals when the time comes. <strong>Pals</strong> can be mounted to traverse the land, sea and sky—allowing you to <strong>traverse</strong> all kinds of environment as you explore the world. Want to build a <strong>pyramid</strong>? Put an army of Pals on the job. Don't worry; there are no labor laws for Pals. Make use of Pals and their skills to make fire, <strong>generate</strong> electricity, or mine ore so that you can live a life of comfort. Some Pals are good at <strong>planting</strong> seeds, while others are skilled at watering or harvesting crops. Work together with your Pals to create an idyllic farmstead.
+    </p>
+    <p>
+      In this game, you can peacefully live alongside mysterious creatures known as Pals or risk your life to drive off a ruthless poaching syndicate. Pals can be used to fight, or they can be made to work on farms or factories. You can even sell them or eat them!
+    </p>
+  </div>
+
+  <div class="section">
+    <h2>Screenshots</h2>
+    <div class="screenshots">
+      <img src="https://assetsio.gnwcdn.com/20240119_Palworld_Screenshot_03.jpg?width=1200&height=630&fit=crop&enable=upscale&auto=webp">
+      <img src="https://cdn.thewirecutter.com/wp-content/media/2024/01/palworld-2048px-palworld4.jpg?auto=webp&quality=60&width=570">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThCKsCzcMUZmsIrCpFpwcHyahDl2qTkCiEeHyrEpJ2EYgu7jgnGbAjTEGnZ9Pf85I6qCU&usqp=CAU">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSC09UN9YMxqVA-pYRM_6BRIYuVxUICQx_zYVeKnccmpIvyn9HUzFOQl5GS_44ph627D1Q&usqp=CAU">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUAjUlTInG9WgBbzJ9-F-YBK4eeBeNY7MJC75UpZauCMO416IGpctXU4Y9KvmhOKOEnA8&usqp=CAU">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOEBm6IsTnHIgnY2TqJRU1v9G9WJY-ckxjFqXITNjoXHnMyUGIbjgT8eGgGI8bP8CU80k&usqp=CAU">
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>Installation Guide</h2>
+    <ol>
+      <li>Game is pre-installed / portable, therefore you do not need to install the game.</li>
+      <li>Just extract the rar / zip file.</li>
+      <li>Simply launch the game from <b>unsteam_loader64.exe</b> inside the game folder.</li>
+    </ol>
+    <h2 style="margin-top:32px;">Important Notes</h2>
+    <ul>
+      <li>Install necessary apps from Redist or _CommonRedist to ensure game launches without any problems.</li>
+      <li>Always extract game in Antivirus / Defender excluded folder - Please check our FAQs to know why it is important.</li>
+      <li>Always run the game as administrator.</li>
+      <li>For detailed guide, make sure to read Installation Guide.txt inside the game files.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>System Requirements</h2>
+    <table class="info-table">
+      <tr><th>OS</th><td>Windows 10 or later (64-Bit)</td></tr>
+      <tr><th>Processor</th><td>i9-9900K 3.6 GHz 8 Core</td></tr>
+      <tr><th>Memory</th><td>32 GB RAM</td></tr>
+      <tr><th>Graphics</th><td>GeForce RTX 2070</td></tr>
+      <tr><th>DirectX</th><td>Version 11</td></tr>
+      <tr><th>Network</th><td>Broadband Internet connection</td></tr>
+      <tr><th>Storage</th><td>40 GB available space</td></tr>
+    </table>
+  </div>
+
+  <!-- Discussion Panel -->
+  <div class="discussion-section">
+    <h2>Discussion</h2>
+    <form class="comment-form" id="commentForm" autocomplete="off">
+      <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=guest" id="userPic" alt="User Pic">
+      <textarea id="commentInput" placeholder="Write your comment..." required></textarea>
+      <button type="submit"><i class="fa fa-paper-plane"></i> Post</button>
+    </form>
+    <ul class="comments-list" id="commentsList"></ul>
+  </div>
+
+  <!-- Modal code: Place this at the end of your <body> -->
+<div id="downloadModal" style="display:none;position:fixed;z-index:2000;left:0;top:0;width:100vw;height:100vh;background:rgba(24,18,43,0.92);align-items:center;justify-content:center;">
+  <div style="background:#232042;border-radius:18px;box-shadow:0 4px 32px #7b2ff288;padding:38px 32px 32px 32px;max-width:90vw;min-width:320px;display:flex;flex-direction:column;align-items:center;position:relative;">
+    <button id="closeDownloadModal" style="position:absolute;top:12px;right:18px;background:none;border:none;color:#fec53a;font-size:2em;cursor:pointer;">&times;</button>
+    <div style="font-family:'Orbitron',Arial,sans-serif;font-size:1.5em;color:#fec53a;margin-bottom:18px;text-align:center;">
+      Direct Download<br>pass:123
+    </div>
+    <a
+      id="realDownloadBtn"
+      href="https://88-198-16-50.top/Oceanofgames.com/Palworld_v0_1_5_0_Early_Access.zip?md5=xXnfmHxBtggS8CsbTnh8pA&expires=1756132049"
+      target="_blank"
+      rel="noopener"
+      style="display:inline-flex;align-items:center;gap:10px;background:linear-gradient(90deg,#7b2ff2 60%,#fec53a 100%);color:#fff;font-size:1.1em;font-family:'Orbitron',Arial,sans-serif;border:none;border-radius:10px;cursor:pointer;font-weight:700;letter-spacing:1px;box-shadow:0 2px 12px #7b2ff244;padding:14px 38px;margin:18px 0 0 0;transition:background 0.2s,color 0.2s,box-shadow 0.2s;text-decoration:none;"
+      onclick="document.getElementById('downloadModal').style.display='none';"
+    >
+      <i class="fa fa-download"></i> Download
+    </a>
+  </div>
+</div>
+
+  <script>
+    const scrollBtn = document.getElementById('scrollTopBtn');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 200) {
+    scrollBtn.classList.add('show');
+  } else {
+    scrollBtn.classList.remove('show');
+  }
+});
+scrollBtn.onclick = function(e) {
+  e.preventDefault();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+    // Feature Panel Toggle
+    document.getElementById('featureBtn').onclick = function() {
+      document.getElementById('featurePanel').classList.toggle('active');
+    };
+
+    // Trailer Modal
+    const trailerBtn = document.getElementById('trailerBtn');
+    const trailerModal = document.getElementById('trailerModal');
+    const closeTrailer = document.getElementById('closeTrailer');
+    trailerBtn.onclick = () => { trailerModal.classList.add('active'); };
+    closeTrailer.onclick = () => { trailerModal.classList.remove('active'); };
+    trailerModal.onclick = (e) => { if (e.target === trailerModal) trailerModal.classList.remove('active'); };
+
+    // Discord Button
+    document.getElementById('discordBtn').onclick = function() {
+      window.open('https://discord.gg/yourchannel', '_blank');
+    };
+
+    // Language Switcher (basic, for demo)
+    document.getElementById('langSwitch').addEventListener('change', function() {
+      // Add your translation logic here if needed
+      localStorage.setItem('palworldLang', this.value);
+      location.reload();
+    });
+    window.addEventListener('DOMContentLoaded', function() {
+      const lang = localStorage.getItem('palworldLang') || 'en';
+      document.getElementById('langSwitch').value = lang;
+    });
+
+    // Discussion Panel (localStorage, demo only)
+    function getUserId() {
+      let id = localStorage.getItem('userId');
+      if (!id) {
+        id = 'user' + Math.floor(Math.random() * 10000);
+        localStorage.setItem('userId', id);
+      }
+      return id;
+    }
+
+    function getUserPic() {
+      return "https://api.dicebear.com/7.x/pixel-art/svg?seed=" + getUserId();
+    }
+
+    document.getElementById('userPic').src = getUserPic();
+
+    function renderComments() {
+      const comments = JSON.parse(localStorage.getItem('palworldComments') || '[]');
+      const list = document.getElementById('commentsList');
+      list.innerHTML = '';
+      comments.forEach((c, i) => {
+        const li = document.createElement('li');
+        li.className = 'comment-item';
+        li.innerHTML = `
+          <img class="comment-userpic" src="${c.pic}" alt="User Pic">
+          <div class="comment-content">
+            <div class="comment-username">${c.user}</div>
+            <div class="comment-text">${c.text}</div>
+            <div class="comment-actions">
+              <button class="like${c.liked ? ' liked' : ''}" title="Like"><i class="fa fa-thumbs-up"></i></button>
+              <span class="count">${c.likes || 0}</span>
+              <button class="dislike${c.disliked ? ' disliked' : ''}" title="Dislike"><i class="fa fa-thumbs-down"></i></button>
+              <span class="count">${c.dislikes || 0}</span>
+              <button class="delete-comment" title="Delete" style="background:none;border:none;color:#ff4d4d;cursor:pointer;font-size:1.1em;margin-left:8px;"><i class="fa fa-trash"></i></button>
+            </div>
+          </div>
+        `;
+        // Like/Dislike logic
+        const likeBtn = li.querySelector('.like');
+        const dislikeBtn = li.querySelector('.dislike');
+        likeBtn.onclick = () => {
+          if (!c.liked) {
+            c.likes = (c.likes || 0) + 1;
+            c.liked = true;
+            if (c.disliked) {
+              c.disliked = false;
+              c.dislikes = (c.dislikes || 1) - 1;
+            }
+          } else {
+            c.likes = (c.likes || 1) - 1;
+            c.liked = false;
+          }
+          comments[i] = c;
+          localStorage.setItem('palworldComments', JSON.stringify(comments));
+          renderComments();
+        };
+        dislikeBtn.onclick = () => {
+          if (!c.disliked) {
+            c.dislikes = (c.dislikes || 0) + 1;
+            c.disliked = true;
+            if (c.liked) {
+              c.liked = false;
+              c.likes = (c.likes || 1) - 1;
+            }
+          } else {
+            c.dislikes = (c.dislikes || 1) - 1;
+            c.disliked = false;
+          }
+          comments[i] = c;
+          localStorage.setItem('palworldComments', JSON.stringify(comments));
+          renderComments();
+        };
+        // Delete logic
+        const deleteBtn = li.querySelector('.delete-comment');
+        deleteBtn.onclick = () => {
+          if (confirm('Delete this comment?')) {
+            comments.splice(i, 1);
+            localStorage.setItem('palworldComments', JSON.stringify(comments));
+            renderComments();
+          }
+        };
+        list.appendChild(li);
+      });
+    }
+    renderComments();
+
+    document.getElementById('commentForm').onsubmit = function(e) {
+      e.preventDefault();
+      const text = document.getElementById('commentInput').value.trim();
+      if (!text) return;
+      const comments = JSON.parse(localStorage.getItem('palworldComments') || '[]');
+      comments.push({
+        user: getUserId(),
+        pic: getUserPic(),
+        text,
+        likes: 0,
+        dislikes: 0,
+        liked: false,
+        disliked: false
+      });
+      localStorage.setItem('palworldComments', JSON.stringify(comments));
+      document.getElementById('commentInput').value = '';
+      renderComments();
+    };
+
+const translations = {
+  en: {
+    download: "Download",
+    watchTrailer: "Watch Trailer",
+    joinDiscord: "Join Discord",
+    gameFeatures: "Game Features",
+    featuresTitle: "Game Features",
+    reviewTitle: "Game Review",
+    screenshots: "Screenshots",
+    installGuide: "Installation Guide",
+    importantNotes: "System Requirements",
+    sysReq: "Important Notes",
+    discussion: "Discussion",
+    commentPlaceholder: "Write your comment...",
+    post: "Post",
+    directDownload: "Direct Download"
+  },
+  ur: {
+    download: "ڈاؤن لوڈ کریں",
+    watchTrailer: "ٹریلر دیکھیں",
+    joinDiscord: "ڈسکارڈ جوائن کریں",
+    gameFeatures: "گیم فیچرز",
+    featuresTitle: "گیم فیچرز",
+    reviewTitle: "گیم ریویو",
+    screenshots: "اسکرین شاٹس",
+    installGuide: "انسٹالیشن گائیڈ",
+    sysReq: "اہم نوٹس",
+    importantNotes: "سسٹم ریکوائرمنٹس",
+    discussion: "بحث",
+    commentPlaceholder: "اپنا تبصرہ لکھیں...",
+    post: "پوسٹ کریں",
+    directDownload: "براہ راست ڈاؤن لوڈ"
+  },
+  hi: {
+    download: "डाउनलोड करें",
+    watchTrailer: "ट्रेलर देखें",
+    joinDiscord: "डिस्कॉर्ड जॉइन करें",
+    gameFeatures: "गेम फीचर्स",
+    featuresTitle: "गेम फीचर्स",
+    reviewTitle: "गेम समीक्षा",
+    screenshots: "स्क्रीनशॉट्स",
+    installGuide: "इंस्टॉलेशन गाइड",
+    sysReq: "महत्वपूर्ण नोट्स",
+    importantNotes: "सिस्टम आवश्यकताएँ",
+    discussion: "चर्चा",
+    commentPlaceholder: "अपनी टिप्पणी लिखें...",
+    post: "पोस्ट करें",
+    directDownload: "प्रत्यक्ष डाउनलोड"
+  },
+  ar: {
+    download: "تحميل",
+    watchTrailer: "مشاهدة العرض",
+    joinDiscord: "انضم إلى ديسكورد",
+    gameFeatures: "ميزات اللعبة",
+    featuresTitle: "ميزات اللعبة",
+    reviewTitle: "مراجعة اللعبة",
+    screenshots: "لقطات الشاشة",
+    installGuide: "دليل التثبيت",
+    sysReq: "ملاحظات هامة",
+    importantNotes: "متطلبات النظام",
+    discussion: "نقاش",
+    commentPlaceholder: "اكتب تعليقك...",
+    post: "نشر",
+    directDownload: "تنزيل مباشر"
+  },
+  fr: {
+    download: "Télécharger",
+    watchTrailer: "Regarder la bande-annonce",
+    joinDiscord: "Rejoindre Discord",
+    gameFeatures: "Fonctionnalités du jeu",
+    featuresTitle: "Fonctionnalités du jeu",
+    reviewTitle: "Critique du jeu",
+    screenshots: "Captures d'écran",
+    installGuide: "Guide d'installation",
+    sysReq: "Notes importantes",
+    importantNotes: "Configuration requise",
+    discussion: "Discussion",
+    commentPlaceholder: "Écrivez votre commentaire...",
+    post: "Publier",
+    directDownload: "Téléchargement direct"
+  },
+  es: {
+    download: "Descargar",
+    watchTrailer: "Ver tráiler",
+    joinDiscord: "Unirse a Discord",
+    gameFeatures: "Características del juego",
+    featuresTitle: "Características del juego",
+    reviewTitle: "Reseña del juego",
+    screenshots: "Capturas de pantalla",
+    installGuide: "Guía de instalación",
+    sysReq: "Notas importantes",
+    importantNotes: "Requisitos del sistema",
+    discussion: "Discusión",
+    commentPlaceholder: "Escribe tu comentario...",
+    post: "Publicar",
+    directDownload: "Descarga directa"
+  },
+  ru: {
+    download: "Скачать",
+    watchTrailer: "Смотреть трейлер",
+    joinDiscord: "Присоединиться к Discord",
+    gameFeatures: "Особенности игры",
+    featuresTitle: "Особенности игры",
+    reviewTitle: "Обзор игры",
+    screenshots: "Скриншоты",
+    installGuide: "Инструкция по установке",
+    sysReq: "Важные заметки",
+    importantNotes: "Системные требования",
+    discussion: "Обсуждение",
+    commentPlaceholder: "Напишите свой комментарий...",
+    post: "Опубликовать",
+    directDownload: "Прямое скачивание"
+  },
+  tr: {
+    download: "İndir",
+    watchTrailer: "Fragmanı İzle",
+    joinDiscord: "Discord'a Katıl",
+    gameFeatures: "Oyun Özellikleri",
+    featuresTitle: "Oyun Özellikleri",
+    reviewTitle: "Oyun İncelemesi",
+    screenshots: "Ekran Görüntüleri",
+    installGuide: "Kurulum Rehberi",
+    sysReq: "Önemli Notlar",
+    importantNotes: "Sistem Gereksinimleri",
+    discussion: "Tartışma",
+    commentPlaceholder: "Yorumunuzu yazın...",
+    post: "Gönder",
+    directDownload: "Doğrudan İndir"
+  },
+  zh: {
+    download: "下载",
+    watchTrailer: "观看预告片",
+    joinDiscord: "加入Discord",
+    gameFeatures: "游戏特色",
+    featuresTitle: "游戏特色",
+    reviewTitle: "游戏评测",
+    screenshots: "截图",
+    installGuide: "安装指南",
+    sysReq: "重要提示",
+    importantNotes: "系统要求",
+    discussion: "讨论",
+    commentPlaceholder: "写下你的评论...",
+    post: "发布",
+    directDownload: "直接下载"
+  },
+  ja: {
+    download: "ダウンロード",
+    watchTrailer: "トレーラーを見る",
+    joinDiscord: "Discordに参加",
+    gameFeatures: "ゲームの特徴",
+    featuresTitle: "ゲームの特徴",
+    reviewTitle: "ゲームレビュー",
+    screenshots: "スクリーンショット",
+    installGuide: "インストールガイド",
+    sysReq: "重要な注意事項",
+    importantNotes: "システム要件",
+    discussion: "ディスカッション",
+    commentPlaceholder: "コメントを書く...",
+    post: "投稿",
+    directDownload: "直接ダウンロード"
+  },
+  de:{
+    download: "Herunterladen",
+    watchTrailer: "Trailer ansehen",
+    joinDiscord: "Discord beitreten",
+    gameFeatures: "Spielmerkmale",
+    featuresTitle: "Spielmerkmale",
+    reviewTitle: "Spielbewertung",
+    screenshots: "Screenshots",
+    installGuide: "Installationshinweise",
+   sysReq: "Wichtiges",
+    importantNotes: "Systemvoraussetzungen",
+    discussion: "Diskussion",
+    commentPlaceholder: "Kommentar schreiben...",
+    post: "Posten",
+    directDownload: "Direkter Download"
+  },
+  ko:{
+    download: "다운로드",
+    watchTrailer: "트레이러 보기",
+    joinDiscord: "디스코드에 가입",
+    gameFeatures: "게임 특징",
+    featuresTitle: "게임 특징",
+    reviewTitle: "게임 리뷰",
+    screenshots: "스크린샵",
+    installGuide: "인스타일 가이드",
+    sysReq: "중요한 신고",
+    importantNotes: "시스템 적필",
+    discussion: "디스코드",
+    commentPlaceholder: "쓰고...",
+    post: "피스트",
+    directDownload: "직접 다운로드"
+  },
+    pt: {
+        download: "Baixar",
+        watchTrailer: "Assistir Trailer",
+        joinDiscord: "Entrar no Discord",
+        gameFeatures: "Recursos do Jogo",
+        featuresTitle: "Recursos do Jogo",
+        reviewTitle: "Revisão do Jogo",
+        screenshots: "Capturas de Tela",
+        installGuide: "Guia de Instalação",
+        sysReq: "Notas Importantes",
+        importantNotes: "Requisitos do Sistema",
+        discussion: "Discussão",
+        commentPlaceholder: "Escreva seu comentário...",
+        post: "Postar",
+        directDownload: "Download Direto"
+    }
+};
+
+// Helper to set all text
+function setLang(lang) {
+  const t = translations[lang] || translations.en;
+  document.querySelector('.download-btn').innerHTML = `<i class="fa fa-download"></i> ${t.download}`;
+  document.getElementById('trailerBtn').innerHTML = `<i class="fa fa-play"></i> ${t.watchTrailer}`;
+  document.getElementById('discordBtn').innerHTML = `<i class="fab fa-discord"></i> ${t.joinDiscord}`;
+  document.getElementById('featureBtn').innerHTML = `<i class="fa fa-star"></i> ${t.gameFeatures}`;
+  document.querySelector('.section h2').textContent = t.reviewTitle;
+  document.querySelectorAll('.section h2')[1].textContent = t.screenshots;
+  document.querySelectorAll('.section h2')[2].textContent = t.installGuide;
+  document.querySelectorAll('.section h2')[3].textContent = t.sysReq;
+  document.querySelectorAll('.section h2')[4].textContent = t.importantNotes;
+  document.querySelector('.discussion-section h2').textContent = t.discussion;
+  document.getElementById('commentInput').placeholder = t.commentPlaceholder;
+  document.querySelector('#commentForm button').innerHTML = `<i class="fa fa-paper-plane"></i> ${t.post}`;
+}
+
+// Language display names mapping
+const languageNames = {
+  'en': 'English',
+  'zh': 'Chinese',
+  'ja': 'Japanese',
+  'ar': 'Arabic',
+  'es': 'Spanish',
+  'tr': 'Turkish',
+  'fr': 'French',
+  'ru': 'Russian',
+  'de': 'German',
+  'hi': 'Hindi',
+  'pt': 'Portuguese',
+  'ko': 'Korean',
+  'ur': 'Urdu'
+};
+
+// Language switcher for top select
+document.getElementById('langSwitch').addEventListener('change', function() {
+  const selectedLang = this.value;
+  localStorage.setItem('site-lang', selectedLang);
+  setLang(selectedLang);
+});
+window.addEventListener('DOMContentLoaded', function() {
+  const savedLang = localStorage.getItem('site-lang') || 'en';
+  document.getElementById('langSwitch').value = savedLang;
+  setLang(savedLang);
+});
+
+// Download Modal logic
+const downloadBtn = document.querySelector('.download-btn');
+const downloadModal = document.getElementById('downloadModal');
+const closeDownloadModal = document.getElementById('closeDownloadModal');
+
+// Show modal on Download click
+downloadBtn.onclick = function(e) {
+  e.preventDefault();
+  downloadModal.style.display = 'flex';
+};
+// Hide modal on close
+closeDownloadModal.onclick = function() {
+  downloadModal.style.display = 'none';
+};
+// Hide modal if click outside panel
+downloadModal.onclick = function(e) {
+  if (e.target === downloadModal) downloadModal.style.display = 'none';
+};Modal.style.display = 'none';
+  </script>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Language display names mapping
+  const languageNames = {
+    'en': 'English',
+    'zh': 'Chinese',
+    'ja': 'Japanese',
+    'ar': 'Arabic',
+    'es': 'Spanish',
+    'tr': 'Turkish',
+    'fr': 'French',
+    'ru': 'Russian',
+    'de': 'German',
+    'hi': 'Hindi',
+    'pt': 'Portuguese',
+    'ko': 'Korean',
+    'ur': 'Urdu'
+  };
+
+  function setLanguage(lang) {
+    const t = translations[lang] || translations.en;
+    document.querySelector('.download-btn').innerHTML = `<i class="fa fa-download"></i> ${t.download}`;
+    document.getElementById('trailerBtn').innerHTML = `<i class="fa fa-play"></i> ${t.watchTrailer}`;
+    document.getElementById('discordBtn').innerHTML = `<i class="fab fa-discord"></i> ${t.joinDiscord}`;
+    document.getElementById('featureBtn').innerHTML = `<i class="fa fa-star"></i> ${t.gameFeatures}`;
+    document.querySelector('#featurePanel h3').textContent = t.featuresTitle;
+    document.querySelector('#featurePanel ul').innerHTML = t.features.map(f => `<li>${f}</li>`).join('');
+    document.querySelector('.section h2').textContent = t.reviewTitle;
+    document.querySelectorAll('.section h2')[1].textContent = t.screenshots;
+    document.querySelectorAll('.section h2')[2].textContent = t.installGuide;
+    document.querySelectorAll('.section h2')[3].textContent = t.sysReq;
+    document.querySelectorAll('.section h2')[4].textContent = t.importantNotes;
+    document.querySelector('.discussion-section h2').textContent = t.discussion;
+    document.getElementById('commentInput').placeholder = t.commentPlaceholder;
+    document.querySelector('#commentForm button').innerHTML = `<i class="fa fa-paper-plane"></i> ${t.post}`;
+  }
+
+  const savedLang = localStorage.getItem('site-lang') || 'en';
+  setLanguage(savedLang);
+  
+  // Update language select to show current language
+  const languageSelect = document.getElementById("language-select");
+  if (languageSelect && languageNames[savedLang]) {
+    languageSelect.value = savedLang;
+  }
+});
+</script>
+
+<!-- Theme Sync Script -->
+<script src="js/theme-sync.js"></script>
+</body>
+</html>

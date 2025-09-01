@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy Policy | GAMES-VILA</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="images/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/logo.png">
+  <!-- Google Fonts for gaming look -->
+   <script type="text/javascript" src="https://unpkg.com/parse/dist/parse.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #151f28;
+      font-family: 'Roboto', Arial, sans-serif;
+      color: #e0d7f5;
+      min-height: 100vh;
+      overflow-x: hidden;
+      direction: ltr;
+    }
+    .privacy-container {
+      max-width: 900px;
+      margin: 70px auto 40px auto;
+      background: rgba(24,18,43,0.93);
+      box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+      border: 2.5px solid #7f00ff;
+      border-radius: 22px;
+      margin-top: -70px;
+      box-shadow: 0 8px 40px #7b2ff288;
+      padding: 48px 32px 40px 32px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      animation: fadeInUp 1.2s cubic-bezier(.23,1.01,.32,1) both;
+    }
+    @keyframes fadeInUp {
+      0% { opacity: 0; transform: translateY(60px);}
+      100% { opacity: 1; transform: translateY(0);}
+    }
+    .privacy-title {
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 2.6em;
+      letter-spacing: 2px;
+      color: #fec53a;
+      text-shadow: 0 4px 24px #7b2ff2cc;
+      margin-bottom: 18px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      animation: glow 2s infinite alternate;
+    }
+    @keyframes glow {
+      0% { text-shadow: 0 4px 24px #7b2ff2cc, 0 0 0 #fec53a;}
+      100% { text-shadow: 0 4px 32px #fec53a, 0 0 16px #7b2ff2;}
+    }
+    .privacy-section {
+      font-size: 1.18em;
+      line-height: 1.7;
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 2;
+      animation: fadeIn 1.7s cubic-bezier(.23,1.01,.32,1) both;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0;}
+      100% { opacity: 1;}
+    }
+    h2 {
+      color: #fec53a;
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 1.8em;
+      margin-bottom: 12px;
+      text-shadow: 0 0 10px #7b2ff2;
+    }
+    p {
+      color: #d1d1d1;
+      font-size: 1.1em;
+      line-height: 1.6;
+    }
+    /* Animated background shapes */
+    .privacy-bg {
+      position: absolute;
+      top: -80px;
+      left: -80px;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, #7b2ff2 0%, #18122b 80%);
+      opacity: 0.18;
+      border-radius: 50%;
+      z-index: 0;
+      animation: moveBg 8s linear infinite alternate;
+    }
+    .privacy-bg2 {
+      position: absolute;
+      bottom: -100px;
+      right: -100px;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle, #fec53a 0%, #18122b 80%);
+      opacity: 0.13;
+      border-radius: 50%;
+      z-index: 0;
+      animation: moveBg2 10s linear infinite alternate;
+    }
+    @keyframes moveBg {
+      0% { transform: scale(1) translateY(0);}
+      100% { transform: scale(1.1) translateY(30px);}
+    }
+    @keyframes moveBg2 {
+      0% { transform: scale(1) translateY(0);}
+      100% { transform: scale(1.05) translateY(-30px);}
+    }
+    /* Language Switcher */
+    .lang-switch {
+      position: absolute;
+      top: 10px;
+      right: 32px;
+      z-index: 10;
+      background: #232042;
+      border-radius: 8px;
+      padding: 6px 14px;
+      box-shadow: 0 2px 12px #7b2ff244;
+      font-family: 'Roboto', Arial, sans-serif;
+      font-size: 1em;
+      color: #fff;
+      border: 2px solid #7b2ff2;
+      outline: none;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-switch:focus {
+      background: #7b2ff2;
+      color: #fff;
+    }
+    @media (max-width: 700px) {
+      .privacy-container { padding: 28px 8px 24px 8px; }
+      .privacy-title { font-size: 2em; }
+      .privacy-section { font-size: 1em; }
+      .lang-switch { right: 10px; top: 10px; font-size: 0.95em; }
+    }
+    @media (max-width: 480px) {
+      .privacy-title { font-size: 1.3em; }
+      .privacy-section { font-size: 0.98em; }
+      .lang-switch { font-size: 0.9em; padding: 5px 8px;}
+    }
+    /* Back button */
+    .back-icon {
+      position: relative;
+      display: inline-block;
+      margin: 20px;
+      font-size: 24px;
+      color: #fff;
+      text-decoration: none;
+      background: rgba(24,18,43,0.93);
+      box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
+      border: 2.5px solid #7f00ff;
+      padding: 5px 10px;
+      border-radius: 10px;
+    }
+    .back-icon:hover {
+      background: linear-gradient(135deg, #420072, #6a45a7);
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    .back-icon i { margin-right: 10px; }
+        @media  (max-width: 476px) {
+        .back-icon{
+          font-size:  0.6em;
+          
+          display: block;
+        }
+      }
+          .about-highlight {
+      color: #00eaff;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+        .about-title {
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 2.6em;
+      letter-spacing: 2px;
+      color: #fec53a;
+      text-shadow: 0 4px 24px #7b2ff2cc;
+      margin-bottom: 18px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      animation: glow 2s infinite alternate;
+    }
+    
+    @keyframes glow {
+      0% { text-shadow: 0 4px 24px #7b2ff2cc, 0 0 0 #fec53a;}
+      100% { text-shadow: 0 4px 32px #fec53a, 0 0 16px #7b2ff2;}
+    }
+    .about-title {
+      font-family: 'Orbitron', Arial, sans-serif;
+      font-size: 2.6em;
+      letter-spacing: 2px;
+      color: #fec53a;
+      text-shadow: 0 4px 24px #7b2ff2cc;
+      margin-bottom: 18px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      animation: glow 2s infinite alternate;
+    } 
+    /* --- Light Theme Styles for Privacy Page --- */
+body.light-theme {
+  background: #f5f5f5 !important;
+  color: #18122B !important;
+  min-height: 100vh;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: 'Roboto', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+/* Privacy container in light theme */
+body.light-theme .privacy-container {
+  background: #fff !important;
+  border-radius: 22px;
+  box-shadow: 0 8px 32px 0 #e0c3fc55, 0 0 32px #7b2ff244;
+  border: 2.5px solid #e0c3fc !important;
+  color: #18122B !important;
+}
+
+/* Title in light theme */
+body.light-theme .privacy-title,
+body.light-theme .about-title {
+  color: #7b2ff2 !important;
+  text-shadow: 0 2px 16px #e0c3fc88, 0 1px 0 #f357a8;
+}
+
+/* Section text in light theme */
+body.light-theme .privacy-section {
+  color: #18122B !important;
+}
+
+/* Headings in light theme */
+body.light-theme h2 {
+  color: #7b2ff2 !important;
+  text-shadow: 0 0 10px #e0c3fc;
+}
+
+/* Paragraphs in light theme */
+body.light-theme p {
+  color: #18122B !important;
+}
+
+/* Animated background shapes in light theme */
+body.light-theme .privacy-bg {
+  background: radial-gradient(circle, #e0c3fc 0%, #fff 80%) !important;
+  opacity: 0.13 !important;
+}
+
+body.light-theme .privacy-bg2 {
+  background: radial-gradient(circle, #7b2ff2 0%, #fff 80%) !important;
+  opacity: 0.09 !important;
+}
+
+/* Language switcher in light theme */
+body.light-theme .lang-switch {
+  background: #e0c3fc !important;
+  color: #18122B !important;
+  border: 2px solid #7b2ff2 !important;
+}
+
+body.light-theme .lang-switch:focus {
+  background: #7b2ff2 !important;
+  color: #fff !important;
+}
+
+/* Back button in light theme */
+body.light-theme .back-icon {
+  color: #18122B !important;
+  background: #fff !important;
+  border: 2.5px solid #e0c3fc !important;
+  box-shadow: 0 4px 16px #e0c3fc44;
+  margin-left: -1250px;
+}
+
+body.light-theme .back-icon:hover {
+  background: linear-gradient(135deg, #e0c3fc 60%, #7b2ff2 100%) !important;
+  color: #7b2ff2 !important;
+  box-shadow: 0 0 10px #e0c3fc88;
+}
+
+/* Highlight in light theme */
+body.light-theme .about-highlight {
+  color: #7b2ff2 !important;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+/* Responsive for mobile */
+@media (max-width: 700px) {
+  body.light-theme .privacy-container { padding: 28px 8px 24px 8px; }
+  body.light-theme .privacy-title,
+  body.light-theme .about-title { font-size: 2em; }
+  body.light-theme .privacy-section { font-size: 1em; }
+  body.light-theme .lang-switch { right: 10px; top: 10px; font-size: 0.95em; }
+}
+@media (max-width: 480px) {
+  body.light-theme .privacy-title,
+  body.light-theme .about-title { font-size: 1.3em; }
+  body.light-theme .privacy-section { font-size: 0.98em; }
+  body.light-theme .lang-switch { font-size: 0.9em; padding: 5px 8px;}
+}
+  </style>
+</head>
+<body>
+  <a href="index.html" class="back-icon" aria-label="Back to Home">
+    <i class="fas fa-arrow-left"></i> Back
+  </a>
+  <div class="privacy-container" role="main">
+    <select class="lang-switch" id="langSwitch" aria-label="Select Language">
+      <option value="en">English</option>
+      <option value="ur">اردو</option>
+      <option value="hi">Hindi</option>
+      <option value="fr">French</option>
+      <option value="es">Spanish</option>
+      <option value="de">German</option>
+      <option value="ja">Japanese</option>
+      <option value="ko">Korean</option>
+      <option value="ar">Arabic</option>
+      <option value="zh">Chinese</option>
+      <option value="ru">Russian</option>
+      <option value="tr">Turkish</option>
+      <option value="pt">Portuguese</option>
+    </select>
+    <div class="about-bg"></div>
+    <div class="about-bg2"></div>
+    <div class="about-title" id="aboutTitle">
+      <i class="fa-solid fa-gamepad"></i>Privacy Policy <span class="about-highlight">GAMES-VILA</span>
+    </div>
+    <section class="privacy-section" id="privacySection1">
+      <h2>Privacy Policy</h2>
+      <p>
+        Welcome to our Free Gaming Store. We value your privacy and are committed to protecting your personal information. This policy explains how we collect, use, and safeguard your data when you use our website.
+      </p>
+    </section>
+    <section class="privacy-section" id="privacySection2">
+      <h2>Information We Collect</h2>
+      <p>
+        We collect information you provide directly to us, such as when you create an account, make a purchase, or contact customer support. We also collect data automatically through cookies and similar technologies to improve your experience.
+      </p>
+    </section>
+    <section class="privacy-section" id="privacySection3">
+      <h2>How We Use Your Information</h2>
+      <p>
+        Your information helps us provide, maintain, and improve our services, process transactions, communicate with you, and protect against fraud and abuse.
+      </p>
+    </section>
+    <section class="privacy-section" id="privacySection4">
+      <h2>Sharing of Information</h2>
+      <p>
+        We do not sell your personal information. We may share information with trusted third parties who assist us in operating our website and services, subject to confidentiality agreements.
+      </p>
+    </section>
+    <section class="privacy-section" id="privacySection5">
+      <h2>Security</h2>
+      <p>
+        We implement industry-standard security measures to protect your information from unauthorized access, alteration, disclosure, or destruction.
+      </p>
+    </section>
+    <section class="privacy-section" id="privacySection6">
+      <h2>Policy Updates</h2>
+      <p>
+        We may update this privacy policy from time to time. Changes will be posted on this page with an updated revision date.
+      </p>
+    </section>
+  </div>
+  <script>
+    const privacyContent = {
+      en: {
+        title: "Privacy Policy | GAMES-VILA",
+        sections: [
+          "Welcome to our Free Gaming Store. We value your privacy and are committed to protecting your personal information. This policy explains how we collect, use, and safeguard your data when you use our website.",
+          "We collect information you provide directly to us, such as when you create an account, make a purchase, or contact customer support. We also collect data automatically through cookies and similar technologies to improve your experience.",
+          "Your information helps us provide, maintain, and improve our services, process transactions, communicate with you, and protect against fraud and abuse.",
+          "We do not sell your personal information. We may share information with trusted third parties who assist us in operating our website and services, subject to confidentiality agreements.",
+          "We implement industry-standard security measures to protect your information from unauthorized access, alteration, disclosure, or destruction.",
+          "We may update this privacy policy from time to time. Changes will be posted on this page with an updated revision date."
+        ]
+      },
+      ur: {
+        title: "رازداری کی پالیسی | GAMES-VILA",
+        sections: [
+          "ہمارے فری گیمنگ اسٹور میں خوش آمدید۔ ہم آپ کی رازداری کی قدر کرتے ہیں اور آپ کی ذاتی معلومات کے تحفظ کے لیے پرعزم ہیں۔ یہ پالیسی وضاحت کرتی ہے کہ جب آپ ہماری ویب سائٹ استعمال کرتے ہیں تو ہم آپ کے ڈیٹا کو کیسے جمع، استعمال اور محفوظ کرتے ہیں۔",
+          "ہم وہ معلومات جمع کرتے ہیں جو آپ ہمیں براہ راست فراہم کرتے ہیں، جیسے جب آپ اکاؤنٹ بناتے ہیں، خریداری کرتے ہیں، یا کسٹمر سپورٹ سے رابطہ کرتے ہیں۔ ہم آپ کے تجربے کو بہتر بنانے کے لیے کوکیز اور اسی طرح کی ٹیکنالوجیز کے ذریعے خودکار طور پر ڈیٹا بھی جمع کرتے ہیں۔",
+          "آپ کی معلومات ہمیں اپنی خدمات فراہم کرنے، برقرار رکھنے اور بہتر بنانے، لین دین کو پروسیس کرنے، آپ سے بات چیت کرنے، اور فراڈ اور بدسلوکی سے بچانے میں مدد دیتی ہے۔",
+          "ہم آپ کی ذاتی معلومات فروخت نہیں کرتے۔ ہم قابل اعتماد تیسرے فریقوں کے ساتھ معلومات کا اشتراک کر سکتے ہیں جو ہماری ویب سائٹ اور خدمات کو چلانے میں ہماری مدد کرتے ہیں، رازداری کے معاہدوں کے تابع۔",
+          "ہم آپ کی معلومات کو غیر مجاز رسائی، تبدیلی، انکشاف، یا تباہی سے بچانے کے لیے صنعت کے معیاری حفاظتی اقدامات نافذ کرتے ہیں۔",
+          "ہم وقتاً فوقتاً اس رازداری کی پالیسی کو اپ ڈیٹ کر سکتے ہیں۔ تبدیلیاں اس صفحہ پر ایک تازہ کاری شدہ نظرثانی کی تاریخ کے ساتھ پوسٹ کی جائیں گی۔"
+        ]
+      },
+      hi: {
+        title: "गोपनीयता नीति | GAMES-VILA",
+        sections: [
+          "हमारे फ्री गेमिंग स्टोर में आपका स्वागत है। हम आपकी गोपनीयता का सम्मान करते हैं और आपकी व्यक्तिगत जानकारी की सुरक्षा के लिए प्रतिबद्ध हैं। यह नीति बताती है कि हम आपकी वेबसाइट उपयोग के दौरान आपके डेटा को कैसे एकत्रित, उपयोग और सुरक्षित करते हैं।",
+          "हम वह जानकारी एकत्रित करते हैं जो आप सीधे हमें प्रदान करते हैं, जैसे कि जब आप खाता बनाते हैं, खरीदारी करते हैं, या ग्राहक सहायता से संपर्क करते हैं। हम आपकी अनुभव को बेहतर बनाने के लिए कुकीज़ और समान तकनीकों के माध्यम से स्वचालित रूप से डेटा भी एकत्रित करते हैं।",
+          "आपकी जानकारी हमें हमारी सेवाओं को प्रदान, बनाए रखने और सुधारने, लेनदेन को संसाधित करने, आपसे संवाद करने, और धोखाधड़ी और दुरुपयोग से बचाने में मदद करती है।",
+          "हम आपकी व्यक्तिगत जानकारी नहीं बेचते हैं। हम विश्वसनीय तीसरे पक्षों के साथ जानकारी साझा कर सकते हैं जो हमारी वेबसाइट और सेवाओं को संचालित करने में हमारी सहायता करते हैं, गोपनीयता समझौतों के अधीन।",
+          "हम आपकी जानकारी को अनधिकृत पहुंच, परिवर्तन, प्रकटीकरण या विनाश से बचाने के लिए उद्योग-मानक सुरक्षा उपाय लागू करते हैं।",
+          "हम समय-समय पर इस गोपनीयता नीति को अपडेट कर सकते हैं। परिवर्तन इस पृष्ठ पर एक अपडेटेड संशोधन तिथि के साथ पोस्ट किए जाएंगे।"
+        ]
+      },
+      fr: {
+        title: "Politique de Confidentialité | GAMES-VILA",
+        sections: [
+          "Bienvenue dans notre Boutique de Jeux Gratuits. Nous respectons votre vie privée et nous nous engageons à protéger vos informations personnelles. Cette politique explique comment nous collectons, utilisons et protégeons vos données lorsque vous utilisez notre site.",
+          "Nous collectons les informations que vous nous fournissez directement, comme lorsque vous créez un compte, effectuez un achat ou contactez le support client. Nous collectons également des données automatiquement via des cookies et technologies similaires pour améliorer votre expérience.",
+          "Vos informations nous aident à fournir, maintenir et améliorer nos services, traiter les transactions, communiquer avec vous et protéger contre la fraude et les abus.",
+          "Nous ne vendons pas vos informations personnelles. Nous pouvons partager des informations avec des tiers de confiance qui nous aident à exploiter notre site et services, sous réserve d'accords de confidentialité.",
+          "Nous mettons en œuvre des mesures de sécurité standard pour protéger vos informations contre tout accès, altération, divulgation ou destruction non autorisés.",
+          "Nous pouvons mettre à jour cette politique de confidentialité de temps à autre. Les modifications seront publiées sur cette page avec une date de révision mise à jour."
+        ]
+      },
+      es: {
+        title: "Política de Privacidad | GAMES-VILA",
+        sections: [
+          "Bienvenido a nuestra Tienda de Juegos Gratis. Valoramos su privacidad y estamos comprometidos a proteger su información personal. Esta política explica cómo recopilamos, usamos y protegemos sus datos cuando utiliza nuestro sitio web.",
+          "Recopilamos información que usted nos proporciona directamente, como cuando crea una cuenta, realiza una compra o contacta con el soporte al cliente. También recopilamos datos automáticamente a través de cookies y tecnologías similares para mejorar su experiencia.",
+          "Su información nos ayuda a proporcionar, mantener y mejorar nuestros servicios, procesar transacciones, comunicarnos con usted y proteger contra fraudes y abusos.",
+          "No vendemos su información personal. Podemos compartir información con terceros de confianza que nos ayudan a operar nuestro sitio web y servicios, sujetos a acuerdos de confidencialidad.",
+          "Implementamos medidas de seguridad estándar de la industria para proteger su información contra acceso no autorizado, alteración, divulgación o destrucción.",
+          "Podemos actualizar esta política de privacidad de vez en cuando. Los cambios se publicarán en esta página con una fecha de revisión actualizada."
+        ]
+      },
+      de: {
+        title: "Datenschutzrichtlinie | GAMES-VILA",
+        sections: [
+          "Willkommen in unserem kostenlosen Gaming-Store. Wir schätzen Ihre Privatsphäre und verpflichten uns, Ihre persönlichen Daten zu schützen. Diese Richtlinie erklärt, wie wir Ihre Daten sammeln, verwenden und schützen, wenn Sie unsere Website nutzen.",
+          "Wir sammeln Informationen, die Sie uns direkt zur Verfügung stellen, z. B. wenn Sie ein Konto erstellen, einen Kauf tätigen oder den Kundensupport kontaktieren. Wir sammeln auch automatisch Daten durch Cookies und ähnliche Technologien, um Ihre Erfahrung zu verbessern.",
+          "Ihre Informationen helfen uns, unsere Dienste bereitzustellen, zu warten und zu verbessern, Transaktionen zu verarbeiten, mit Ihnen zu kommunizieren und Betrug und Missbrauch zu verhindern.",
+          "Wir verkaufen Ihre persönlichen Daten nicht. Wir können Informationen mit vertrauenswürdigen Dritten teilen, die uns bei der Verwaltung unserer Website und Dienste unterstützen, vorbehaltlich von Vertraulichkeitsvereinbarungen.",
+          "Wir setzen branchenübliche Sicherheitsmaßnahmen ein, um Ihre Informationen vor unbefugtem Zugriff, Änderung, Offenlegung oder Zerstörung zu schützen.",
+          "Wir können diese Datenschutzrichtlinie von Zeit zu Zeit aktualisieren. Änderungen werden auf dieser Seite mit einem aktualisierten Revisionsdatum veröffentlicht."
+        ]
+      },
+      ar: {
+        title: "سياسة الخصوصية | GAMES-VILA",
+        sections: [
+          "مرحبًا بكم في متجر الألعاب المجاني الخاص بنا. نحن نقدر خصوصيتك ونلتزم بحماية معلوماتك الشخصية. تشرح هذه السياسة كيفية جمع بياناتك واستخدامها وحمايتها عند استخدام موقعنا.",
+          "نجمع المعلومات التي تقدمها لنا مباشرة، مثل عند إنشاء حساب أو إجراء عملية شراء أو الاتصال بدعم العملاء. نجمع أيضًا البيانات تلقائيًا من خلال ملفات تعريف الارتباط وتقنيات مماثلة لتحسين تجربتك.",
+          "تساعدنا معلوماتك في تقديم خدماتنا وصيانتها وتحسينها، ومعالجة المعاملات، والتواصل معك، والحماية من الاحتيال وسوء الاستخدام.",
+          "نحن لا نبيع معلوماتك الشخصية. قد نشارك المعلومات مع أطراف ثالثة موثوق بها تساعدنا في تشغيل موقعنا وخدماتنا، وذلك بموجب اتفاقيات السرية.",
+          "نطبق تدابير أمان قياسية في الصناعة لحماية معلوماتك من الوصول أو التغيير أو الكشف أو التدمير غير المصرح به.",
+          "قد نقوم بتحديث سياسة الخصوصية هذه من وقت لآخر. سيتم نشر التغييرات على هذه الصفحة مع تاريخ مراجعة محدث."
+        ]
+      },
+      zh: {
+        title: "隐私政策 | GAMES-VILA",
+        sections: [
+          "欢迎来到我们的免费游戏商店。我们重视您的隐私，致力于保护您的个人信息。本政策说明了当您使用我们的网站时，我们如何收集、使用和保护您的数据。",
+          "我们收集您直接提供的信息，例如您创建账户、购买或联系客户支持时。我们还通过cookie和类似技术自动收集数据，以改善您的体验。",
+          "您的信息帮助我们提供、维护和改进我们的服务，处理交易，与您沟通，并防止欺诈和滥用。",
+          "我们不出售您的个人信息。我们可能会与协助我们运营网站和服务的可信第三方共享信息，受保密协议约束。",
+          "我们实施行业标准的安全措施，保护您的信息免受未经授权的访问、更改、披露或破坏。",
+          "我们可能会不时更新本隐私政策。更改将发布在本页面，并附有更新的修订日期。"
+        ]
+      },
+      ru: {
+        title: "Политика конфиденциальности | GAMES-VILA",
+        sections: [
+          "Добро пожаловать в наш бесплатный игровой магазин. Мы ценим вашу конфиденциальность и обязуемся защищать вашу личную информацию. В этой политике объясняется, как мы собираем, используем и защищаем ваши данные при использовании нашего сайта.",
+          "Мы собираем информацию, которую вы предоставляете нам напрямую, например, когда вы создаете учетную запись, совершаете покупку или обращаетесь в службу поддержки. Мы также автоматически собираем данные с помощью файлов cookie и аналогичных технологий для улучшения вашего опыта.",
+          "Ваша информация помогает нам предоставлять, поддерживать и улучшать наши услуги, обрабатывать транзакции, общаться с вами и защищать от мошенничества и злоупотреблений.",
+          "Мы не продаем вашу личную информацию. Мы можем делиться информацией с доверенными третьими сторонами, которые помогают нам управлять нашим сайтом и услугами, при условии соблюдения соглашений о конфиденциальности.",
+          "Мы применяем стандартные меры безопасности для защиты вашей информации от несанкционированного доступа, изменения, раскрытия или уничтожения.",
+          "Мы можем время от времени обновлять эту политику конфиденциальности. Изменения будут размещены на этой странице с обновленной датой пересмотра."
+        ]
+      },
+      tr: {
+        title: "Gizlilik Politikası | GAMES-VILA",
+        sections: [
+          "Ücretsiz Oyun Mağazamıza hoş geldiniz. Gizliliğinize değer veriyoruz ve kişisel bilgilerinizi korumaya kararlıyız. Bu politika, web sitemizi kullandığınızda verilerinizi nasıl topladığımızı, kullandığımızı ve koruduğumuzu açıklar.",
+          "Hesap oluşturduğunuzda, satın alma yaptığınızda veya müşteri desteği ile iletişime geçtiğinizde doğrudan sağladığınız bilgileri toplarız. Ayrıca deneyiminizi geliştirmek için çerezler ve benzer teknolojiler aracılığıyla otomatik olarak veri toplarız.",
+          "Bilgileriniz, hizmetlerimizi sağlamak, sürdürmek ve geliştirmek, işlemleri işlemek, sizinle iletişim kurmak ve dolandırıcılık ve kötüye kullanımı önlemek için bize yardımcı olur.",
+          "Kişisel bilgilerinizi satmıyoruz. Web sitemizi ve hizmetlerimizi işletmemize yardımcı olan güvenilir üçüncü taraflarla bilgileri gizlilik anlaşmaları kapsamında paylaşabiliriz.",
+          "Bilgilerinizi yetkisiz erişim, değişiklik, ifşa veya imhaya karşı korumak için endüstri standardı güvenlik önlemleri uygularız.",
+          "Bu gizlilik politikasını zaman zaman güncelleyebiliriz. Değişiklikler, güncellenmiş bir revizyon tarihi ile bu sayfada yayınlanacaktır."
+        ]
+      },
+      pt: {
+        title: "Politica de Privacidade | GAMES-VILA",
+        sections: [
+          "Bem-vindo à nossa Loja de Jogos Gratuitos. Valorizamos sua privacidade e estamos comprometidos em proteger suas informações pessoais. Esta política explica como coletamos, usamos e protegemos seus dados quando você usa nosso site.",
+          "Coletamos informações que você nos fornece diretamente, como quando cria uma conta, faz uma compra ou entra em contato com o suporte ao cliente. Também coletamos dados automaticamente por meio de cookies e tecnologias semelhantes para melhorar sua experiência.",
+          "Suas informações nos ajudam a fornecer, manter e melhorar nossos serviços, processar transações, nos comunicar com você e proteger contra fraudes e abusos.",
+          "Não vendemos suas informações pessoais. Podemos compartilhar informações com terceiros confiáveis que nos ajudam a operar nosso site e serviços, sujeitos a acordos de confidencialidade.",
+          "Implementamos medidas de segurança padrão do setor para proteger suas informações contra acesso, alteração, divulgação ou destruição não autorizados.",
+          "Podemos atualizar esta política de privacidade de tempos em tempos. As alterações serão publicadas nesta página com uma data de revisão atualizada."
+        ]
+      },
+      ja: {
+        title: "プライバシーポリシー | GAMES-VILA",
+        sections: [
+          "無料ゲームストアへようこそ。私たちはあなたのプライバシーを大切にし、個人情報の保護に努めています。このポリシーでは、ウェブサイトを使用する際にデータをどのように収集、使用、保護するかを説明します。",
+          "アカウントを作成したり、購入したり、カスタマーサポートに連絡したりする際に直接提供される情報を収集します。また、クッキーや同様の技術を通じて自動的にデータを収集し、体験を向上させます。",
+          "あなたの情報は、サービスの提供、維持、改善、取引の処理、コミュニケーション、および詐欺や悪用からの保護に役立ちます。",
+          "個人情報は販売しません。信頼できる第三者と情報を共有することがありますが、それらは機密保持契約に基づいています。",
+          "業界標準のセキュリティ対策を実施し、不正アクセス、変更、開示、または破壊から情報を保護します。",
+          "このプライバシーポリシーは随時更新されることがあります。変更はこのページに更新された改訂日とともに掲載されます。"
+        ]
+      },
+      ko:{
+        title: "개인정보 처리방침 | GAMES-VILA",
+        sections: [
+          "무료 게임 스토어에 오신 것을 환영합니다. 개인 정보 보호를 중요하게 생각하며 귀하의 개인 정보를 보호하기 위해 최선을 다하고 있습니다. 이 정책은 웹사이트를 사용할 때 데이터를 수집, 사용 및 보호하는 방법을 설명합니다.",
+          "계정을 생성하거나 구매를 하거나 고객 지원에 연락할 때 직접 제공하는 정보를 수집합니다. 또한 쿠키 및 유사한 기술을 통해 자동으로 데이터를 수집하여 귀하의 경험을 개선합니다.",
+          "귀하의 정보는 서비스 제공, 유지 및 개선, 거래 처리, 커뮤니케이션 및 사기 및 남용 방지에 도움이 됩니다.",
+          "개인 정보를 판매하지 않습니다. 신뢰할 수 있는 제3자와 정보를 공유할 수 있으며, 이는 기밀 유지 계약에 따라 운영됩니다.",
+          "업계 표준 보안 조치를 구현하여 무단 액세스, 변경, 공개 또는 파괴로부터 귀하의 정보를 보호합니다.",
+          "이 개인정보 보호 정책은 수시로 업데이트될 수 있습니다. 변경 사항은 이 페이지에 업데이트된 개정 날짜와 함께 게시됩니다."
+        ]
+      }
+
+    };
+
+    // Language display names mapping
+    const languageNames = {
+      'en': 'English',
+      'zh': 'Chinese',
+      'ja': 'Japanese',
+      'ar': 'Arabic',
+      'es': 'Spanish',
+      'tr': 'Turkish',
+      'fr': 'French',
+      'ru': 'Russian',
+      'de': 'German',
+      'hi': 'Hindi',
+      'pt': 'Portuguese',
+      'ko': 'Korean',
+      'ur': 'Urdu'
+    };
+
+    function setLangFromStorage() {
+      const lang = localStorage.getItem('site-lang') || 'en';
+      document.getElementById('langSwitch').value = lang;
+      setPrivacyLang(lang);
+    }
+
+    function setPrivacyLang(lang) {
+      const content = privacyContent[lang] || privacyContent['en'];
+      document.getElementById('aboutTitle').textContent = content.title;
+      for (let i = 1; i <= content.sections.length; i++) {
+        const section = document.getElementById('privacySection' + i);
+        if (section) {
+          section.querySelector('p').innerHTML = content.sections[i - 1];
+        }
+      }
+      // RTL for Arabic/Urdu
+      if (lang === 'ar' || lang === 'ur') {
+        document.body.dir = 'rtl';
+      } else {
+        document.body.dir = 'ltr';
+      }
+    }
+
+    document.getElementById('langSwitch').addEventListener('change', function () {
+      const lang = this.value;
+      localStorage.setItem('site-lang', lang);
+      setPrivacyLang(lang);
+    });
+
+    setLangFromStorage();
+  </script>
+  <script src="js/theme-sync.js"></script>
+</body>
+</html>

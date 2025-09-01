@@ -1,0 +1,28 @@
+{
+  "name": "games-realm-oauth",
+  "version": "1.0.0",
+  "description": "OAuth server for Games Realm login system",
+  "main": "oauth-server.js",
+  "scripts": {
+    "start": "node --watch oauth-server.js",
+    "dev": "node oauth-server.js"
+  },
+  "dependencies": {
+    "axios": "^1.11.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.21.2",
+    "nodemailer": "^6.9.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "keywords": [
+    "oauth",
+    "google",
+    "login",
+    "authentication"
+  ],
+  "author": "Games Realm",
+  "license": "MIT"
+}

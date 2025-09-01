@@ -1,0 +1,2368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    </style>
+    <link rel="stylesheet" href="css/theme-toggle.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>GamesRealm</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
+    <link rel="icon" type="image/png" sizes="64x64" href="images/logo.png">
+    <link rel="icon" type="image/png" sizes="128x128" href="images/logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/logo.png">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css"/>
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"rel="stylesheet"/>
+    <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/search-bar.css">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Parastoo:wght@400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* ...existing styles... */
+  </style>
+
+</head>
+<body>   
+  <div class="top-icons-bar" id="top-icons-bar">
+  <!--toggle theme start-->
+    <div style="display:flex;align-items:center;gap:16px;position:absolute;top: 20px;right: 20px;z-index:1201;">
+  <!-- Theme Toggle Icon -->
+  <label for="light-switch" class="inline-flex shrink-0 justify-center items-center h-10 w-10 font-medium rounded-full cursor-pointer" style="margin:0;">
+    <input type="checkbox" id="light-switch" style="display:none;">
+    <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="26" height="26">
+      <circle cx="12" cy="12" r="5" fill="#000"/>
+      <g stroke="#000" stroke-width="2">
+        <line x1="12" y1="1" x2="12" y2="4"/>
+        <line x1="12" y1="20" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="4" y2="12"/>
+        <line x1="20" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </g>
+    </svg>
+  </label>
+  <i onclick="showsidebar()" id="bar" class="ri-menu-3-line" style="font-size:2.5rem; cursor:pointer;color:#000;font-weight: bold; margin-top: -12px;margin-left: 60%;"></i>
+<!-- Profile Icon with Dropdown Menu -->
+<div class="profile-icon" style="display:flex;align-items:center;position:relative;">
+  <div title="Profile" id="profile-link" style="
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#f357a8 0%,#7b2ff2 100%);
+    box-shadow: 0 2px 12px #7b2ff255;
+    color: #fff;
+    font-size: 1.35rem;
+    transition: transform 0.15s, box-shadow 0.15s;
+    text-decoration: none;
+    margin-left: 2px;
+    overflow: hidden;
+    padding: 0;
+    position: relative;
+    cursor: pointer;
+  "
+  onmouseover="this.style.transform='scale(1.12)';this.style.boxShadow='0 4px 18px #7b2ff299';"
+  onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 2px 12px #7b2ff255';">
+    <img id="profile-pic" src="" alt="Profile" style="
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2.5px solid #fff;
+      box-shadow: 0 0 0 2.5px #7b2ff2, 0 2px 12px #7b2ff255;
+      display: none;
+      background: #eee;
+      position: relative;
+      z-index: 2;
+      margin-top: 1%;
+      margin-left: -1px;
+    ">
+    <i class="fa fa-user" id="profile-default-icon" style="font-size:1.35rem;z-index:1;"></i>
+  </div>
+  <!-- Dropdown Menu -->
+  <div id="profile-dropdown" style="
+  display:none;
+  position:absolute;
+  top:48px;
+  right:0;
+  background:#fff;
+  border-radius:10px;
+  box-shadow:0 4px 24px #7b2ff233;
+  min-width:140px;
+  overflow:hidden;
+  z-index:100;
+">
+  <a href="my profile.html" style="display:block;padding:12px 18px;color:#222;text-decoration:none;font-weight:500;border-bottom:1px solid #eee;">My Profile</a>
+  <a href="setting.html" style="display:block;padding:12px 18px;color:#222;text-decoration:none;font-weight:500;border-bottom:1px solid #eee;">Setting</a>
+  <button onclick="logoutProfile()" style="display:block;width:100%;padding:12px 18px;background:none;border:none;text-align:left;color:#f357a8;font-weight:600;cursor:pointer;">Logout</button>
+</div>
+</div>
+</div>
+
+<script>
+function setAnimatedBorder(el, type = "neon") {
+  el.style.border = "3.5px solid transparent";
+  if (type === "neon") {
+    el.style.background = "linear-gradient(270deg,#f357a8,#7b2ff2,#00eaff,#f357a8)";
+    el.style.backgroundSize = "400% 400%";
+    el.style.animation = "borderAnim 2.5s linear infinite";
+    el.style.boxShadow = "0 0 16px #7b2ff2, 0 0 32px #f357a8";
+  } else if (type === "rainbow") {
+    el.style.background = "linear-gradient(270deg,#ff0080,#7928ca,#00eaff,#ff0080)";
+    el.style.backgroundSize = "400% 400%";
+    el.style.animation = "rainbowAnim 2.5s linear infinite";
+    el.style.boxShadow = "0 0 24px #ff0080, 0 0 32px #00eaff";
+  }
+}
+function removeAnimatedBorder(el) {
+  el.style.animation = "";
+  el.style.background = "";
+  el.style.boxShadow = "";
+}
+
+function getFrameBorder(frame, el) {
+  if (frame === "animated-gradient") {
+    setAnimatedBorder(el, "neon");
+    return "3.5px solid transparent";
+  }
+  if (frame === "animated-rainbow") {
+    setAnimatedBorder(el, "rainbow");
+    return "3.5px solid transparent";
+  }
+  removeAnimatedBorder(el);
+  if (!frame) return "#7b2ff2";
+  if (frame.startsWith("conic-gradient") || frame.startsWith("radial-gradient") || frame.startsWith("linear-gradient")) {
+    el.style.background = frame;
+    el.style.boxShadow = "0 0 12px #0008";
+    return "3.5px solid transparent";
+  }
+  const match = frame.match(/#([0-9a-fA-F]{3,8})/);
+  return match ? `3.5px solid ${match[0]}` : "3.5px solid #7b2ff2";
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  var img = document.getElementById('profile-pic');
+  var icon = document.getElementById('profile-default-icon');
+  var dropdown = document.getElementById('profile-dropdown');
+  var profileIcon = document.querySelector('.profile-icon');
+  var profileLink = document.getElementById('profile-link');
+const email = localStorage.getItem('last_login_email');
+let user = email ? localStorage.getItem('user_' + email) : null;
+let userObj = user ? JSON.parse(user) : {};
+let frameIndex = 0;
+if (localStorage.getItem('profileFrameIndex')) {
+  frameIndex = parseInt(localStorage.getItem('profileFrameIndex'), 10);
+} else if (typeof userObj.frameIndex === 'number') {
+  frameIndex = userObj.frameIndex;
+}
+  var pic = null;
+  if (email) {
+    user = localStorage.getItem('user_' + email);
+    if (user) {
+      try {
+        userObj = JSON.parse(user);
+        pic = userObj.profilePic;
+      } catch(e) {}
+    }
+  }
+  if (pic) {
+    img.src = pic;
+    img.style.display = 'block';
+    icon.style.display = 'none';
+  } else {
+    img.style.display = 'none';
+    icon.style.display = 'block';
+  }
+
+  // Frame apply karo (animated/gradient bhi)
+  var frame = localStorage.getItem('profileFrame');
+  if (frame && img) {
+    img.style.border = getFrameBorder(frame, img);
+  } else if(img) {
+    img.style.border = "3.5px solid #7b2ff2";
+    removeAnimatedBorder(img);
+  }
+
+  // Dropdown open/close logic
+  function toggleProfileDropdown(e) {
+    e.stopPropagation();
+    if (dropdown.style.display === "block") {
+      dropdown.style.display = "none";
+    } else {
+      dropdown.style.display = "block";
+    }
+  }
+
+  // Profile icon click logic
+  profileLink.onclick = function(e) {
+    e.stopPropagation();
+    // Agar user login nahi hai to login.html par bhej do
+    if (img.style.display === 'none') {
+      window.location.href = "login.html";
+    } else {
+      toggleProfileDropdown(e);
+    }
+  };
+
+  // Click outside to close
+  document.addEventListener('click', function(e) {
+    if (!profileIcon.contains(e.target)) {
+      dropdown.style.display = "none";
+    }
+  });
+});
+
+// Dropdown show/hide
+function toggleProfileDropdown(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('profile-dropdown');
+  dd.style.display = dd.style.display === 'block' ? 'none' : 'block';
+}
+// Hide dropdown on outside click
+document.addEventListener('click', function() {
+  var dd = document.getElementById('profile-dropdown');
+  if(dd) dd.style.display = 'none';
+});
+// Logout logic
+function logoutProfile() {
+  localStorage.removeItem('last_login_email');
+  var img = document.getElementById('profile-pic');
+  var icon = document.getElementById('profile-default-icon');
+  if(img && icon) {
+    img.style.display = 'none';
+    icon.style.display = 'block';
+  }
+  var dd = document.getElementById('profile-dropdown');
+  if(dd) dd.style.display = 'none';
+}
+</script>
+  <!-- Profile Icon end -->  
+</div>  
+ <!--toggle theme end-->
+  <div class="container">
+        <nav class="navbar">
+            <ul class="sidebar">
+                <i onclick=hidesidebar() class="ri-close-line"></i>
+                <a id="active" href="#"><i class="ri-home-8-line"></i>Home</a>
+                <a href="#"><i class="ri-gamepad-line"></i>Games</a>
+                <a href="#" class="category-link"><i class="ri-android-line"></i>Category</a>
+                <div class="category-dropdown sidebar-dropdown">
+                    <a href="#" data-category="Action">Action</a>
+                    <a href="#" data-category="Racing">Racing</a>
+                    <a href="#" data-category="OpenWorld">Open World</a>
+                    <a href="#" data-category="Fighting">Fighting</a>
+                    <a href="#" data-category="Horror">Horror</a>
+                </div>
+                <a href="#"><i class="ri-contacts-book-2-line"></i>Contact</a>
+                <a href="#"><i class="ri-question-line"></i>About</a>
+                <span></span>
+            </ul> 
+    </nav>
+        <header>
+            <!-- Header logo -->
+<div class="logo">
+  <a href="index.html" class="logo-name footer-title">GAMES-REALM</a>
+</div>
+            <!-- Search Bar Start -->
+            <div class="search-bar-container">
+              <input type="text" id="search-input" placeholder="Search games..." autocomplete="off">
+              <div id="suggestions" class="suggestions-box"></div>
+            </div>
+
+            <button type="button" id="search-fab">
+              <span class="fab-bg" id="fab-bg">
+              <!-- Custom static SVG icon (from provided image) -->
+              <svg class="gaming-search-icon" width="48" height="48"  xmlns="http://www.w3.org/2000/svg" 578125" viewBox="0 0 460 512"><path fill="#000000" d="M220.6 130.3l-67.2 28.2V43.2L98.7 233.5l54.7-24.2v130.3l67.2-209.3zm-83.2-96.7l-1.3 4.7-15.2 52.9C80.6 106.7 52 145.8 52 191.5c0 52.3 34.3 95.9 83.4 105.5v53.6C57.5 340.1 0 272.4 0 191.6c0-80.5 59.8-147.2 137.4-158zm311.4 447.2c-11.2 11.2-23.1 12.3-28.6 10.5-5.4-1.8-27.1-19.9-60.4-44.4-33.3-24.6-33.6-35.7-43-56.7-9.4-20.9-30.4-42.6-57.5-52.4l-9.7-14.7c-24.7 16.9-53 26.9-81.3 28.7l2.1-6.6 15.9-49.5c46.5-11.9 80.9-54 80.9-104.2 0-54.5-38.4-102.1-96-107.1V32.3C254.4 37.4 320 106.8 320 191.6c0 33.6-11.2 64.7-29 90.4l14.6 9.6c9.8 27.1 31.5 48 52.4 57.4s32.2 9.7 56.8 43c24.6 33.2 42.7 54.9 44.5 60.3s.7 17.3-10.5 28.5zm-9.9-17.9c0-4.4-3.6-8-8-8s-8 3.6-8 8 3.6 8 8 8 8-3.6 8-8z"/></svg>
+            </button> 
+          </span>
+        </header>  
+        <nav class="navbar">
+        <div class="navbar-container">
+            <ul class="navbar-menu">
+                <a href="index.html">Home</a>
+                <a href="index.html">Games</a>
+                <a href="#" class="category-link">Category</a>
+                <div class="category-dropdown navbar-dropdown">
+                    <a href="#" data-category="Action">Action</a>
+                    <a href="#" data-category="Racing">Racing</a>
+                    <a href="#" data-category="OpenWorld">Open World</a>
+                    <a href="#" data-category="Fighting">Fighting</a>
+                    <a href="#" data-category="Horror">Horror</a>
+                </div>
+                <a href="contact.html">Contact</a>
+                <a href="about us.html">About</a>
+                <span></span>
+            </ul>
+        </div>
+    </nav>
+        <nav class="navbar">
+        <div class="navbar-container">
+            <ul class="navbar-menu">
+                <a href="index.html">Home</a>
+                <a href="index.html">Games</a>
+                <a href="#" class="category-link">Category</a>
+                <div class="category-dropdown navbar-dropdown">
+                    <a href="#" data-category="Action">Action</a>
+                    <a href="#" data-category="Racing">Racing</a>
+                    <a href="#" data-category="OpenWorld">Open World</a>
+                    <a href="#" data-category="Fighting">Fighting</a>
+                    <a href="#" data-category="Horror">Horror</a>
+                </div>
+                <a href="contact.html">Contact</a>
+                <a href="about us.html">About</a>
+                <span></span>
+            </ul>
+        </div>
+    </nav>
+
+<!-- Search logic moved to js/search.js -->
+<script src="js/search.js"></script>
+<!-- Category filter logic -->
+<script src="js/category-filter.js"></script>
+<div id="theme-toggle-placeholder" style="display: none;"></div>
+<script>
+  fetch('theme-toggle.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('theme-toggle-placeholder').innerHTML = html;
+      // Yahan JS ko run karo, taki toggle DOM me ho
+      initThemeToggle();
+    });
+
+  // Yeh function ab global hona chahiye, theme-toggle.js me bhi aise hi likho:
+  function initThemeToggle() {
+    const switchInput = document.getElementById('light-switch');
+    const themeIcon = document.getElementById('theme-icon');
+    const body = document.body;
+
+    if (!switchInput || !themeIcon) {
+      setTimeout(initThemeToggle, 100); // Wait and try again
+      return;
+    }
+
+    function setTheme(isDark) {
+      if (isDark) {
+        body.classList.add('dark-theme');
+        body.classList.remove('light-theme');
+        themeIcon.innerHTML = `
+          <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 1 0 9.79 9.79z" fill="#000"/>
+        `;
+      } else {
+        body.classList.remove('dark-theme');
+        body.classList.add('light-theme');
+        themeIcon.innerHTML = `
+          <circle cx="12" cy="12" r="5" fill="#000"/>
+          <g stroke="#000" stroke-width="2">
+            <line x1="12" y1="1" x2="12" y2="4"/>
+            <line x1="12" y1="20" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="4" y2="12"/>
+            <line x1="20" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </g>
+        `;
+      }
+    }
+
+    let isDark = localStorage.getItem('theme') === 'dark-theme';
+    switchInput.checked = isDark;
+    setTheme(isDark);
+
+    switchInput.addEventListener('change', function () {
+      isDark = switchInput.checked;
+      setTheme(isDark);
+      localStorage.setItem('theme', isDark ? 'dark-theme' : 'light-theme');
+    });
+
+    const label = switchInput.closest('label');
+    if (label) {
+      label.addEventListener('click', function (e) {
+        if (e.target === switchInput) return;
+        switchInput.checked = !switchInput.checked;
+        switchInput.dispatchEvent(new Event('change'));
+      });
+    }
+  }
+</script>
+<script src="js/theme-toggle.js"></script>
+</div>
+<!--end nav-->
+
+<!-- Hero Game Slider -->
+<div class="hero-slider-container">
+  <div class="hero-slider">
+    <!-- Slide 1: GTA V -->
+    <div class="slide active" data-bg="images/gta-v-2452361.webp">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="game-info">
+          <span class="game-category">Open World</span>
+          <h1 class="game-title">Grand Theft Auto V</h1>
+          <p class="game-description">Experience the award-winning open world action-adventure game that takes you to the sprawling city of Los Santos.</p>
+          <div class="game-details">
+            <div class="detail-item">
+              <i class="fa fa-hdd-o"></i>
+              <span>Storage: 72 GB</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-star"></i>
+              <span>Rating: 9.5/10</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-calendar"></i>
+              <span>Release: 2013</span>
+            </div>
+          </div>
+          <div class="game-actions">
+            <button class="download-btn primary">
+              <i class="fa fa-download"></i>
+              <span>Download Now</span>
+            </button>
+            <button class="info-btn secondary">
+              <i class="fa fa-info-circle"></i>
+              <span>More Info</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Fortnite -->
+    <div class="slide" data-bg="images/fort.jpeg">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="game-info">
+          <span class="game-category">Battle Royale</span>
+          <h1 class="game-title">Fortnite</h1>
+          <p class="game-description">Drop into the ultimate battle royale experience with building mechanics and intense 100-player battles.</p>
+          <div class="game-details">
+            <div class="detail-item">
+              <i class="fa fa-hdd-o"></i>
+              <span>Storage: 26 GB</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-star"></i>
+              <span>Rating: 8.5/10</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-calendar"></i>
+              <span>Release: 2017</span>
+            </div>
+          </div>
+          <div class="game-actions">
+            <button class="download-btn primary">
+              <i class="fa fa-download"></i>
+              <span>Download Now</span>
+            </button>
+            <button class="info-btn secondary">
+              <i class="fa fa-info-circle"></i>
+              <span>More Info</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Call of Duty -->
+    <div class="slide" data-bg="images/call of duty black ops 3.jpg">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="game-info">
+          <span class="game-category">FPS Shooter</span>
+          <h1 class="game-title">Call of Duty</h1>
+          <p class="game-description">Engage in intense first-person shooter combat with cinematic campaigns and multiplayer warfare.</p>
+          <div class="game-details">
+            <div class="detail-item">
+              <i class="fa fa-hdd-o"></i>
+              <span>Storage: 175 GB</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-star"></i>
+              <span>Rating: 9.0/10</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-calendar"></i>
+              <span>Release: 2020</span>
+            </div>
+          </div>
+          <div class="game-actions">
+            <button class="download-btn primary">
+              <i class="fa fa-download"></i>
+              <span>Download Now</span>
+            </button>
+            <button class="info-btn secondary">
+              <i class="fa fa-info-circle"></i>
+              <span>More Info</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Forza Motorsport -->
+    <div class="slide" data-bg="images/forza motorspot.webp">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="game-info">
+          <span class="game-category">Racing</span>
+          <h1 class="game-title">Forza Motorsport</h1>
+          <p class="game-description">Experience the thrill of racing with stunning graphics and realistic physics in the ultimate racing simulator.</p>
+          <div class="game-details">
+            <div class="detail-item">
+              <i class="fa fa-hdd-o"></i>
+              <span>Storage: 66 GB</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-star"></i>
+              <span>Rating: 8.8/10</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-calendar"></i>
+              <span>Release: 2023</span>
+            </div>
+          </div>
+          <div class="game-actions">
+            <button class="download-btn primary">
+              <i class="fa fa-download"></i>
+              <span>Download Now</span>
+            </button>
+            <button class="info-btn secondary">
+              <i class="fa fa-info-circle"></i>
+              <span>More Info</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: Palworld -->
+    <div class="slide" data-bg="images/palworld ww.jpg">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="game-info">
+          <span class="game-category">Adventure</span>
+          <h1 class="game-title">Palworld</h1>
+          <p class="game-description">Collect mysterious creatures called Pals in this multiplayer survival and crafting adventure game.</p>
+          <div class="game-details">
+            <div class="detail-item">
+              <i class="fa fa-hdd-o"></i>
+              <span>Storage: 20 GB</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-star"></i>
+              <span>Rating: 8.7/10</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-calendar"></i>
+              <span>Release: 2024</span>
+            </div>
+          </div>
+          <div class="game-actions">
+            <button class="download-btn primary">
+              <i class="fa fa-download"></i>
+              <a href="palworld.html">
+              <span style="color: white;">Download Now</span>
+              </a>
+            </button>
+            <button class="info-btn secondary">
+              <i class="fa fa-info-circle"></i>
+              <span>More Info</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 6: Assassin's Creed -->
+    <div class="slide" data-bg="images/assas.jpg">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="game-info">
+          <span class="game-category">Action RPG</span>
+          <h1 class="game-title">Assassin's Creed</h1>
+          <p class="game-description">Dive into the rich historical worlds and experience the ultimate stealth-action adventure.</p>
+          <div class="game-details">
+            <div class="detail-item">
+              <i class="fa fa-hdd-o"></i>
+              <span>Storage: 50 GB</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-star"></i>
+              <span>Rating: 9.2/10</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-calendar"></i>
+              <span>Release: 2020</span>
+            </div>
+          </div>
+          <div class="game-actions">
+            <button class="download-btn primary">
+              <i class="fa fa-download"></i>
+              <span>Download Now</span>
+            </button>
+            <button class="info-btn secondary">
+              <i class="fa fa-info-circle"></i>
+              <span>More Info</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 7: Battlefield -->
+    <div class="slide" data-bg="images/wochog.jpg">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="game-info">
+          <span class="game-category">FPS Military</span>
+          <h1 class="game-title">Wuchang <br>Fallen Feather</h1>
+          <p class="game-description">Join massive 64-player battles with destructible environments and realistic military combat.</p>
+          <div class="game-details">
+            <div class="detail-item">
+              <i class="fa fa-hdd-o"></i>
+              <span>Storage: 85 GB</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-star"></i>
+              <span>Rating: 8.9/10</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-calendar"></i>
+              <span>Release: 2021</span>
+            </div>
+          </div>
+          <div class="game-actions">
+            <button class="download-btn primary">
+              <i class="fa fa-download"></i>
+              <span>Download Now</span>
+            </button>
+            <button class="info-btn secondary">
+              <i class="fa fa-info-circle"></i>
+              <span>More Info</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slider Navigation -->
+  <div class="slider-nav">
+    <button class="nav-btn prev-btn">
+      <i class="fa fa-chevron-left"></i>
+    </button>
+    <button class="nav-btn next-btn">
+      <i class="fa fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Slider Indicators -->
+  <div class="slider-indicators">
+    <button class="indicator active" data-slide="0"></button>
+    <button class="indicator" data-slide="1"></button>
+    <button class="indicator" data-slide="2"></button>
+    <button class="indicator" data-slide="3"></button>
+    <button class="indicator" data-slide="4"></button>
+    <button class="indicator" data-slide="5"></button>
+    <button class="indicator" data-slide="6"></button>
+  </div>
+</div>
+
+<!-- Hero Slider JavaScript - Enhanced Version -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const slides = document.querySelectorAll('.slide');
+    const indicators = document.querySelectorAll('.indicator');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    const sliderContainer = document.querySelector('.hero-slider-container');
+    let currentSlide = 0;
+    let isTransitioning = false;
+    let autoPlayInterval;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let preloadedImages = new Set();
+
+    // Create progress bar
+    const progressBar = document.createElement('div');
+    progressBar.className = 'slider-progress';
+    progressBar.innerHTML = '<div class="progress-fill"></div>';
+    sliderContainer.appendChild(progressBar);
+    
+    // Add progress bar CSS
+    const progressStyle = document.createElement('style');
+    progressStyle.textContent = `
+        .slider-progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            z-index: 4;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f357a8, #7b2ff2, #00eaff);
+            width: 0%;
+            transition: width 5s linear;
+        }
+    `;
+    document.head.appendChild(progressStyle);
+    
+    const progressFill = progressBar.querySelector('.progress-fill');
+
+    // Enhanced preload function
+    function preloadImages() {
+        slides.forEach((slide, index) => {
+            const bgImage = slide.getAttribute('data-bg');
+            const img = new Image();
+            img.onload = () => {
+                preloadedImages.add(index);
+                slide.style.backgroundImage = `url('${bgImage}')`;
+                if (index === 0) {
+                    removeLoader();
+                }
+            };
+            img.src = bgImage;
+        });
+    }
+
+    // Create and show loader
+    function showLoader() {
+        const loader = document.createElement('div');
+        loader.className = 'slide-loading';
+        sliderContainer.appendChild(loader);
+    }
+
+    // Remove loader
+    function removeLoader() {
+        const loader = document.querySelector('.slide-loading');
+        if (loader) {
+            loader.style.opacity = '0';
+            setTimeout(() => loader.remove(), 500);
+        }
+    }
+
+    // Enhanced slide show function with better animations
+    function showSlide(index, direction = 'next') {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        // Stop current progress
+        progressFill.style.transition = 'none';
+        progressFill.style.width = '0%';
+
+        // Remove active classes
+        slides[currentSlide].classList.remove('active');
+        indicators[currentSlide].classList.remove('active');
+
+        // Add transition classes for smoother animation
+        slides[currentSlide].style.transform = direction === 'next' ? 'translateX(-100%)' : 'translateX(100%)';
+        
+        // Update current slide
+        currentSlide = index;
+
+        // Prepare new slide
+        slides[currentSlide].style.transform = direction === 'next' ? 'translateX(100%)' : 'translateX(-100%)';
+        slides[currentSlide].classList.add('active');
+        indicators[currentSlide].classList.add('active');
+
+        // Animate new slide in
+        setTimeout(() => {
+            slides[currentSlide].style.transform = 'translateX(0)';
+        }, 50);
+
+        // Reset previous slide position
+        setTimeout(() => {
+            slides.forEach((slide, i) => {
+                if (i !== currentSlide) {
+                    slide.style.transform = 'translateX(0)';
+                    slide.classList.remove('active');
+                }
+            });
+            isTransitioning = false;
+            startProgress();
+        }, 1500);
+
+        // Trigger content animations
+        animateSlideContent();
+    }
+
+    // Animate slide content elements
+    function animateSlideContent() {
+        const content = slides[currentSlide].querySelector('.slide-content');
+        const elements = content.querySelectorAll('.game-category, .game-title, .game-description, .game-details, .game-actions');
+        
+        elements.forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, index * 150 + 300);
+        });
+    }
+
+    // Progress bar animation
+    function startProgress() {
+        progressFill.style.transition = 'width 5s linear';
+        progressFill.style.width = '100%';
+    }
+
+    function resetProgress() {
+        progressFill.style.transition = 'none';
+        progressFill.style.width = '0%';
+    }
+
+    // Navigation functions with direction
+    function nextSlide() {
+        const next = (currentSlide + 1) % slides.length;
+        showSlide(next, 'next');
+    }
+
+    function prevSlide() {
+        const prev = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(prev, 'prev');
+    }
+
+    // Enhanced auto-play with progress
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, 5000);
+        startProgress();
+    }
+
+    function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+        resetProgress();
+    }
+
+    // Enhanced touch handling
+    function handleTouchStart(e) {
+        touchStartX = e.touches[0].clientX;
+    }
+
+    function handleTouchMove(e) {
+        e.preventDefault(); // Prevent scrolling
+    }
+
+    function handleTouchEnd(e) {
+        touchEndX = e.changedTouches[0].clientX;
+        const swipeThreshold = 100;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            stopAutoPlay();
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+            setTimeout(startAutoPlay, 1000);
+        }
+    }
+
+    // Enhanced button interactions
+    function enhanceButtons() {
+        document.querySelectorAll('.download-btn, .info-btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function() {
+                this.style.transform += ' scale(1.05)';
+            });
+            
+            btn.addEventListener('mouseleave', function() {
+                this.style.transform = this.style.transform.replace(' scale(1.05)', '');
+            });
+        });
+
+        // Download button functionality
+        document.querySelectorAll('.download-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const gameTitle = this.closest('.slide-content').querySelector('.game-title').textContent;
+                
+                // Create download notification
+                showNotification(`🎮 Starting download for ${gameTitle}...`, 'success');
+                
+                // Add ripple effect
+                createRipple(this, event);
+            });
+        });
+
+        // Info button functionality
+        document.querySelectorAll('.info-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const gameTitle = this.closest('.slide-content').querySelector('.game-title').textContent;
+                showNotification(`ℹ️ Loading details for ${gameTitle}...`, 'info');
+                createRipple(this, event);
+            });
+        });
+    }
+
+    // Create ripple effect
+    function createRipple(button, event) {
+        const ripple = document.createElement('span');
+        const rect = button.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = event.clientX - rect.left - size / 2;
+        const y = event.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.6);
+            transform: scale(0);
+            animation: ripple 0.6s linear;
+            left: ${x}px;
+            top: ${y}px;
+            width: ${size}px;
+            height: ${size}px;
+        `;
+        
+        const rippleStyle = document.createElement('style');
+        rippleStyle.textContent = `
+            @keyframes ripple {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(rippleStyle);
+        
+        button.style.position = 'relative';
+        button.style.overflow = 'hidden';
+        button.appendChild(ripple);
+        
+        setTimeout(() => ripple.remove(), 600);
+    }
+
+    // Show notification
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? 'linear-gradient(135deg, #4ade80, #22c55e)' : 'linear-gradient(135deg, #60a5fa, #3b82f6)'};
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10000;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+            font-weight: 600;
+        `;
+        notification.textContent = message;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(0)';
+        }, 100);
+        
+        setTimeout(() => {
+            notification.style.transform = 'translateX(100%)';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+
+    // Keyboard shortcuts with visual feedback
+    function handleKeyboard(e) {
+        const keyActions = {
+            'ArrowLeft': () => { stopAutoPlay(); prevSlide(); setTimeout(startAutoPlay, 1000); },
+            'ArrowRight': () => { stopAutoPlay(); nextSlide(); setTimeout(startAutoPlay, 1000); },
+            'Space': () => { e.preventDefault(); stopAutoPlay(); nextSlide(); setTimeout(startAutoPlay, 1000); },
+            'Escape': () => { stopAutoPlay(); showNotification('⏸️ Auto-play paused', 'info'); }
+        };
+        
+        if (keyActions[e.key]) {
+            keyActions[e.key]();
+        }
+    }
+
+    // Initialize everything
+    function init() {
+        showLoader();
+        preloadImages();
+        enhanceButtons();
+        
+        // Event listeners
+        nextBtn.addEventListener('click', () => {
+            stopAutoPlay();
+            nextSlide();
+            setTimeout(startAutoPlay, 1000);
+        });
+
+        prevBtn.addEventListener('click', () => {
+            stopAutoPlay();
+            prevSlide();
+            setTimeout(startAutoPlay, 1000);
+        });
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                if (index !== currentSlide) {
+                    stopAutoPlay();
+                    showSlide(index);
+                    setTimeout(startAutoPlay, 1000);
+                }
+            });
+        });
+
+        // Touch events
+        sliderContainer.addEventListener('touchstart', handleTouchStart, { passive: true });
+        sliderContainer.addEventListener('touchmove', handleTouchMove, { passive: false });
+        sliderContainer.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+        // Mouse events
+        sliderContainer.addEventListener('mouseenter', stopAutoPlay);
+        sliderContainer.addEventListener('mouseleave', startAutoPlay);
+
+        // Keyboard events
+        document.addEventListener('keydown', handleKeyboard);
+
+        // Start the show
+        setTimeout(() => {
+            startAutoPlay();
+            animateSlideContent();
+        }, 1000);
+    }
+
+    // Initialize
+    init();
+});
+</script>
+
+                    <!-- Floating sidebar  -->  
+              <script>
+                 function showsidebar(){
+                    const sidebar = document.querySelector('.sidebar');
+                    sidebar.style.display = 'flex';
+                    
+                    // Adjust sidebar height based on content
+                    adjustSidebarHeight();
+                }
+                 function hidesidebar(){
+                    const sidebar = document.querySelector('.sidebar');
+                    sidebar.style.display = 'none';
+                }
+                
+                // Function to adjust sidebar height based on content
+                function adjustSidebarHeight() {
+                    const sidebar = document.querySelector('.sidebar');
+                    if (sidebar) {
+                        // Wait for DOM to update with new text
+                        setTimeout(() => {
+                            const sidebarLinks = sidebar.querySelectorAll('a');
+                            let totalHeight = 0;
+                            
+                            // Calculate required height based on links
+                            sidebarLinks.forEach(link => {
+                                // Get the computed style to include margins
+                                const style = window.getComputedStyle(link);
+                                const marginTop = parseFloat(style.marginTop);
+                                const marginBottom = parseFloat(style.marginBottom);
+                                
+                                // Add link height plus margins
+                                totalHeight += link.offsetHeight + marginTop + marginBottom;
+                            });
+                            
+                            // Add extra space for the close icon and padding
+                            const closeIcon = sidebar.querySelector('i.ri-close-line');
+                            if (closeIcon) {
+                                totalHeight += closeIcon.offsetHeight + 20; // 20px extra padding
+                            } else {
+                                totalHeight += 40; // Default padding if icon not found
+                            }
+                            
+                            // Set minimum height
+                            totalHeight = Math.max(totalHeight, 300); // At least 300px
+                            
+                            // Apply the calculated height
+                            sidebar.style.height = totalHeight + 'px';
+                        }, 100); // Small delay to ensure DOM is updated
+                    }
+                }
+                </script>
+                <!-- Floating sidebar end-->
+<!-- Floating Search Icon and Bottom Bar -->
+ <!-- Main content start -->
+<div class="boxes-container responsive-grid">
+     <div class="box box-1 game-card" data-category="Racing">
+                   <div class="border-line">
+                      <form action="#">
+                        <div class="image">
+                          <img src="images/forzamotorspot.webp" alt="Forza Motorsport">
+                        </div>
+                    
+                <div class="content">
+                    <div class="type">
+                    <p>Racing</p>
+                    </div>
+                    <h1 style="margin-left: -15px;">ForzaMotorspot</h1>
+                    <!--download button-->
+                    <div class="contain">
+                       <label class="label">
+                          <input type="checkbox" class="input" />
+                          <span class="circle"><svg class="icon" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+                          </svg>
+                          <div class="square"></div>
+                          </span>
+                          <p class="title">Download</p>
+                          <a href="forzamotor.html" class="title">Open</a>
+                       </label>
+                    </div>
+                     <!--download button end-->
+                   <div class="data">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+                    <p>66.7 GB</p>
+                   </div>
+                   <div class="date">
+                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                    <p>2023</p>
+                   </div>
+              </div>
+        </div>
+         </form>
+    </div> 
+    <!--2-box-->
+          <div class="box-2 box-fortnite game-card" data-category="Action">
+                   <div class="border-line-2">
+                      <form action="#">
+                        <div class="image-2">
+                          <img src="images/fortnit.png" alt="Fortnite">
+                        </div>
+                    
+                <div class="content-2">
+                    <div class="type-2">
+                    <p>Action</p>
+                    </div>
+                    <h1>FORTNITE-CAUCHEMARS</h1>
+                    <!--download button-->
+                    <div class="contain-2">
+                       <label class="label-2">
+                          <input type="checkbox" class="input-2" />
+                          <span class="circle-2"><svg class="icon-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+                          </svg>
+                          <div class="square-2"></div>
+                          </span>
+                          <p class="title-2">Download</p>
+                          <a href="index.html" class="title-2">Open</a>
+                       </label>
+                    </div>
+                     <!--download button end-->
+                   <div class="data-2">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+                    <p>1.8 GB</p>
+                   </div>
+                   <div class="date-2">
+                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                    <p>2013</p>
+                   </div>
+              </div>
+        </div>
+         </form>
+    </div> 
+          <div class="box-3 game-card" data-category="OpenWorld">
+                   <div class="border-line-3">
+                      <form action="#">
+                        <div class="image-3">
+                          <img src="images/gta 5.png" alt="GTA V">
+                        </div>
+                    
+                <div class="content-3">
+                    <div class="type-3">
+                      <p style="
+                      font-size: 10.2px;
+                      margin-top: 3px;
+                      margin-left: 2.2px;
+                      ">OpenWorld</p>
+                    </div>
+                    <h1 style="margin-left: -99px; top: -5px;font-size: 1.5em;">GTA-V</h1>
+                    <!--download button-->
+                    <div class="contain-3">
+                       <label class="label-3">
+                          <input type="checkbox" class="input-3" />
+                          <span class="circle-3"><svg class="icon-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+                          </svg>
+                          <div class="square-3"></div>
+                          </span>
+                          <p class="title-3">Download</p>
+                          <a href="gta.html" class="title-3">Open</a>
+                       </label>
+                    </div>
+                     <!--download button end-->
+                   <div class="data-3">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+                    <p>36.15 GB</p>
+                   </div>
+                   <div class="date-3">
+                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                    <p>2013</p>
+                   </div>
+              </div>
+        </div>
+         </form>
+    </div> 
+    <!--4-box-->
+          <div class="box-4 game-card" data-category="Action">
+                   <div class="border-line-4">
+                      <form action="#">
+                        <div class="image-4">
+                          <img src="images/palworld.jpg" alt="PalWorld">
+                        </div>
+                    
+                <div class="content-4">
+                    <div class="type-4">
+                    <p>Action</p>
+                    </div>
+                    <h1 style=" font-size: 1.3em; margin-left: -80px;top: -5px;">PalWorld</h1>
+                    <!--download button-->
+                    <div class="contain-4">
+                       <label class="label-4">
+                          <input type="checkbox" class="input-4" />
+                          <span class="circle-4"><svg class="icon-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+                          </svg>
+                          <div class="square-4"></div>
+                          </span>
+                          <p class="title-4">Download</p>
+                          <a href="palworld.html" class="title-4">Open</a>
+                       </label>
+                    </div>
+                     <!--download button end-->
+                   <div class="data-4">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+                    <p>20.8 GB</p>
+                   </div>
+                   <div class="date-4">
+                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                    <p>2024</p>
+                   </div>
+              </div>
+        </div>
+         </form>
+    </div> 
+          <div class="box-5 game-card" data-category="Fighting">
+                   <div class="border-line-5">
+                      <form action="#">
+                        <div class="image-5">
+                          <img src="images/call of duty.png" alt="Call of Duty">
+                        </div>
+                    
+                <div class="content-5">
+                    <div class="type-5">
+                    <p style=" font-size: 0.90em; margin-top: 0px; margin-left: 2.5px;">Fighting</p>
+                    </div>
+                    <h1 style=" margin-left: -72px;top: -20px; font-size: 1em;letter-spacing: 0px; ">CALL of DUTY<br>BLACK OPS III</h1>
+                    <!--download button-->
+                    <div class="contain-5">
+                       <label class="label-5">
+                          <input type="checkbox" class="input-5" />
+                          <span class="circle-5"><svg class="icon-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+                          </svg>
+                          <div class="square-5"></div>
+                          </span>
+                          <p class="title-5">Download</p>
+                          <a href="index.html" class="title-5">Open</a>
+                       </label>
+                    </div>
+                     <!--download button end-->
+                   <div class="data-5">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+                    <p>1.8 GB</p>
+                   </div>
+                   <div class="date-5">
+                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                    <p>2013</p>
+                   </div>
+              </div>
+        </div>
+         </form>
+    </div> 
+    <!--2 line start of the boxes-->
+                    <!--box 6-->
+              <div class="box-6 game-card" data-category="Fighting">
+                   <div class="border-line-6">
+                      <form action="#">
+                        <div class="image-6">
+                          <img src="images/warxone.jpg" alt="War-X-Zone">
+                        </div>
+                    
+                <div class="content-6">
+                    <div class="type-6">
+                    <p style=" font-size: 0.90em; margin-top: 0px; margin-left: 2.5px;">Fighting</p>
+                    </div>
+                    <h1 style=" margin-left: -72px;top: -20px; font-size: 1em;letter-spacing: 0px; ">WAR-X-ZONE</h1>
+                    <!--download button-->
+                    <div class="contain-6">
+                       <label class="label-6">
+                          <input type="checkbox" class="input-6" />
+                          <span class="circle-6"><svg class="icon-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+                          </svg>
+                          <div class="square-6"></div>
+                          </span>
+                          <p class="title-6">Download</p>
+                          <a href="index.html" class="title-6">Open</a>
+                       </label>
+                    </div>
+                     <!--download button end-->
+                   <div class="data-6">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+                    <p>1.8 GB</p>
+                   </div>
+                   <div class="date-6">
+                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                    <p>2013</p>
+                   </div>
+              </div>
+        </div>
+         </form>
+    </div> 
+     <!--end game box 6-->
+                         <!--box 7-->
+              <div class="box-7 game-card" data-category="Fighting">
+                   <div class="border-line-7">
+                      <form action="#">
+                        <div class="image-7">
+                          <img src="images/warxone.jpg" alt="War-X-Zone">
+                        </div>
+                    
+                <div class="content-7">
+                    <div class="type-7">
+                    <p style=" font-size: 0.90em; margin-top: 0px; margin-left: 2.5px;">Fighting</p>
+                    </div>
+                    <h1 style=" margin-left: -72px;top: -20px; font-size: 1em;letter-spacing: 0px; ">WAR-X-ZONE</h1>
+                    <!--download button-->
+                    <div class="contain-7">
+                       <label class="label-7">
+                          <input type="checkbox" class="input-7" />
+                          <span class="circle-7"><svg class="icon-7" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+                          </svg>
+                          <div class="square-7"></div>
+                          </span>
+                          <p class="title-7">Download</p>
+                          <a href="index.html" class="title-7">Open</a>
+                       </label>
+                    </div>
+                     <!--download button end-->
+                   <div class="data-7">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+                    <p>1.8 GB</p>
+                   </div>
+                   <div class="date-7">
+                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                    <p>2013</p>
+                   </div>
+              </div>
+        </div>
+         </form>
+    </div> 
+     <!--end game box 7-->
+                         <!--box 8-->
+              <div class="box-8 game-card" data-category="Fighting">
+                   <div class="border-line-8">
+                      <form action="#">
+                        <div class="image-8">
+                          <img src="images/warxone.jpg" alt="War-X-Zone">
+                        </div>
+                    
+                <div class="content-8">
+                    <div class="type-8">
+                    <p style=" font-size: 0.90em; margin-top: 0px; margin-left: 2.5px;">Fighting</p>
+                    </div>
+                    <h1 style=" margin-left: -72px;top: -20px; font-size: 1em;letter-spacing: 0px; ">WAR-X-ZONE</h1>
+                    <!--download button-->
+                     <div class="contain-8">
+                       <label class="label-8">
+                          <input type="checkbox" class="input-8" />
+                          <span class="circle-8"><svg class="icon-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+                          </svg>
+                          <div class="square-8"></div>
+                          </span>
+                          <p class="title-8">Download</p>
+                          <a href="index.html" class="title-8">Open</a>
+                       </label>
+                    </div>
+                     <!--download button end-->
+                   <div class="data-8">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+                    <p>1.8 GB</p>
+                   </div>
+                   <div class="date-8">
+                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                    <p>2013</p>
+                   </div>
+              </div>
+        </div>
+         </form>
+    </div> 
+     <!--end game box 8-->
+                         <!--box 9-->
+              <div class="box-9 game-card" data-category="Fighting">
+                   <div class="border-line-9">
+                      <form action="#">
+                        <div class="image-9">
+                          <img src="images/warxone.jpg" alt="War-X-Zone">
+                        </div>
+                    
+                <div class="content-9">
+                    <div class="type-9">
+                    <p style=" font-size: 0.90em; margin-top: 0px; margin-left: 2.5px;">Fighting</p>
+                    </div>
+                    <h1 style=" margin-left: -72px;top: -20px; font-size: 1em;letter-spacing: 0px; ">WAR-X-ZONE</h1>
+                    <!--download button-->
+                    <div class="contain-9">
+                       <label class="label-9">
+                          <input type="checkbox" class="input-9" />
+                          <span class="circle-9"><svg class="icon-9" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+                          </svg>
+                          <div class="square-9"></div>
+                          </span>
+                          <p class="title-9">Download</p>
+                          <a href="index.html" class="title-9">Open</a>
+                       </label>
+                    </div>
+                     <!--download button end-->
+                   <div class="data-9">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+                    <p>1.8 GB</p>
+                   </div>
+                   <div class="date-9">
+                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                    <p>2013</p>
+                   </div>
+              </div>
+        </div>
+         </form>
+    </div> 
+     <!--end game box 9-->
+                         <!--box 10-->
+              <div class="box-10 game-card" data-category="Fighting">
+                   <div class="border-line-10">
+                      <form action="#">
+                        <div class="image-10">
+                          <img src="images/warxone.jpg" alt="War-X-Zone">
+                        </div>
+                    
+                <div class="content-10">
+                    <div class="type-10">
+                    <p style=" font-size: 0.90em; margin-top: 0px; margin-left: 2.5px;">Fighting</p>
+                    </div>
+                    <h1 style=" margin-left: -72px;top: -20px; font-size: 1em;letter-spacing: 0px; ">WAR-X-ZONE</h1>
+                    <!--download button-->
+                    <div class="contain-10">
+                       <label class="label-10">
+                          <input type="checkbox" class="input-10" />
+                          <span class="circle-10"><svg class="icon-10" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24">
+                          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                              d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+                          </svg>
+                          <div class="square-10"></div>
+                          </span>
+                          <p class="title-10">Download</p>
+                          <a href="index.html" class="title-10">Open</a>
+                       </label>
+                    </div>
+                     <!--download button end-->
+                   <div class="data-10">
+                    <i class="fa fa-database" aria-hidden="true"></i>
+                    <p>1.8 GB</p>
+                   </div>
+                   <div class="date-10">
+                    <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+                    <p>2013</p>
+                   </div>
+              </div>
+        </div>
+         </form>
+    </div> 
+     <!--end game box 10-->
+     <!--2 line end of the boxes -->
+
+
+     <!--3 line start of the boxes-->
+<!--box 11-->
+<div class="box-11 game-card" data-category="Fighting">
+  <div class="border-line-11">
+    <form action="#">
+      <div class="image-11">
+        <img src="images/wochog.jpg" alt="War-X-Zone">
+      </div>
+
+      <div class="content-11">
+        <div class="type-11">
+          <p style=" font-size: 0.90em; margin-top: 0px; margin-left: 2.5px;">Fighting</p>
+        </div>
+        <h1 style=" margin-left: -72px;top: -20px; font-size: 1em;letter-spacing: 0px; ">WAR-X-ZONE</h1>
+        <!--download button-->
+        <div class="contain-11">
+          <label class="label-11">
+            <input type="checkbox" class="input-11" />
+            <span class="circle-11">
+              <svg class="icon-11" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+              </svg>
+              <div class="square-11"></div>
+            </span>
+            <p class="title-11">Download</p>
+            <a href="index.html" class="title-11">Open</a>
+          </label>
+        </div>
+        <!--download button end-->
+        <div class="data-11">
+          <i class="fa fa-database" aria-hidden="true"></i>
+          <p>1.8 GB</p>
+        </div>
+        <div class="date-11">
+          <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+          <p>2013</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--end box 11-->
+<!--box 12-->
+<div class="box-12 game-card" data-category="Fighting">
+  <div class="border-line-12">
+    <form action="#">
+      <div class="image-12">
+        <img src="images/warxone.jpg" alt="War-X-Zone">
+      </div>
+
+      <div class="content-12">
+        <div class="type-12">
+          <p style=" font-size: 0.90em; margin-top: 0px; margin-left: 2.5px;">Fighting</p>
+        </div>
+        <h1 style=" margin-left: -72px;top: -20px; font-size: 1em;letter-spacing: 0px; ">WAR-X-ZONE</h1>
+        <!--download button-->
+        <div class="contain-12">
+          <label class="label-12">
+            <input type="checkbox" class="input-12" />
+            <span class="circle-12">
+              <svg class="icon-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+              </svg>
+              <div class="square-12"></div>
+            </span>
+            <p class="title-12">Download</p>
+            <a href="index.html" class="title-12">Open</a>
+          </label>
+        </div>
+        <!--download button end-->
+        <div class="data-12">
+          <i class="fa fa-database" aria-hidden="true"></i>
+          <p>1.8 GB</p>
+        </div>
+        <div class="date-12">
+          <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+          <p>2013</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<!--end box 12-->
+
+<!--box 13-->
+<div class="box-13 game-card" data-category="Fighting">
+  <div class="border-line-13">
+    <form action="#">
+      <div class="image-13">
+        <img src="images/warxone.jpg" alt="War-X-Zone">
+      </div>
+
+      <div class="content-13">
+        <div class="type-13">
+          <p style=" font-size: 0.90em; margin-top: 0px; margin-left: 2.5px;">Fighting</p>
+        </div>
+        <h1 style=" margin-left: -72px;top: -20px; font-size: 1em;letter-spacing: 0px; ">WAR-X-ZONE</h1>
+        <!--download button-->
+        <div class="contain-13">
+          <label class="label-13">
+            <input type="checkbox" class="input-13" />
+            <span class="circle-13">
+              <svg class="icon-13" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+              </svg>
+              <div class="square-13"></div>
+            </span>
+            <p class="title-13">Download</p>
+            <a href="index.html" class="title-13">Open</a>
+          </label>
+        </div>
+        <!--download button end-->
+        <div class="data-13">
+          <i class="fa fa-database" aria-hidden="true"></i>
+          <p>1.8 GB</p>
+        </div>
+        <div class="date-13">
+          <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+          <p>2013</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--end box 13-->
+
+<!--box 14-->
+<div class="box-14 game-card" data-category="Fighting">
+  <div class="border-line-14">
+    <form action="#">
+      <div class="image-14">
+        <img src="images/warxone.jpg" alt="War-X-Zone">
+      </div>
+
+      <div class="content-14">
+        <div class="type-14">
+          <p style=" font-size: 0.90em; margin-top: 0px; margin-left: 2.5px;">Fighting</p>
+        </div>
+        <h1 style=" margin-left: -72px;top: -20px; font-size: 1em;letter-spacing: 0px; ">WAR-X-ZONE</h1>
+        <!--download button-->
+        <div class="contain-14">
+          <label class="label-14">
+            <input type="checkbox" class="input-14" />
+            <span class="circle-14">
+              <svg class="icon-14" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+              </svg>
+              <div class="square-14"></div>
+            </span>
+            <p class="title-14">Download</p>
+            <a href="index.html" class="title-14">Open</a>
+          </label>
+        </div>
+        <!--download button end-->
+        <div class="data-14">
+          <i class="fa fa-database" aria-hidden="true"></i>
+          <p>1.8 GB</p>
+        </div>
+        <div class="date-14">
+          <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+          <p>2013</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--end box 14-->
+
+<!--box 15-->
+<div class="box-15 game-card" data-category="Fighting">
+  <div class="border-line-15">
+    <form action="#">
+      <div class="image-15">
+        <img src="images/warxone.jpg" alt="War-X-Zone">
+      </div>
+
+      <div class="content-15">
+        <div class="type-15">
+          <p style=" font-size: 0.90em; margin-top: 0px; margin-left: 2.5px;">Fighting</p>
+        </div>
+        <h1 style=" margin-left: -72px;top: -20px; font-size: 1em;letter-spacing: 0px; ">WAR-X-ZONE</h1>
+        <!--download button-->
+        <div class="contain-15">
+          <label class="label-15">
+            <input type="checkbox" class="input-15" />
+            <span class="circle-15">
+              <svg class="icon-15" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                  d="M12 19V5m0 14-4-4m4 4 4-4"></path>
+              </svg>
+              <div class="square-15"></div>
+            </span>
+            <p class="title-15">Download</p>
+            <a href="index.html" class="title-15">Open</a>
+          </label>
+        </div>
+        <!--download button end-->
+        <div class="data-15">
+          <i class="fa fa-database" aria-hidden="true"></i>
+          <p>1.8 GB</p>
+        </div>
+        <div class="date-15">
+          <i class="fa fa-calendar-minus-o" aria-hidden="true"></i>
+          <p>2013</p>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!--end box 14-->
+     <!--3 line end of the boxes-->
+  
+</div>
+
+<div id="search-modal" style="display:none;position:fixed;inset:0;z-index:1100;backdrop-filter:blur(8px) brightness(0.7);background:rgba(24,18,43,0.7);">
+  <div style="position:absolute;left:42%;top:20%;transform:translate(-50%,-50%);width:98vw;max-width:420px;">
+    <div class="search-bar-container" id="floating-search-bar" style="margin:0 auto;box-shadow:0 0 32px 8px #7f00ffcc,0 0 0 2.5px #00eaff inset;">
+      <input type="text" id="search-input" placeholder="Search games or say 'Hey Search'..." autocomplete="off">
+      <button id="voice-search-btn" type="button" title="Voice Search">
+        <i class="fas fa-microphone" id="mic-icon"></i>
+        <i class="fas fa-stop" id="stop-icon" style="display:none;"></i>
+      </button>
+      <div id="suggestions" class="suggestions-box"></div>
+      <!-- Debug info -->
+      <div id="voice-debug" style="position:absolute;top:100%;left:0;background:#222;color:#fff;padding:5px;font-size:10px;border-radius:5px;display:none;z-index:999;">
+        Voice Status: <span id="voice-status">Checking...</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes borderAnim {
+  0% {background-position:0% 50%;}
+  100% {background-position:100% 50%;}
+}
+@keyframes rainbowAnim {
+  0% {background-position:0% 50%;}
+  100% {background-position:100% 50%;}
+}
+</style>
+<footer class="footer-gaming">
+  <div class="footer-content">
+    <div class="footer-logo">
+      <img src="images/logo.png" alt="Gaming Vila Logo">
+      <span class="footer-title">GAMES-REALM</span>
+    </div>
+    <p class="footer-desc">
+      Free Download Pre-installed portable PC games from steam and major publishers with <br>
+       fastest downloads.
+    </p>
+    <div class="footer-social">
+      <a href="https://www.youtube.com/@BROPLAYZ2.0" class="footer-icon yt" title="YouTube" target="_blank"><i class="fab fa-youtube"></i></a>
+      <a href="#" class="footer-icon insta" title="Instagram" target="_blank"><i class="fab fa-instagram"></i></a>
+      <a href="#" class="footer-icon fb" title="Facebook" target="_blank"><i class="fab fa-facebook"></i></a>
+      <a href="#" class="footer-icon gh" title="GitHub" target="_blank"><i class="fab fa-github"></i></a>
+    </div>
+    <div class="footer-links">
+      <div class="footer-lang-switch">
+  <button id="lang-btn" class="lang-btn">
+    <i class="fas fa-globe"></i> <span id="lang-selected">English</span> <i class="fas fa-exchange-alt"></i>
+  </button>
+<ul id="lang-list" class="lang-list" style="display:none;">
+  <li data-lang="en"><img src="https://flagcdn.com/24x18/us.png" alt="English"  style="width:22px;height:22px;margin-right: -7px;vertical-align:middle;">English</li>
+  <li data-lang="zh"><img src="https://flagcdn.com/24x18/cn.png" alt="中文"     style="width:22px;height:22px;margin-right:-7px;vertical-align:middle;">Chinese</li>
+  <li data-lang="ja"><img src="https://flagcdn.com/24x18/jp.png" alt="日本語"   style="width:22px;height:22px;margin-right:-7px;vertical-align:middle;">Japanese</li>
+  <li data-lang="ar"><img src="https://flagcdn.com/24x18/sa.png" alt="العربية" style="width:22px;height:22px;margin-right:-7px;vertical-align:middle;">Arabic</li>
+  <li data-lang="es"><img src="https://flagcdn.com/24x18/es.png" alt="Español" style="width:22px;height:22px;margin-right:-7px;vertical-align:middle;">Spanish</li>
+  <li data-lang="tr"><img src="https://flagcdn.com/24x18/tr.png" alt="Türkçe"  style="width:22px;height:22px;margin-right:-7px;vertical-align:middle;">Turkish</li>
+  <li data-lang="fr"><img src="https://flagcdn.com/24x18/fr.png" alt="Français"style="width:22px;height:22px;margin-right:-7px;vertical-align:middle;">French</li>
+  <li data-lang="ru"><img src="https://flagcdn.com/24x18/ru.png" alt="Русский" style="width:22px;height:22px;margin-right:-7px;vertical-align:middle;">Russian</li>
+  <li data-lang="de"><img src="https://flagcdn.com/24x18/de.png" alt="Deutsch" style="width:22px;height:22px;margin-right:-7px;vertical-align:middle;">German</li>
+  <li data-lang="hi"><img src="https://flagcdn.com/24x18/in.png" alt="Hindi" style="width:22px;height:22px;margin-right:-7px;vertical-align:middle;">Hindi</li>
+  <li data-lang="pt"><img src="https://flagcdn.com/24x18/pt.png" alt="Português" style="width:22px;height:22px;margin-right:-7px;vertical-align:middle;">Portuguese</li>
+  <li data-lang="ko"><img src="https://flagcdn.com/24x18/kr.png" alt="한국어" style="width:22px;height:22px;margin-right:-7px;vertical-align:middle;">Korean</li> 
+  <li data-lang="ur"><img src="https://flagcdn.com/24x18/pk.png" alt="Urdu" style="width:22px;height:22px;margin-right:-7px;vertical-align:middle;">Urdu</li>
+</ul>
+</div class="footer-links">
+      <a href="blog.html">Blog</a>
+      <a href="about us.html">About </a>
+      <a href="faq.html">FAQs </a>
+      <a href="privacy.html">Privacy </a>
+      <a href="contact.html">Contact </a>
+    </div>
+    <p class="footer-copyright">
+      &copy; 2025 GAMES-REALM. All rights reserved.
+    </p>
+  </div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const langBtn = document.getElementById('lang-btn');
+  const langList = document.getElementById('lang-list');
+  const langSelected = document.getElementById('lang-selected');
+  const langItems = langList ? langList.querySelectorAll('li') : [];
+  
+  // Initialize sidebar height adjustment
+  if (typeof adjustSidebarHeight === 'function') {
+    adjustSidebarHeight();
+  }
+
+  // Language translations (sample, add more as needed)
+  const translations = {
+    en: {
+      Blog: "Blog",
+      About: "About",
+      FAQs: "FAQs",
+      "Privacy Policy": "Privacy Policy",
+      Contact: "Contact",
+      Download: "Download",
+      Open: "Open",
+      Home: "Home",
+      Games: "Games",
+      Category: "Category",
+      Category: "Category",
+      "My Profile": "My Profile",
+      Setting: "Setting",
+      Logout: "Logout",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.",
+      "GAMES-REALM": "GAMES-REALM"
+    },
+    zh: {
+      Blog: "博客",
+      About: "关于",
+      FAQs: "常见问题",
+      "Privacy Policy": "隐私政策",
+      Contact: "联系",
+      Download: "下载",
+      Open: "打开",
+      Home: "主页",
+      Games: "游戏",
+      Category: "类别",
+      Category: "类别",
+      "My Profile": "我的资料",
+      Setting: "设置",
+      Logout: "退出",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "免费下载预装的PC游戏，来自Steam和主要发行商，极速下载。",
+      "GAMES-REALM": "游戏领域"
+    },
+    ja: {
+      Blog: "ブログ",
+      About: "約",
+      FAQs: "よくある質問",
+      "Privacy Policy": "プライバシーポリシー",
+      Contact: "連絡先",
+      Download: "ダウンロード",
+      Open: "開く",
+      Home: "ホーム",
+      Games: "ゲーム",
+      Category: "カテゴリ",
+      Category: "カテゴリ",
+      "My Profile": "マイプロフィール",
+      Setting: "設定",
+      Logout: "ログアウト",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Steamや大手パブリッシャーからのプリインストールPCゲームを無料で高速ダウンロード。",
+      "GAMES-REALM": "ゲームレルム"
+    },
+    ar: {
+      Blog: "مدونة",
+      About: "حول",
+      FAQs: "الأسئلة الشائعة",
+      "Privacy Policy": "سياسة الخصوصية",
+      Contact: "اتصل",
+      Download: "تحميل",
+      Open: "فتح",
+      Home: "الرئيسية",
+      Games: "الألعاب",
+      Category: "فئة",
+      Category: "فئة",
+      "My Profile": "ملفي الشخصي",
+      Setting: "الإعدادات",
+      Logout: "تسجيل الخروج",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "تحميل مجاني لألعاب الكمبيوتر المحمولة المثبتة مسبقًا من Steam والناشرين الرئيسيين بأسرع تنزيلات.",
+      "GAMES-REALM": "عالم الألعاب"
+    },
+    es: {
+      Blog: "Blog",
+      About: "Acercade",
+      FAQs: "Preguntas frecuentes",
+      "Privacy Policy": "Política de privacidad",
+      Contact: "Contacto",
+      Download: "Descargar",
+      Open: "Abrir",
+      Home: "Inicio",
+      Games: "Juegos",
+      Category: "Categoría",
+      Category: "Categoría",
+      "My Profile": "Mi perfil",
+      Setting: "Configuración",
+      Logout: "Cerrar sesión",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Descarga gratis juegos de PC portátiles preinstalados de Steam y los principales editores con descargas rápidas.",
+      "GAMES-REALM": "reino de los juegos"
+    },
+    tr: {
+      Blog: "Blog",
+      About: "Hakkında",
+      FAQs: "SSS",
+      "Privacy Policy": "Gizlilik Politikası",
+      Contact: "İletişim",
+      Download: "İndir",
+      Open: "Aç",
+      Home: "Ana Sayfa",
+      Games: "Oyunlar",
+      Category: "Kategori",
+      Category: "Kategori",
+      "My Profile": "Profilim",
+      Setting: "Ayarlar",
+      Logout: "Çıkış Yap",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Steam ve büyük yayıncılardan önceden yüklenmiş taşınabilir PC oyunlarını ücretsiz ve hızlı indir.",
+      "GAMES-REALM": "oyunlar-alemi"
+    },
+    fr: {
+      Blog: "Blog",
+      About: "À propos",
+      FAQs: "FAQs",
+      "Privacy Policy": "Politique de confidentialité",
+      Contact: "Contact",
+      Download: "Télécharger",
+      Open: "Ouvrir",
+      Home: "Accueil",
+      Games: "Jeux",
+      Category: "Catégorie",
+      Category: "Catégorie",
+      "My Profile": "Mon Profil",
+      Setting: "Paramètres",
+      Logout: "Déconnexion",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Téléchargez gratuitement des jeux PC portables préinstallés de Steam et des principaux éditeurs avec des téléchargements rapides.",
+      "GAMES-REALM": "domaine des jeux"
+    },
+    ru: {
+      Blog: "Блог",
+      About: "О нас",
+      FAQs: "Вопросы и ответы",
+      "Privacy Policy": "Политика конфиденциальности",
+      Contact: "Контакты",
+      Download: "Скачать",
+      Open: "Открыть",
+      Home: "Главная",
+      Games: "Игры",
+      Category: "Категория",
+      Category: "Категория",
+      "My Profile": "Мой профиль",
+      Setting: "Настройки",
+      Logout: "Выйти",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Бесплатная загрузка портативных ПК-игр, предустановленных от Steam и крупных издателей, с самой быстрой скоростью.",
+      "GAMES-REALM": "игровой мир"
+    },
+    pt:{
+      Blog: "Blog",
+      About: "Sobre",
+      FAQs: "Perguntas Frequentes",
+      "Privacy Policy": "Política de Privacidade",
+      Contact: "Contato",
+      Download: "Baixar",
+      Open: "Abrir",
+      Home: "Início",
+      Games: "Jogos",
+      Category: "Categoria",
+      Category: "Categoria",
+      "My Profile": "Meu Perfil",
+      Setting: "Configurações",
+      Logout: "Sair",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Download gratuito de jogos portáteis pré-instalados para PC da Steam e de grandes editoras com downloads mais rápidos.",
+      "GAMES-REALM": "reino dos jogos"
+    },
+    de: { 
+      Blog: "Blog",
+      About: "Über uns",
+      FAQs: "Häufig gestellte Fragen",
+      "Privacy Policy": "Datenschutzrichtlinie",
+      Contact: "Kontakt",
+      Download: "Herunterladen",
+      Open: "Öffnen",
+      Home: "Startseite",
+      Games: "Spiele",
+      Category: "Kategorie",
+      Category: "Kategorie",
+      "My Profile": "Mein Profil",
+      Setting: "Einstellungen",
+      Logout: "Abmelden",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Kostenloser Download vorinstallierter tragbarer PC-Spiele von Steam und großen Publishern mit den schnellsten Downloads.",
+      "GAMES-REALM": "Spiele-Reich"
+    },
+    hi: {
+      Blog: "ब्लॉग",
+      About: "के बारे में",
+      FAQs: "अक्सर पूछे जाने वाले प्रश्न",
+      "Privacy Policy": "गोपनीयता नीति",
+      Contact: "संपर्क करें",
+      Download: "डाउनलोड करें",
+      Open: "खोलें",
+      Home: "होम",
+      Games: "गेम्स",
+      Category: "श्रेणी",
+      Category: "श्रेणी",
+      "My Profile": "मेरा प्रोफ़ाइल",
+      Setting: "सेटिंग",
+      Logout: "लॉग आउट",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "स्टीम और प्रमुख प्रकाशकों से प्री-इंस्टॉल पोर्टेबल पीसी गेम्स का मुफ्त डाउनलोड।",
+      "GAMES-REALM": "खेल-क्षेत्र"
+    },
+    ko: {
+      Blog: "블로그",
+      About: "소개",
+      FAQs: "자주 묻는 질문",
+      "Privacy Policy": "개인정보 처리방침",
+      Contact: "연락처",
+      Download: "다운로드",
+      Open: "열기",
+      Home: "홈",
+      Games: "게임",
+      Category: "범주",
+      Category: "범주",
+      "My Profile": "내 프로필",
+      Setting: "설정",
+      Logout: "로그아웃",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "스팀과 주요 퍼블리셔의 프리인스톨된 휴대용 PC 게임을 무료로 다운로드하세요.",
+      "GAMES-REALM": "게임 영역"
+    },
+    ur: {
+      Blog: "بلاگ",
+      About: "کے بارے میں",
+      FAQs: "اکثر پوچھے جانے والے سوالات",
+      "Privacy Policy": "رازداری کی پالیسی",
+      Contact: "رابطہ کریں",
+      Download: "ڈاؤن لوڈ کریں",
+      Open: "کھولیں",
+      Home: "ہوم",
+      Games: "گیمز",
+      Category: "قسم",
+      Category: "قسم",
+      "My Profile": "میرا پروفائل",
+      Setting: "ترتیبات",
+      Logout: "لاگ آؤٹ",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "اسٹیم اور بڑے ناشروں سے پری انسٹال پورٹیبل پی سی گیمز کا مفت ڈاؤن لوڈ۔",
+      "GAMES-REALM": "گیمز ریلم"
+    }
+  };
+
+  // Show/hide language list
+  if (langBtn && langList) {
+    langBtn.onclick = function(e) {
+      e.stopPropagation();
+      langList.style.display = langList.style.display === "block" ? "none" : "block";
+    };
+    document.body.addEventListener('click', function() {
+      langList.style.display = "none";
+    });
+  }
+
+  // Change language on click
+  langItems.forEach(function(item) {
+    item.onclick = function(e) {
+      e.stopPropagation();
+      langItems.forEach(li => li.classList.remove('selected'));
+      item.classList.add('selected');
+      const lang = item.getAttribute('data-lang');
+      langSelected.textContent = item.textContent;
+      langList.style.display = "none";
+      localStorage.setItem('site-lang', lang);
+      // Auto reload page on language change
+      location.reload();
+    };
+  });
+
+  // Language display names mapping
+  const languageNames = {
+    'en': 'English',
+    'zh': 'Chinese',
+    'ja': 'Japanese',
+    'ar': 'Arabic',
+    'es': 'Spanish',
+    'tr': 'Turkish',
+    'fr': 'French',
+    'ru': 'Russian',
+    'de': 'German',
+    'hi': 'Hindi',
+    'pt': 'Portuguese',
+    'ko': 'Korean',
+    'ur': 'Urdu'
+  };
+
+  // Translation logic
+  function setLanguage(lang) {
+    // Update language button text
+    if (langSelected && languageNames[lang]) {
+      langSelected.textContent = languageNames[lang];
+    }
+
+    // Footer links
+    document.querySelectorAll('.footer-links a').forEach(a => {
+      const key = a.textContent.trim();
+      if (translations[lang][key]) a.textContent = translations[lang][key];
+    });
+    // Footer desc
+    const desc = document.querySelector('.footer-desc');
+    if (desc && translations[lang][desc.textContent.trim()]) {
+      desc.textContent = translations[lang][desc.textContent.trim()];
+    }
+    // Footer title (footer logo)
+    const footerTitle = document.querySelector('.footer-logo .footer-title');
+    if (footerTitle && translations[lang][footerTitle.textContent.trim()]) {
+      footerTitle.textContent = translations[lang][footerTitle.textContent.trim()];
+    }
+    // Header logo
+    const headerLogo = document.querySelector('.logo-name');
+    if (headerLogo && translations[lang][headerLogo.textContent.trim()]) {
+      headerLogo.textContent = translations[lang][headerLogo.textContent.trim()];
+    }
+    // Download/Open buttons
+    document.querySelectorAll('.title, .title-2').forEach(el => {
+      if (translations[lang][el.textContent.trim()]) el.textContent = translations[lang][el.textContent.trim()];
+    });
+
+    // Navbar links
+    document.querySelectorAll('.navbar-menu a, .sidebar a').forEach(a => {
+      const key = a.textContent.replace(/[\n\r]/g, '').trim();
+      if (translations[lang][key]) a.textContent = translations[lang][key];
+    });
+
+    // Profile dropdown menu
+    const profileDropdown = document.getElementById('profile-dropdown');
+    if (profileDropdown) {
+      profileDropdown.querySelectorAll('a,button').forEach(el => {
+        const key = el.textContent.trim();
+        if (translations[lang][key]) el.textContent = translations[lang][key];
+      });
+    }
+
+    // --- NEW: Handle navbar category dropdown ---
+    const categoryLinks = document.querySelectorAll('.category-link');
+    const dropdowns = document.querySelectorAll('.category-dropdown');
+
+    categoryLinks.forEach((link, idx) => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        // Hide all dropdowns first
+        dropdowns.forEach(d => d.classList.remove('show'));
+        // Toggle current dropdown
+        const dropdown = dropdowns[idx];
+        dropdown.classList.toggle('show');
+        e.stopPropagation();
+      });
+    });
+
+    // Hide dropdown if clicked outside
+    document.addEventListener('click', function() {
+      dropdowns.forEach(d => d.classList.remove('show'));
+    });
+
+    // Prevent dropdown from closing when clicking inside
+    dropdowns.forEach(dropdown => {
+      dropdown.addEventListener('click', function(e) {
+        e.stopPropagation();
+      });
+    });
+
+    // --- NEW: Adjust sidebar height based on content ---
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) {
+      // Wait for DOM to update with new text
+      setTimeout(() => {
+        const sidebarLinks = sidebar.querySelectorAll('a');
+        let totalHeight = 0;
+        
+        // Calculate required height based on links
+        sidebarLinks.forEach(link => {
+          // Get the computed style to include margins
+          const style = window.getComputedStyle(link);
+          const marginTop = parseFloat(style.marginTop);
+          const marginBottom = parseFloat(style.marginBottom);
+          
+          // Add link height plus margins
+          totalHeight += link.offsetHeight + marginTop + marginBottom;
+        });
+        
+        // Add extra space for the close icon and padding
+        const closeIcon = sidebar.querySelector('i.ri-close-line');
+        if (closeIcon) {
+          totalHeight += closeIcon.offsetHeight + 20; // 20px extra padding
+        } else {
+          totalHeight += 40; // Default padding if icon not found
+        }
+        
+        // Set minimum height
+        totalHeight = Math.max(totalHeight, 300); // At least 300px
+        
+        // Apply the calculated height
+        sidebar.style.height = totalHeight + 'px';
+      }, 100); // Small delay to ensure DOM is updated
+    }
+  }
+
+  // On page load, set language from localStorage
+  const savedLang = localStorage.getItem('site-lang') || 'en';
+  setLanguage(savedLang);
+});
+</script>
+<!-- Add this just before-->
+<button id="scrollTopBtn" title="Go to top" style="display:none;">
+  <!--
+  <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+    <circle cx="12" cy="12" r="11" fill="#fff" stroke="#7b2ff2" stroke-width="2"/>
+    <path d="M8 14l4-4 4 4" stroke="#7b2ff2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+-->
+  <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="#203040" d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM385 215c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-71-71L280 392c0 13.3-10.7 24-24 24s-24-10.7-24-24l0-214.1-71 71c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9L239 103c9.4-9.4 24.6-9.4 33.9 0L385 215z"/></svg>
+</button>
+
+<style>
+#scrollTopBtn {
+  position: fixed;
+  right: 32px;
+  bottom: 38px;
+  z-index: 1202;
+  background: none;
+  border: none;
+  border-radius: 40px;
+  box-shadow: 0 1px 2px #7b2ff244;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+  opacity: 0.92;
+  outline: none;
+}
+#scrollTopBtn:hover {
+  opacity: 1;
+  transform: scale(1.08);
+  box-shadow: 0 8px 32px #f357a888;
+}
+#scrollTopBtn svg {
+  display: block;
+}
+@media (max-width: 600px) {
+  #scrollTopBtn {
+    right: 14px;
+    bottom: 18px;
+    width: 42px;
+    height: 42px;
+  }
+  #scrollTopBtn svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const scrollBtn = document.getElementById('scrollTopBtn');
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 180) {
+      scrollBtn.style.display = 'flex';
+    } else {
+      scrollBtn.style.display = 'none';
+    }
+  });
+  scrollBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
+</script>
+<!-- Welcome Modal -->
+<div id="welcomeModal" style="display:none;position:fixed;z-index:3000;left:0;top:0;width:100%;height:100%;background:rgba(10, 5, 30, 0.85);backdrop-filter:blur(4px);align-items:center;justify-content:center;font-family:'Orbitron', sans-serif;">
+  <div id="welcomePanel" style="background:linear-gradient(145deg, #1e1238 0%, #2c1d5c 100%);border:2px solid #7b2ff2;border-radius:22px;box-shadow:0 12px 64px #7b2ff2aa;padding:48px;width:420px;max-width:95vw;display:flex;flex-direction:column;align-items:center;position:relative;text-align:center;">
+    <div id="welcomePicContainer" style="width:100px;height:100px;border-radius:50%;border:4px solid #7b2ff2;box-shadow:0 4px 24px #7b2ff288;background:#110a22;margin-bottom:24px;display:flex;align-items:center;justify-content:center;overflow:hidden;">
+      <img id="welcomePic" src="" alt="Profile" style="width:100%;height:100%; margin-top: 1px;margin-left: 1px; border-radius: 50%; object-fit:cover;display:none;">
+      <i id="welcomeAvatar" class="fa fa-user-astronaut" style="font-size:48px;color:#fec53a;display:none;"></i>
+    </div>
+    <div style="font-size:2.2em;color:#fff;margin-bottom:16px;text-shadow:0 0 8px #fff, 0 0 16px #fec53a;">
+      Welcome To GAMES-REALM!
+    </div>
+    <div id="welcomeName" style="font-size:1.25em;color:#fec53a;margin-bottom:24px;"></div>
+    <button id="closeWelcomeModal" style="background:linear-gradient(135deg, #f357a8, #7b2ff2);color:#fff;font-size:1.2em;border:none;border-radius:12px;cursor:pointer;font-weight:700;letter-spacing:1.5px;box-shadow:0 4px 18px #7b2ff266;padding:12px 40px;transition:all 0.2s;text-transform:uppercase;">Close</button>
+  </div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const welcomeModal = document.getElementById('welcomeModal');
+  const welcomePic = document.getElementById('welcomePic');
+  const welcomeAvatar = document.getElementById('welcomeAvatar');
+  const welcomeName = document.getElementById('welcomeName');
+  const closeWelcomeModal = document.getElementById('closeWelcomeModal');
+
+  // Show welcome modal on every visit
+  welcomeModal.style.display = 'flex';
+  
+  // Profile logic
+  let pic = null;
+  let name = "";
+  const email = localStorage.getItem('last_login_email');
+  if (email) {
+    let user = localStorage.getItem('user_' + email);
+    if (user) {
+      try {
+        let userObj = JSON.parse(user);
+        if (userObj.profilePic) pic = userObj.profilePic;
+        if (userObj.name) name = userObj.name;
+      } catch(e){}
+    }
+  }
+
+  if (pic) {
+    welcomePic.src = pic;
+    welcomePic.style.display = 'block';
+    welcomeAvatar.style.display = 'none';
+  } else {
+    welcomePic.style.display = 'none';
+    welcomeAvatar.style.display = 'block';
+  }
+  
+  welcomeName.textContent = name ? name : "Guest";
+
+  // Close logic
+  closeWelcomeModal.onclick = function() {
+    welcomeModal.style.display = 'none';
+  };
+  // Click outside panel to close
+  welcomeModal.onclick = function(e) {
+    if (e.target === this) {
+      welcomeModal.style.display = 'none';
+    }
+  };
+});
+</script>
+</body>
+</html>

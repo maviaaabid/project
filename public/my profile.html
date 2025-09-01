@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Profile</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="images/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Theme Toggle CSS -->
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <script type="text/javascript" src="https://unpkg.com/parse/dist/parse.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link rel="stylesheet" href="css/my profile.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+</head>
+<body>
+  <a href="index.html" class="back-button" aria-label="Back to Home">
+    <i class="fas fa-arrow-left"></i> Back
+  </a>
+  <div class="profile-container">
+    <div class="profile-title"><i class="fa-solid fa-user-astronaut"></i> My Profile</div>
+    <div class="profile-pic-frame" id="profilePicFrame">
+      <img id="profilePic" src="" alt="Profile Picture">
+    </div>
+    <div class="profile-info">
+      <label>Name</label>
+      <input class="profile-field" id="profileName" type="text" readonly>
+      <label>Email</label>
+      <input class="profile-field" id="profileEmail" type="text" readonly>
+      <label>Password</label>
+      <input class="profile-field" id="profilePassword" type="password" readonly value="********">
+    </div>
+    <!-- Rating Section Start -->
+    <div class="rating-section" style="margin-top:2em;width:100%;text-align:center;">
+      <div style="color:#fff;font-size:1.1em;font-weight:600;margin-bottom:0.7em;letter-spacing:1px;">
+        Rate Your Experience
+      </div>
+      <div id="star-rating" style="font-size:2em;display:flex;justify-content:center;gap:8px;cursor:pointer;">
+        <span class="star" data-value="1">&#9734;</span>
+        <span class="star" data-value="2">&#9734;</span>
+        <span class="star" data-value="3">&#9734;</span>
+        <span class="star" data-value="4">&#9734;</span>
+        <span class="star" data-value="5">&#9734;</span>
+      </div>
+      <div id="rating-msg" style="margin-top:0.7em;color:#f357a8;font-weight:500;min-height:1.5em;"></div>
+    </div>
+    <!-- Rating Section End -->
+  </div>
+  <script src="js/my-profile.js"></script>
+  <!-- Theme Sync Script -->
+  <script src="js/theme-sync.js"></script>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // --- Translations object (same as index.html) ---
+  const translations = {
+    en: {
+      "My Profile": "My Profile",
+      Name: "Name",
+      Email: "Email",
+      Password: "Password",
+      "Rate Your Experience": "Rate Your Experience",
+      "GAMES-VILA": "GAMES-VILA",
+      "Setting": "Setting",
+      "Logout": "Logout",
+      "Home": "Home",
+      // ...rest as before...
+    },
+    pt: {
+      "My Profile": "Meu Perfil",
+      Name: "Nome",
+      Email: "Email",
+      Password: "Senha",
+      "Rate Your Experience": "Avalie sua experiência",
+      "GAMES-VILA": "GAMES-VILA",
+      "Setting": "Configuração",
+      "Logout": "Sair",
+      "Home": "Início",
+      // ...rest as before...
+    },
+    hi: {
+      "My Profile": "मेरा प्रोफ़ाइल",
+      Name: "नाम",
+      Email: "ईमेल",
+      Password: "पासवर्ड",
+      "Rate Your Experience": "अपने अनुभव को रेट करें",
+      "GAMES-VILA": "गेम्स-विला",
+      "Setting": "सेटिंग",
+      "Logout": "लॉग आउट",
+      "Home": "होम",
+      // ...rest as before...
+    },
+    ur: {
+      "My Profile": "میری پروفائل",
+      Name: "نام",
+      Email: "ای میل",
+      Password: "پاس ورڈ",
+      "Rate Your Experience": "اپنے تجربے کی درجہ بندی کریں",
+      "GAMES-VILA": "گیمز-ویلا",
+      "Setting": "سیٹنگ",
+      "Logout": "لاگ آؤٹ",
+      "Home": "ہوم",
+      // ...rest as before...
+    },
+    ko: {
+      "My Profile": "내 프로필",
+      Name: "이름",
+      Email: "이메일",
+      Password: "비밀번호",
+      "Rate Your Experience": "경험 평가",
+      "GAMES-VILA": "게임스빌라",
+      "Setting": "설정",
+      "Logout": "로그아웃",
+      "Home": "홈",
+      // ...rest as before...
+    },
+    de: {
+      "My Profile": "Mein Profil",
+      Name: "Name",
+      Email: "E-Mail",
+      Password: "Passwort",
+      "Rate Your Experience": "Bewerten Sie Ihre Erfahrung",
+      "GAMES-VILA": "GAMES-VILA",
+      "Setting": "Einstellung",
+      "Logout": "Abmelden",
+      "Home": "Startseite",
+      // ...rest as before...
+    },
+    zh: {
+      "My Profile": "我的资料",
+      Name: "姓名",
+      Email: "电子邮件",
+      Password: "密码",
+      "Rate Your Experience": "评价您的体验",
+      "GAMES-VILA": "游戏之家",
+      "Setting": "设置",
+      "Logout": "退出",
+      "Home": "主页",
+      // ...rest as before...
+    },
+    ja: {
+      "My Profile": "マイプロフィール",
+      Name: "名前",
+      Email: "メール",
+      Password: "パスワード",
+      "Rate Your Experience": "体験を評価する",
+      "GAMES-VILA": "ゲームヴィラ",
+      "Setting": "設定",
+      "Logout": "ログアウト",
+      "Home": "ホーム",
+      // ...rest as before...
+    },
+    ar: {
+      "My Profile": "ملفي الشخصي",
+      Name: "الاسم",
+      Email: "البريد الإلكتروني",
+      Password: "كلمة المرور",
+      "Rate Your Experience": "قيّم تجربتك",
+      "GAMES-VILA": "فيلا الألعاب",
+      "Setting": "الإعدادات",
+      "Logout": "تسجيل الخروج",
+      "Home": "الرئيسية",
+      // ...rest as before...
+    },
+    es: {
+      "My Profile": "Mi perfil",
+      Name: "Nombre",
+      Email: "Correo electrónico",
+      Password: "Contraseña",
+      "Rate Your Experience": "Califica tu experiencia",
+      "GAMES-VILA": "VILA DE JUEGOS",
+      "Setting": "Configuración",
+      "Logout": "Cerrar sesión",
+      "Home": "Inicio",
+      // ...rest as before...
+    },
+    tr: {
+      "My Profile": "Profilim",
+      Name: "İsim",
+      Email: "E-posta",
+      Password: "Şifre",
+      "Rate Your Experience": "Deneyiminizi Değerlendirin",
+      "GAMES-VILA": "OYUN-VİLA",
+      "Setting": "Ayarlar",
+      "Logout": "Çıkış Yap",
+      "Home": "Ana Sayfa",
+      // ...rest as before...
+    },
+        fr: {
+      "My Profile": "Mon Profil",
+      Name: "Nom",
+      Email: "E-mail",
+      Password: "Mot de passe",
+      "Rate Your Experience": "Évaluez votre expérience",
+      "GAMES-VILA": "JEUX-VILA",
+      "Setting": "Paramètres",
+      "Logout": "Déconnexion",
+      "Home": "Accueil",
+      // ...rest as before...
+    },
+    ru: {
+      "My Profile": "Мой профиль",
+      Name: "Имя",
+      Email: "Эл. почта",
+      Password: "Пароль",
+      "Rate Your Experience": "Оцените свой опыт",
+      "GAMES-VILA": "ИГРЫ-ВИЛЛА",
+      "Setting": "Настройки",
+      "Logout": "Выйти",
+      "Home": "Главная",
+      // ...rest as before...
+    }
+  };
+
+  function setLanguage(lang) {
+    // Profile title
+    const profileTitle = document.querySelector('.profile-title');
+    if (profileTitle && translations[lang][profileTitle.textContent.replace(/^\s*|\s*$/g, '').replace(/^[^A-Za-z0-9]+/, '')]) {
+      // Remove icon if present
+      let text = profileTitle.textContent.replace(/^\s*|\s*$/g, '').replace(/^[^A-Za-z0-9]+/, '');
+      profileTitle.innerHTML = `<i class="fa-solid fa-user-astronaut"></i> ${translations[lang][text]}`;
+    }
+    // Labels
+    document.querySelectorAll('.profile-info label').forEach(label => {
+      const key = label.textContent.trim();
+      if (translations[lang][key]) label.textContent = translations[lang][key];
+    });
+    // Rate your experience
+    const rate = document.querySelector('.rating-section > div');
+    if (rate && translations[lang][rate.textContent.trim()]) {
+      rate.textContent = translations[lang][rate.textContent.trim()];
+    }
+    // Footer/logo if present
+    const logo = document.querySelector('.footer-title, .logo-name, span[style*="Orbitron"]');
+    if (logo && translations[lang][logo.textContent.trim()]) {
+      logo.textContent = translations[lang][logo.textContent.trim()];
+    }
+    // Add more selectors as needed for your page
+  }
+
+  // --- On page load, set language from localStorage ---
+  const savedLang = localStorage.getItem('site-lang') || 'en';
+  setLanguage(savedLang);
+});
+</script>
+</html>

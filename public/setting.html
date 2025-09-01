@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Settings - Profile Dashboard</title>
+  <script type="text/javascript" src="https://unpkg.com/parse/dist/parse.min.js"></script>
+  <link rel="icon" type="image/png" sizes="32x32" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="64x64" href="images/logo.png">
+  <link rel="icon" type="image/png" sizes="128x128" href="images/logo.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/logo.png">
+  <!-- Theme Toggle CSS -->
+  <link rel="stylesheet" href="css/theme-toggle.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/setting.css">
+  <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
++  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" /> 
+  <link  href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css" rel="stylesheet">
+</head>
+<body>
+  <a href="index.html" class="back-button" aria-label="Back to Home">
+    <i class="fas fa-arrow-left"></i> Back
+  </a>
+  <div class="settings-container">
+    <div class="settings-title">Profile Dashboard</div>
+    <form class="settings-form" id="settingsForm" autocomplete="off">
+      <div class="profile-pic-preview">
+        <img id="profilePicPreview" src="" alt="Profile Picture">
+        <!-- Edit icon button -->
+        <button type="button" id="editPicBtn">
+          <i class="fa fa-pencil"></i>
+        </button>
+        <!-- Hidden file input for image change -->
+        <input type="file" id="profilePicInput" accept="image/*" style="display:none;">
+      </div>
+      <label for="nameInput">Name</label>
+      <input type="text" id="nameInput" required>
+
+      <label for="emailInput">Email</label>
+      <input type="email" id="emailInput" required>
+
+      <label for="oldPasswordInput">Old Password</label>
+      <div class="input-group">
+        <input type="password" id="oldPasswordInput" placeholder="Enter old password" style="padding-right:2.2em;">
+        <button type="button" class="show-password-btn" tabindex="-1" onclick="togglePassword('oldPasswordInput', this)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+
+      <label for="passwordInput">New Password</label>
+      <div class="input-group">
+        <input type="password" id="passwordInput" placeholder="Enter new password" style="padding-right:2.2em;">
+        <button type="button" class="show-password-btn" tabindex="-1" onclick="togglePassword('passwordInput', this)">
+          <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7S1 12 1 12z"/>
+            <circle cx="12" cy="12" r="3"/>
+          </svg>
+        </button>
+      </div>
+
+      <button type="submit">Save Changes</button>
+      <div id="msg"></div>
+    </form>
+  </div>
+
+  <!-- Modal for edit options -->
+  <div id="editPicModal">
+    <div>
+      <div style="font-weight:bold;font-size:1.1rem;margin-bottom:12px;margin-left: -15px; text-align:center;color:#fff;">Edit Profile Picture</div>
+      <div style="display:flex;justify-content:center;margin-bottom:12px;">
+        <img id="modalPicPreview" src="" alt="Preview" style="width:84px;height:84px;border-radius:50%;object-fit:cover;border:3px solid #7b2ff2;margin-top: 8px; background:#222;">
+      </div>
+      <button type="button" id="changePicBtn">Change Image</button>
+      <button type="button" id="cropPicBtn">Crop (Demo)</button>
+      <div style="margin:10px 0 6px 0;font-weight:500;color:#fff;">Select Frame</div>
+      <div id="frameList"></div>
+      <button type="button" id="applyPicBtn">Apply</button>
+      <button type="button" onclick="document.getElementById('editPicModal').style.display='none'" style="background:#eee;color:#7b2ff2;">Close</button>
+    </div>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/setting.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+  <script>
+document.addEventListener('DOMContentLoaded', function() {
+  // --- Translations object (same as index.html) ---
+  const translations = {
+    en: {
+      "Profile Dashboard": "Profile Dashboard",
+      Name: "Name",
+      Email: "Email",
+      "Old Password": "Old Password",
+      "Enter old password": "Enter old password",
+      "New Password": "New Password",
+      "Enter new password": "Enter new password",
+      "Save Changes": "Save Changes",
+      "Edit Profile Picture": "Edit Profile Picture",
+      "Change Image": "Change Image",
+      "Crop (Demo)": "Crop (Demo)",
+      "Select Frame": "Select Frame",
+      Apply: "Apply",
+      Close: "Close",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.",
+      "GAMES-VILA": "GAMES-VILA"
+    },
+    zh: {
+      "Profile Dashboard": "个人资料面板",
+      Name: "姓名",
+      Email: "电子邮件",
+      "Old Password": "旧密码",
+      "Enter old password": "输入旧密码",
+      "New Password": "新密码",
+      "Enter new password": "输入新密码",
+      "Save Changes": "保存更改",
+      "Edit Profile Picture": "编辑头像",
+      "Change Image": "更换图片",
+      "Crop (Demo)": "裁剪（演示）",
+      "Select Frame": "选择边框",
+      Apply: "应用",
+      Close: "关闭",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "免费下载预装的PC游戏，来自Steam和主要发行商，极速下载。",
+      "GAMES-VILA": "游戏之家"
+    },
+    ja: {
+      "Profile Dashboard": "プロフィールダッシュボード",
+      Name: "名前",
+      Email: "メール",
+      "Old Password": "古いパスワード",
+      "Enter old password": "古いパスワードを入力",
+      "New Password": "新しいパスワード",
+      "Enter new password": "新しいパスワードを入力",
+      "Save Changes": "変更を保存",
+      "Edit Profile Picture": "プロフィール画像を編集",
+      "Change Image": "画像を変更",
+      "Crop (Demo)": "切り抜き（デモ）",
+      "Select Frame": "フレームを選択",
+      Apply: "適用",
+      Close: "閉じる",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Steamや大手パブリッシャーからのプリインストールPCゲームを無料で高速ダウンロード。",
+      "GAMES-VILA": "ゲームヴィラ"
+    },
+    ar: {
+      "Profile Dashboard": "لوحة الملف الشخصي",
+      Name: "الاسم",
+      Email: "البريد الإلكتروني",
+      "Old Password": "كلمة المرور القديمة",
+      "Enter old password": "أدخل كلمة المرور القديمة",
+      "New Password": "كلمة المرور الجديدة",
+      "Enter new password": "أدخل كلمة المرور الجديدة",
+      "Save Changes": "حفظ التغييرات",
+      "Edit Profile Picture": "تعديل الصورة الشخصية",
+      "Change Image": "تغيير الصورة",
+      "Crop (Demo)": "قص (تجريبي)",
+      "Select Frame": "اختر الإطار",
+      Apply: "تطبيق",
+      Close: "إغلاق",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "تحميل مجاني لألعاب الكمبيوتر المحمولة المثبتة مسبقًا من Steam والناشرين الرئيسيين بأسرع تنزيلات.",
+      "GAMES-VILA": "فيلا الألعاب"
+    },
+    es: {
+      "Profile Dashboard": "Panel de Perfil",
+      Name: "Nombre",
+      Email: "Correo electrónico",
+      "Old Password": "Contraseña antigua",
+      "Enter old password": "Ingrese la contraseña antigua",
+      "New Password": "Nueva contraseña",
+      "Enter new password": "Ingrese la nueva contraseña",
+      "Save Changes": "Guardar cambios",
+      "Edit Profile Picture": "Editar foto de perfil",
+      "Change Image": "Cambiar imagen",
+      "Crop (Demo)": "Recortar (Demo)",
+      "Select Frame": "Seleccionar marco",
+      Apply: "Aplicar",
+      Close: "Cerrar",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Descarga gratis juegos de PC portátiles preinstalados de Steam y los principales editores con descargas rápidas.",
+      "GAMES-VILA": "VILA DE JUEGOS"
+    },
+    tr: {
+      "Profile Dashboard": "Profil Paneli",
+      Name: "İsim",
+      Email: "E-posta",
+      "Old Password": "Eski Şifre",
+      "Enter old password": "Eski şifreyi girin",
+      "New Password": "Yeni Şifre",
+      "Enter new password": "Yeni şifreyi girin",
+      "Save Changes": "Değişiklikleri Kaydet",
+      "Edit Profile Picture": "Profil Fotoğrafını Düzenle",
+      "Change Image": "Resmi Değiştir",
+      "Crop (Demo)": "Kırp (Demo)",
+      "Select Frame": "Çerçeve Seç",
+      Apply: "Uygula",
+      Close: "Kapat",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Steam ve büyük yayıncılardan önceden yüklenmiş taşınabilir PC oyunlarını ücretsiz ve hızlı indir.",
+      "GAMES-VILA": "OYUN-VİLA"
+    },
+    ko:{
+      "Profile Dashboard": "프로필 대시보드",
+      Name: "이름",
+      Email: "이메일",
+      "Old Password": "기존 비밀번호",
+      "Enter old password": "기존 비밀번호 입력",
+      "New Password": "새 비밀번호",
+      "Enter new password": "새 비밀번호 입력",
+      "Save Changes": "변경 사항 저장",
+      "Edit Profile Picture": "프로필 사진 편집",
+      "Change Image": "이미지 변경",
+      "Crop (Demo)": "자르기 (데모)",
+      "Select Frame": "프레임 선택",
+      Apply: "적용",
+      Close: "닫기",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Steam 및 주요 퍼블리셔로부터 사전 설치된 휴대용 PC 게임을 무료로 다운로드하고 가장 빠른 속도로 다운로드하세요.",
+      "GAMES-VILA": "게임 빌라"
+    },
+    fr: {
+      "Profile Dashboard": "Tableau de bord du profil",
+      Name: "Nom",
+      Email: "E-mail",
+      "Old Password": "Ancien mot de passe",
+      "Enter old password": "Entrez l'ancien mot de passe",
+      "New Password": "Nouveau mot de passe",
+      "Enter new password": "Entrez le nouveau mot de passe",
+      "Save Changes": "Enregistrer les modifications",
+      "Edit Profile Picture": "Modifier la photo de profil",
+      "Change Image": "Changer l'image",
+      "Crop (Demo)": "Rogner (Démo)",
+      "Select Frame": "Sélectionner un cadre",
+      Apply: "Appliquer",
+      Close: "Fermer",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Téléchargez gratuitement des jeux PC portables préinstallés de Steam et des principaux éditeurs avec des téléchargements rapides.",
+      "GAMES-VILA": "JEUX-VILA"
+    },
+    ru: {
+      "Profile Dashboard": "Панель профиля",
+      Name: "Имя",
+      Email: "Эл. почта",
+      "Old Password": "Старый пароль",
+      "Enter old password": "Введите старый пароль",
+      "New Password": "Новый пароль",
+      "Enter new password": "Введите новый пароль",
+      "Save Changes": "Сохранить изменения",
+      "Edit Profile Picture": "Редактировать фото профиля",
+      "Change Image": "Изменить изображение",
+      "Crop (Demo)": "Обрезать (Демо)",
+      "Select Frame": "Выбрать рамку",
+      Apply: "Применить",
+      Close: "Закрыть",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Бесплатная загрузка портативных ПК-игр, предустановленных от Steam и крупных издателей, с самой быстрой скоростью.",
+      "GAMES-VILA": "ИГРЫ-ВИЛЛА"
+    },
+    pt:{
+      "Profile Dashboard": "Painel de Perfil",
+      Name: "Nome",
+      Email: "E-mail",
+      "Old Password": "Senha Antiga",
+      "Enter old password": "Digite a senha antiga",
+      "New Password": "Nova Senha",
+      "Enter new password": "Digite a nova senha",
+      "Save Changes": "Salvar Alterações",
+      "Edit Profile Picture": "Editar Foto de Perfil",
+      "Change Image": "Mudar Imagem",
+      "Crop (Demo)": "Recortar (Demo)",
+      "Select Frame": "Selecionar Moldura",
+      Apply: "Aplicar",
+      Close: "Fechar",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Download gratuito de jogos portáteis para PC pré-instalados da Steam e de grandes editoras com downloads mais rápidos.",
+      "GAMES-VILA": "VILA DE JOGOS" 
+    },
+    hi:{
+      "Profile Dashboard": "प्रोफ़ाइल डैशबोर्ड",
+      Name: "नाम",
+      Email: "ईमेल",
+      "Old Password": "पुराना पासवर्ड",
+      "Enter old password": "पुराना पासवर्ड दर्ज करें",
+      "New Password": "नया पासवर्ड",
+      "Enter new password": "नया पासवर्ड दर्ज करें",
+      "Save Changes": "परिवर्तन सहेजें",
+      "Edit Profile Picture": "प्रोफ़ाइल चित्र संपादित करें",
+      "Change Image": "चित्र बदलें",
+      "Crop (Demo)": "क्रॉप (डेमो)",
+      "Select Frame": "फ्रेम चुनें",
+      Apply: "लागू करें",
+      Close: "बंद करें",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "स्टीम और प्रमुख प्रकाशकों से प्री-इंस्टॉल्ड पोर्टेबल पीसी गेम्स का मुफ्त डाउनलोड, सबसे तेज़ डाउनलोड के साथ।",
+      "GAMES-VILA": "गेम्स-विला"
+    },
+    ur:{
+      "Profile Dashboard": "پروفائل ڈیش بورڈ",
+      Name: "نام",
+      Email: "ای میل",
+      "Old Password": "پرانا پاس ورڈ",
+      "Enter old password": "پرانا پاس ورڈ درج کریں",
+      "New Password": "نیا پاس ورڈ",
+      "Enter new password": "نیا پاس ورڈ درج کریں",
+      "Save Changes": "تبدیلیاں محفوظ کریں",
+      "Edit Profile Picture": "پروفائل تصویر میں ترمیم کریں",
+      "Change Image": "تصویر تبدیل کریں",
+      "Crop (Demo)": "کروپ (ڈیمو)",
+      "Select Frame": "فریم منتخب کریں",
+      Apply: "لاگو کریں",
+      Close: "بند کریں",
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "اسٹیم اور بڑے ناشروں سے پری انسٹال شدہ پورٹیبل پی سی گیمز کا مفت ڈاؤن لوڈ، تیز ترین ڈاؤن لوڈ کے ساتھ۔",
+      "GAMES-VILA": "گیمز-ویلا"
+    },
+
+    de:{
+      "Profile Dashboard": "Profilübersicht",
+      Name: "Name",
+      Email: "E-Mail",
+      "Old Password": "Altes Passwort",
+      "Enter old password": "Gib das alte Passwort ein",
+      "New Password": "Neues Passwort",
+      "Enter new password": "Gib das neue Passwort ein",
+      "Save Changes": "Änderungen speichern",
+      "Edit Profile Picture": "Profilbild bearbeiten",
+      "Change Image": "Bild austauschen",
+      "Crop (Demo)": "Zuschneiden (Demo)",    
+      "Select Frame": "Rahmen auswhlen",
+      Apply: "Anwenden",
+      Close: "Schliessen", 
+      "Free Download Pre-installed portable PC games from steam and major publishers with fastest downloads.": "Kostenloser Download vorinstallierter tragbarer PC-Spiele von Steam und großen Publishern mit den schnellsten Downloads.",
+      "GAMES-VILA": "SPIELE-VILA"
+    }
+  };
+
+  function setLanguage(lang) {
+    // Page title
+    const pageTitle = document.querySelector('.settings-title');
+    if (pageTitle && translations[lang][pageTitle.textContent.trim()]) {
+      pageTitle.textContent = translations[lang][pageTitle.textContent.trim()];
+    }
+    // Form labels
+    document.querySelectorAll('.settings-form label').forEach(label => {
+      const key = label.textContent.trim();
+      if (translations[lang][key]) label.textContent = translations[lang][key];
+    });
+    // Placeholders
+    const oldPass = document.getElementById('oldPasswordInput');
+    if (oldPass && translations[lang][oldPass.placeholder]) {
+      oldPass.placeholder = translations[lang][oldPass.placeholder];
+    }
+    const newPass = document.getElementById('passwordInput');
+    if (newPass && translations[lang][newPass.placeholder]) {
+      newPass.placeholder = translations[lang][newPass.placeholder];
+    }
+    // Buttons
+    const saveBtn = document.querySelector('.settings-form button[type="submit"]');
+    if (saveBtn && translations[lang][saveBtn.textContent.trim()]) {
+      saveBtn.textContent = translations[lang][saveBtn.textContent.trim()];
+    }
+    // Modal titles and buttons
+    const editPicTitle = document.querySelector('#editPicModal > div > div');
+    if (editPicTitle && translations[lang][editPicTitle.textContent.trim()]) {
+      editPicTitle.textContent = translations[lang][editPicTitle.textContent.trim()];
+    }
+    document.querySelectorAll('#editPicModal button').forEach(btn => {
+      const key = btn.textContent.trim();
+      if (translations[lang][key]) btn.textContent = translations[lang][key];
+    });
+    // Modal "Select Frame" text
+    const selectFrame = document.querySelector('#editPicModal div[style*="Select Frame"]');
+    if (selectFrame && translations[lang][selectFrame.textContent.trim()]) {
+      selectFrame.textContent = translations[lang][selectFrame.textContent.trim()];
+    }
+    // Footer/logo if present
+    const logo = document.querySelector('.footer-title, .logo-name, span[style*="Orbitron"]');
+    if (logo && translations[lang][logo.textContent.trim()]) {
+      logo.textContent = translations[lang][logo.textContent.trim()];
+    }
+  }
+
+  // --- On page load, set language from localStorage ---
+  const savedLang = localStorage.getItem('site-lang') || 'en';
+  setLanguage(savedLang);
+
+  let cropper = null;
+  const modalPicPreview = document.getElementById('modalPicPreview');
+  const changePicBtn = document.getElementById('changePicBtn');
+  const cropPicBtn = document.getElementById('cropPicBtn');
+  const applyPicBtn = document.getElementById('applyPicBtn');
+  const profilePicInput = document.getElementById('profilePicInput');
+  const profilePicPreview = document.getElementById('profilePicPreview');
+
+  // Open file dialog on "Change Image"
+  changePicBtn.addEventListener('click', function() {
+    profilePicInput.click();
+  });
+
+  // When user selects a file, show in modal and enable cropper
+  profilePicInput.addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(evt) {
+      modalPicPreview.src = evt.target.result;
+      // Destroy previous cropper if any
+      if (cropper) cropper.destroy();
+      cropper = new Cropper(modalPicPreview, {
+        aspectRatio: 1,
+        viewMode: 1,
+        background: false,
+        autoCropArea: 1,
+      });
+    };
+    reader.readAsDataURL(file);
+  });
+
+  // On "Crop (Demo)" button, crop the image and show preview
+  cropPicBtn.addEventListener('click', function() {
+    if (cropper) {
+      const canvas = cropper.getCroppedCanvas({
+        width: 200,
+        height: 200,
+        imageSmoothingQuality: 'high'
+      });
+      // Show cropped image in modal preview
+      modalPicPreview.src = canvas.toDataURL('image/png');
+      // Destroy cropper after cropping
+      cropper.destroy();
+      cropper = null;
+    }
+  });
+
+  // On "Apply" button, save cropped image as profile
+  applyPicBtn.addEventListener('click', function() {
+    // Save the cropped image to profile preview
+    profilePicPreview.src = modalPicPreview.src;
+    // Optionally, save to localStorage or server here
+    // Example: localStorage.setItem('profile_pic', modalPicPreview.src);
+    document.getElementById('editPicModal').style.display = 'none';
+  });
+
+  // Optional: When opening modal, re-initialize cropper if needed
+  document.getElementById('editPicBtn').addEventListener('click', function() {
+    document.getElementById('editPicModal').style.display = 'block';
+    // If you want to allow cropping again, re-initialize cropper here if needed
+  });
+});
+</script>
+
+<!-- Theme Sync Script -->
+<script src="js/theme-sync.js"></script>
+</body>
+</html>
