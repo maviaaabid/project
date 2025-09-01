@@ -92,6 +92,28 @@ header {
   background: var(--box-bg) !important;
   color: var(--text-color) !important;
 }
+
+/* Add missing box classes for theme support */
+.box-3, .box-4, .box-5 {
+  background: var(--box-bg) !important;
+  color: var(--text-color) !important;
+}
+
+/* Dark theme for all boxes */
+body.dark-theme .box,
+body.dark-theme .box-2,
+body.dark-theme .box-3,
+body.dark-theme .box-4,
+body.dark-theme .box-5,
+html.dark-theme .box,
+html.dark-theme .box-2,
+html.dark-theme .box-3,
+html.dark-theme .box-4,
+html.dark-theme .box-5 {
+  background: var(--box-bg) !important;
+  color: var(--text-color) !important;
+ 
+}
 #theme-icon{
   cursor: pointer;
   display: flex;
@@ -141,7 +163,7 @@ body.light-theme, html.light-theme {
 
 /* Make sure your main container stretches */
 .container, .boxes-container, main {
-  min-height: 60vh;
+  min-height: 50vh;
   margin-bottom: 40px;
 }
 
@@ -201,14 +223,93 @@ html.light-theme .container,
 html.light-theme .boxes-container {
   flex: 1 0 auto;
   background: transparent;
-  margin-bottom: 0;
+  margin-bottom: 40px;
+}
+
+/* First box special positioning in light theme */
+body.light-theme .box,
+html.light-theme .box {
+  margin-top: 0px !important;
+}
+
+/* Second box and others proper spacing */
+body.light-theme .box-2,
+body.light-theme .box-3,
+body.light-theme .box-4,
+body.light-theme .box-5,
+html.light-theme .box-2,
+html.light-theme .box-3,
+html.light-theme .box-4,
+html.light-theme .box-5 {
+margin-top: 0px !important;
+}
+
+body.light-theme .box-7,
+body.light-theme .box-8,
+body.light-theme .box-9,
+body.light-theme .box-10,
+html.light-theme .box-7,
+html.light-theme .box-8,
+html.light-theme .box-9,
+html.light-theme .box-10 {
+margin-top: 0px !important;
+}
+
+body.light-theme .box-12,
+body.light-theme .box-13,
+body.light-theme .box-14,
+body.light-theme .box-15,
+html.light-theme .box-12,
+html.light-theme .box-13,
+html.light-theme .box-14,
+html.light-theme .box-15 {
+margin-top: 0px !important;
+margin-bottom: 80px;
 }
 
 /* Boxes */
 body.light-theme .box,
 body.light-theme .box-2,
+body.light-theme .box-3,
+body.light-theme .box-4,
+body.light-theme .box-5,
 html.light-theme .box,
-html.light-theme .box-2 {
+html.light-theme .box-2,
+html.light-theme .box-3,
+html.light-theme .box-4,
+html.light-theme .box-5{
+  background: var(--box-bg) !important;
+  color: var(--text-color) !important;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+}
+
+body.light-theme .box-6,
+body.light-theme .box-7,
+body.light-theme .box-8,
+body.light-theme .box-9,
+body.light-theme .box-10,
+html.light-theme .box-6,
+html.light-theme .box-7,
+html.light-theme .box-8,
+html.light-theme .box-9,
+html.light-theme .box-10{
+  background: var(--box-bg) !important;
+  color: var(--text-color) !important;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+}
+
+body.light-theme .box-11,
+body.light-theme .box-12,
+body.light-theme .box-13,
+body.light-theme .box-14,
+body.light-theme .box-15,
+html.light-theme .box-11,
+html.light-theme .box-12,
+html.light-theme .box-13,
+html.light-theme .box-14,
+html.light-theme .box-15{
   background: var(--box-bg) !important;
   color: var(--text-color) !important;
   border: 1px solid #e0e0e0;
@@ -279,6 +380,7 @@ html.light-theme a {
   html.light-theme footer {
     padding: 12px 0;
     width: 100vw;
+
   }
 }
 

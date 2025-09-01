@@ -76,7 +76,7 @@ regForm.addEventListener('submit', async function(e) {
     }
     regOtpValue = Math.floor(100000 + Math.random() * 900000).toString();
     try {
-      const res = await fetch('http://localhost:3000/send-otp', {
+      const res = await fetch(`${getOtpApiUrl()}/send-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp: regOtpValue })
@@ -111,7 +111,7 @@ regForm.addEventListener('submit', async function(e) {
       return;
     }
     try {
-      const res = await fetch('http://localhost:3000/verify-otp', {
+      const res = await fetch(`${getOtpApiUrl()}/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp })
@@ -162,7 +162,7 @@ loginForm.addEventListener('submit', async function(e) {
     }
     loginOtpValue = Math.floor(100000 + Math.random() * 900000).toString();
     try {
-      const res = await fetch('http://localhost:3000/send-otp', {
+      const res = await fetch(`${getOtpApiUrl()}/send-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp: loginOtpValue })
@@ -197,7 +197,7 @@ loginForm.addEventListener('submit', async function(e) {
       return;
     }
     try {
-      const res = await fetch('http://localhost:3000/verify-otp', {
+      const res = await fetch(`${getOtpApiUrl()}/verify-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, otp })
@@ -654,7 +654,7 @@ document.getElementById('login-form').addEventListener('submit', async function(
   msg.textContent = "Sending OTP to your Gmail...";
   try {
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const res = await fetch('http://localhost:3000/send-otp', {
+    const res = await fetch(`${getOtpApiUrl()}/send-otp`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, otp })
@@ -673,10 +673,15 @@ document.getElementById('login-form').addEventListener('submit', async function(
   }
 });
 
-// Google OAuth Configuration
-const GOOGLE_CLIENT_ID = '522632399270-girk71r0ofjk7ci2mrh9fbc9hblaeiku.apps.googleusercontent.com';
-const GOOGLE_REDIRECT_URI = 'http://localhost:3001/login.html';
-const BACKEND_URL = 'http://localhost:3001';
+// Google OAuth Configuration - Now using dynamic config
+const GOOGLE_CLIENT_ID = window.CONFIG ? window.CONFIG.GOOGLE_CLIENT_ID : '522632399270-girk71r0ofjk7ci2mrh9fbc9hblaeiku.apps.googleusercontent.com';
+const GOOGLE_REDIRECT_URI = window.CONFIG ? window.CONFIG.getGoogleRedirectUri() : window.location.origin + '/login.html';
+const BACKEND_URL = window.CONFIG ? window.CONFIG.getApiUrl() : window.location.origin;
+
+// Helper function to get OTP API URL
+function getOtpApiUrl() {
+  return window.CONFIG ? window.CONFIG.getOtpApiUrl() : window.location.origin;
+}
 
 // Social Login Functions
 function signInWithGoogle() {
@@ -982,9 +987,9 @@ function initGoogleSignIn() {
 // Initialize Google Sign-In when DOM is loaded
 document.addEventListener('DOMContentLoaded', initGoogleSignIn);
 
-const GITHUB_CLIENT_ID = 'Ov23lix5X6dUR29UIZHk';
+const GITHUB_CLIENT_ID = window.CONFIG ? window.CONFIG.GITHUB_CLIENT_ID : 'Ov23lix5X6dUR29UIZHk';
 const GITHUB_CLIENT_SECRET = 'b19cd25f0a2049becabe6103a6e9fc5e7a925a4a';
-const GITHUB_REDIRECT_URI = 'http://localhost:3001/login.html';
+const GITHUB_REDIRECT_URI = window.CONFIG ? window.CONFIG.getGitHubRedirectUri() : window.location.origin + '/login.html';
 
 // GitHub OAuth login function
 function signInWithGitHub() {

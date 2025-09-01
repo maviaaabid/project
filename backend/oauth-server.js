@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
+const nodemailer = require('nodemailer');
 const path = require('path');
 // Load environment variables
 require('dotenv').config();
@@ -22,13 +23,112 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Test endpoint to verify server is running
 app.get('/api/test', (req, res) => {
   console.log('Test endpoint called');
-  res.json({ status: 'ok', message: 'OAuth server is running' });
+  res.json({ 
+    status: 'ok', 
+    message: 'OAuth server is running',
+    environment: {
+      nodeEnv: process.env.NODE_ENV,
+      hasGoogleClientId: !!process.env.GOOGLE_CLIENT_ID,
+      hasGoogleClientSecret: !!process.env.GOOGLE_CLIENT_SECRET,
+      hasEmailUser: !!process.env.EMAIL_USER,
+      hasEmailPass: !!process.env.EMAIL_PASS,
+      redirectUri: process.env.GOOGLE_OAUTH_CALLBACK_URL
+    }
+  });
+});
+
+// OTP Store and Users store
+let otpStore = {}; // { email: otp }
+let users = {}; // { email: { password: string } }
+
+// OTP Endpoints
+app.post('/send-otp', async (req, res) => {
+  const { email, otp } = req.body;
+  if (!email || !otp) return res.status(400).json({ message: 'Email and OTP required' });
+
+  // Configure Gmail credentials using environment variables
+  let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL_USER || process.env.SMTP_USER || 'itxmaviaabid@gmail.com',
+      pass: process.env.EMAIL_PASS || process.env.SMTP_PASS || 'vqzn vqlc qltk biba'
+    }
+  });
+
+  try {
+    await transporter.sendMail({
+      from: process.env.EMAIL_FROM || '"Game OTP" <itxmaviaabid@gmail.com>',
+      to: email,
+      subject: 'Your OTP Code',
+      text: `Your OTP code is: ${otp}`,
+      html: `<b>Your OTP code is: ${otp}</b>`
+    });
+    console.log('OTP sent to:', email, 'OTP:', otp);
+    otpStore[email] = otp;
+    res.json({ message: 'OTP sent' });
+  } catch (err) {
+    console.error('Send OTP error:', err);
+    res.status(500).json({ message: 'Failed to send OTP', error: err.toString() });
+  }
+});
+
+app.post('/verify-otp', (req, res) => {
+  const { email, otp } = req.body;
+  if (otpStore[email] && otpStore[email] === otp) {
+    delete otpStore[email];
+    return res.json({ success: true });
+  }
+  res.json({ success: false });
+});
+
+// Registration endpoint
+app.post('/register', (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) return res.status(400).json({ message: 'Email and password required' });
+
+  if (users[email]) {
+    return res.status(400).json({ message: 'Email already registered' });
+  }
+
+  users[email] = { password };
+  console.log('User registered:', email);
+  res.json({ message: 'Registration successful' });
+});
+
+// Check email endpoint
+app.post('/check-email', (req, res) => {
+  const { email } = req.body;
+  if (!email) return res.status(400).json({ message: 'Email required' });
+
+  if (users[email]) {
+    return res.json({ registered: true });
+  } else {
+    return res.json({ registered: false });
+  }
+});
+
+// Login endpoint
+app.post('/login', (req, res) => {
+  const { email, password } = req.body;
+  if (!email || !password) return res.status(400).json({ message: 'Email and password required' });
+
+  const user = users[email];
+  if (!user) {
+    return res.status(400).json({ message: 'Email not registered' });
+  }
+
+  if (user.password !== password) {
+    return res.status(400).json({ message: 'Incorrect password' });
+  }
+
+  console.log('User logged in:', email);
+  res.json({ message: 'Login successful' });
 });
 
 // Google OAuth Configuration
 const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
 const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET;
-const REDIRECT_URI = process.env.REDIRECT_URI || 'http://localhost:3001/login.html';
+const REDIRECT_URI = process.env.GOOGLE_OAUTH_CALLBACK_URL || process.env.REDIRECT_URI;
 
 console.log('Using redirect URI:', REDIRECT_URI);
 
@@ -161,10 +261,7 @@ app.get('/api/github/userinfo', async (req, res) => {
   }
 });
 
-// Test endpoint
-app.get('/api/test', (req, res) => {
-  res.json({ message: 'OAuth server is running!' });
-});
+
 
 // Serve the login page
 app.get('/login.html', (req, res) => {

@@ -1,5 +1,10 @@
 // All JS from <script> tag in setting.html goes here
 
+// Helper function to get OTP API URL
+function getOtpApiUrl() {
+  return window.CONFIG ? window.CONFIG.getOtpApiUrl() : window.location.origin;
+}
+
 // Load user data from localStorage
 const email = localStorage.getItem('last_login_email');
 let user = email ? localStorage.getItem('user_' + email) : null;
@@ -378,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       msg.textContent = "Sending OTP to your Gmail...";
       try {
-        const res = await fetch('http://localhost:3000/send-otp', {
+        const res = await fetch(`${getOtpApiUrl()}/send-otp`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: newEmail, otp: otpValue })
@@ -397,7 +402,7 @@ document.addEventListener('DOMContentLoaded', function() {
               return;
             }
             try {
-              const res = await fetch('http://localhost:3000/verify-otp', {
+              const res = await fetch(`${getOtpApiUrl()}/verify-otp`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: newEmail, otp: enteredOtp })
@@ -445,7 +450,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return;
       }
       try {
-        const res = await fetch('http://localhost:3000/verify-otp', {
+        const res = await fetch(`${getOtpApiUrl()}/verify-otp`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ email: newEmail, otp: enteredOtp })
