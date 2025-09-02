@@ -94,23 +94,69 @@ header{
 .slide.active .slide-content {
     animation: slideInLeft 1s ease-out;
 }
-@media screen and (max-width:1400px){
-.hero-slider-container {
-    margin-top: -635px;
-    margin-bottom: 40em;
+/* Hero Slider Responsive Positioning */
+@media screen and (max-width: 1400px) {
+    .hero-slider-container {
+        margin-top: -640px;
+        margin-bottom: 40em;
+    }
 }
+
+@media screen and (max-width: 1200px) {
+    .hero-slider-container {
+        margin-top: -640px;
+        margin-bottom: 40em;
+    }
 }
-@media screen and (max-width:500px){
-.hero-slider-container {
-    margin-top: -635px;
-    margin-bottom: 40em;
+
+@media screen and (max-width: 992px) {
+    .hero-slider-container {
+        margin-top: -640px;
+        margin-bottom: 40em;
+    }
 }
+
+@media screen and (max-width: 768px) {
+    .hero-slider-container {
+        margin-top: -640px;
+        margin-bottom: 40em;
+        height: 80vh;
+    }
 }
-@media screen and (max-width:480px){
-.hero-slider-container {
-    margin-top: -638px;
-    margin-bottom: 40em;
+
+@media screen and (max-width: 600px) {
+    .hero-slider-container {
+        margin-top: -640px;
+        margin-bottom: 40em;
+    }
 }
+
+@media screen and (max-width: 500px) {
+    .hero-slider-container {
+        margin-top: -640px;
+        margin-bottom: 40em;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .hero-slider-container {
+        margin-top: -640px;
+        margin-bottom: 40em;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .hero-slider-container {
+        margin-top: -640px;
+        margin-bottom: 40em;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .hero-slider-container {
+        margin-top: -640px;
+        margin-bottom: 40em;
+    }
 }
 
 .game-category {
@@ -307,7 +353,7 @@ header{
     }
 }
 
-/* Responsive Design */
+/* Slide Content Responsive Design */
 @media (max-width: 1200px) {
     .slide {
         padding: 0 60px;
@@ -322,11 +368,21 @@ header{
     }
 }
 
-@media (max-width: 768px) {
-    .hero-slider-container {
-        height: 80vh;
+@media (max-width: 992px) {
+    .slide {
+        padding: 0 50px;
     }
     
+    .game-title {
+        font-size: 3.2rem;
+    }
+    
+    .slide-content {
+        max-width: 500px;
+    }
+}
+
+@media (max-width: 768px) {
     .slide {
         padding: 0 30px;
         align-items: flex-end;
@@ -374,6 +430,21 @@ header{
     }
 }
 
+@media (max-width: 600px) {
+    .slide {
+        padding: 0 25px;
+        padding-bottom: 90px;
+    }
+    
+    .game-title {
+        font-size: 2.2rem;
+    }
+    
+    .game-description {
+        font-size: 0.95rem;
+    }
+}
+
 @media (max-width: 480px) {
     .slide {
         padding: 0 20px;
@@ -408,6 +479,41 @@ header{
     .indicator {
         width: 10px;
         height: 10px;
+    }
+}
+
+@media (max-width: 400px) {
+    .slide {
+        padding: 0 15px;
+        padding-bottom: 70px;
+    }
+    
+    .game-title {
+        font-size: 1.8rem;
+    }
+    
+    .game-description {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .slide {
+        padding: 0 12px;
+        padding-bottom: 65px;
+    }
+    
+    .game-title {
+        font-size: 1.6rem;
+    }
+    
+    .game-description {
+        font-size: 0.8rem;
+    }
+    
+    .download-btn, .info-btn {
+        padding: 8px 15px;
+        font-size: 0.85rem;
     }
 }
 
@@ -1170,14 +1276,54 @@ header{
 /* Original 400px breakpoint - keeping consistent box sizes as per specification */
 @media (max-width: 369px) {
  .boxes-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns grid layout */
-    grid-template-rows: repeat(8, auto); /* 8 rows to fit all 15 boxes */
-    row-gap: 10px;
-    column-gap: 10px;
-    margin-left: -100px;
-    padding: 6px;
-    justify-items: center;
-    align-items: center;
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: repeat(8, auto) !important;
+    gap: 15px 0px !important; /* row-gap column-gap */
+    margin: 0 auto !important;
+    padding: 15px 30px !important;
+    justify-items: center !important;
+    align-items: center !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Reset all individual box positioning to allow proper grid centering */
+  .boxes-container .box,
+  .boxes-container .game-card {
+    left: -35px !important;
+    right: auto !important;
+    position: relative !important;
+    margin: -10px !important;
+    justify-self: center !important;
+    align-self: center !important;
+  }
+}
+@media (max-width: 333px) {
+ .boxes-container {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    grid-template-rows: repeat(8, auto) !important;
+    gap: 15px 0px !important; /* row-gap column-gap */
+    margin: 0 auto !important;
+    padding: 15px 30px !important;
+    justify-items: center !important;
+    align-items: center !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  
+  /* Reset all individual box positioning to allow proper grid centering */
+  .boxes-container .box,
+  .boxes-container .game-card {
+    left: -35px !important;
+    right: auto !important;
+    position: relative !important;
+    margin: -20px !important;
+    justify-self: center !important;
+    align-self: center !important;
   }
 }
 @media (max-width: 379px) {
