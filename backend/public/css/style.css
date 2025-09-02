@@ -1165,164 +1165,28 @@ header{
 }
 
 /* Specific 436px breakpoint for mobile optimization */
-@media (max-width: 436px) {
-  .boxes-container {
-    grid-template-columns: repeat(2, 1fr); /* 2x2 grid layout */
-    grid-template-rows: repeat(2, auto);
+/* New 379px breakpoint for better fit down to 350px */
+
+/* Original 400px breakpoint - keeping consistent box sizes as per specification */
+@media (max-width: 369px) {
+ .boxes-container {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns grid layout */
+    grid-template-rows: repeat(8, auto); /* 8 rows to fit all 15 boxes */
     row-gap: 10px;
-    column-gap: 6px;
+    column-gap: 10px;
+    margin-left: -100px;
     padding: 6px;
     justify-items: center;
     align-items: center;
   }
-  
-  /* Responsive box sizing for 436px and below */
-  .game-card, .box {
-    width: 135px;
-    height: 185px;
-    transform: scale(0.8);
-  }
-  
-  .game-card img, .box img {
-    width: 200px;
-    height: 272px;
-  }
 }
-@media (max-width: 410px) {
-  .boxes-container {
-    grid-template-columns: repeat(2, 1fr); /* 2x2 grid layout */
-    grid-template-rows: repeat(2, auto);
-    row-gap: 0px;
-    column-gap: -120px;
-    margin-left: -15px;
-    padding: 5px;
-    justify-items: center;
-    align-items: center;
-  }
-  
-  /* Make boxes smaller to fit screen properly */
-  .game-card, .box {
-    width: 140px;
-    height: 190px;
-    transform: scale(0.85);
-  }
-  
-  .game-card img, .box img {
-    width: 200px;
-    height: 275px;
-  }
-}
-
-
-/* Specific 397px breakpoint with smaller boxes for better fit */
-/* New 350px breakpoint for smallest screens */
-@media (max-width: 350px) {
-  .boxes-container {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns grid layout */
-    grid-template-rows: repeat(8, auto); /* 8 rows to fit all 15 boxes */
-    row-gap: 8px;
-    column-gap: 4px;
-    padding: 4px;
-    justify-items: center;
-    align-items: center;
-  }
-  
-  /* Extra small boxes for 350px screens - further reduced size */
-  .game-card, .box {
-    width: 115px;
-    height: 155px;
-    transform: scale(0.7);
-  }
-  
-  .game-card img, .box img {
-    width: 110px;
-    height: 150px;
-  }
-  
-  /* Grid positioning for all 15 boxes */
-  .box:nth-child(1), .box-1 {
-    grid-column: 1;
-    grid-row: 1;
-  }
-  
-  .box:nth-child(2), .box-2 {
-    grid-column: 2;
-    grid-row: 1;
-  }
-  
-  .box:nth-child(3), .box-3 {
-    grid-column: 1;
-    grid-row: 2;
-  }
-  
-  .box:nth-child(4), .box-4 {
-    grid-column: 2;
-    grid-row: 2;
-  }
-  
-  .box:nth-child(5), .box-5 {
-    grid-column: 1;
-    grid-row: 3;
-  }
-  
-  .box:nth-child(6), .box-6 {
-    grid-column: 2;
-    grid-row: 3;
-  }
-  
-  .box:nth-child(7), .box-7 {
-    grid-column: 1;
-    grid-row: 4;
-  }
-  
-  .box:nth-child(8), .box-8 {
-    grid-column: 2;
-    grid-row: 4;
-  }
-  
-  .box:nth-child(9), .box-9 {
-    grid-column: 1;
-    grid-row: 5;
-  }
-  
-  .box:nth-child(10), .box-10 {
-    grid-column: 2;
-    grid-row: 5;
-  }
-  
-  .box:nth-child(11), .box-11 {
-    grid-column: 1;
-    grid-row: 6;
-  }
-  
-  .box:nth-child(12), .box-12 {
-    grid-column: 2;
-    grid-row: 6;
-  }
-  
-  .box:nth-child(13), .box-13 {
-    grid-column: 1;
-    grid-row: 7;
-  }
-  
-  .box:nth-child(14), .box-14 {
-    grid-column: 2;
-    grid-row: 7;
-  }
-  
-  .box:nth-child(15), .box-15 {
-    grid-column: 1;
-    grid-row: 8;
-  }
-}
-
-/* New 379px breakpoint for better fit down to 350px */
 @media (max-width: 379px) {
-  .boxes-container {
+ .boxes-container {
     grid-template-columns: repeat(2, 1fr); /* 2 columns grid layout */
     grid-template-rows: repeat(8, auto); /* 8 rows to fit all 15 boxes */
     row-gap: 10px;
-    column-gap: 6px;
+    column-gap: 10px;
+    right: 200px;
     padding: 6px;
     justify-items: center;
     align-items: center;
@@ -1336,8 +1200,8 @@ header{
   }
   
   .game-card img, .box img {
-    width: 125px;
-    height: 170px;
+    width: 200px;
+    height: 272px;
   }
   
   /* Grid positioning for all 15 boxes */
@@ -1431,106 +1295,119 @@ header{
     left: -10px;
   }
 }
-/* Original 400px breakpoint - keeping consistent box sizes as per specification */
 @media (max-width: 400px) {
-  .boxes-container {
+ .boxes-container {
     grid-template-columns: repeat(2, 1fr); /* 2 columns grid layout */
     grid-template-rows: repeat(8, auto); /* 8 rows to fit all 15 boxes */
-    row-gap: 15px;
+    row-gap: 10px;
     column-gap: 10px;
-    padding: 10px;
+    margin-left: 2px;
+    padding: 6px;
     justify-items: center;
     align-items: center;
   }
   
-  /* Keep all boxes same size as per specification */
-  .game-card, .box{
-    width: 155px;
-    height: 210px;
-    transform: scale(0.85);
+  /* Smaller boxes for 379px screens - reduced size for better fit */
+  .game-card, .box {
+    width: 130px;
+    height: 175px;
+    transform: scale(0.75);
   }
   
-  .game-card img, .box img{
+  .game-card img, .box img {
     width: 200px;
     height: 272px;
   }
   
-  /* Specific grid positioning for perfect 2x2 layout */
+  /* Grid positioning for all 15 boxes */
   .box:nth-child(1), .box-1 {
     grid-column: 1;
     grid-row: 1;
+    left: -10px;
   }
   
   .box:nth-child(2), .box-2 {
     grid-column: 2;
     grid-row: 1;
+    left: -45px;
   }
   
   .box:nth-child(3), .box-3 {
     grid-column: 1;
     grid-row: 2;
+    left: -10px;
   }
   
   .box:nth-child(4), .box-4 {
     grid-column: 2;
     grid-row: 2;
+    left: -45px;
   }
   
-  /* Add positioning for boxes 5-12 */
   .box:nth-child(5), .box-5 {
     grid-column: 1;
     grid-row: 3;
+    left: -10px;
   }
   
   .box:nth-child(6), .box-6 {
     grid-column: 2;
     grid-row: 3;
+    left: -45px;
   }
   
   .box:nth-child(7), .box-7 {
     grid-column: 1;
     grid-row: 4;
+    left: -10px;
   }
   
   .box:nth-child(8), .box-8 {
     grid-column: 2;
     grid-row: 4;
+    left: -45px;
   }
   
   .box:nth-child(9), .box-9 {
     grid-column: 1;
     grid-row: 5;
+    left: -10px;
   }
   
   .box:nth-child(10), .box-10 {
     grid-column: 2;
     grid-row: 5;
+    left: -45px;
   }
   
   .box:nth-child(11), .box-11 {
     grid-column: 1;
     grid-row: 6;
+    left: -10px;
   }
   
   .box:nth-child(12), .box-12 {
     grid-column: 2;
     grid-row: 6;
+        left: -45px;
   }
   
-  /* Positioning for boxes 13-15 */
   .box:nth-child(13), .box-13 {
     grid-column: 1;
     grid-row: 7;
+    left: -10px;
   }
   
   .box:nth-child(14), .box-14 {
     grid-column: 2;
     grid-row: 7;
+    left: -45px;
   }
   
   .box:nth-child(15), .box-15 {
     grid-column: 1;
     grid-row: 8;
+    left: -10px;
   }
 }
 .box, .game-card {
