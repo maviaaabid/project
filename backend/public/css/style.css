@@ -97,28 +97,28 @@ header{
 /* Hero Slider Responsive Positioning */
 @media screen and (max-width: 1400px) {
     .hero-slider-container {
-        margin-top: -640px;
+        margin-top: -640px !important;
         margin-bottom: 40em;
     }
 }
 
 @media screen and (max-width: 1200px) {
     .hero-slider-container {
-        margin-top: -640px;
+        margin-top: -640px !important;
         margin-bottom: 40em;
     }
 }
 
 @media screen and (max-width: 992px) {
     .hero-slider-container {
-        margin-top: -640px;
+        margin-top: -640px !important;
         margin-bottom: 40em;
     }
 }
 
 @media screen and (max-width: 768px) {
     .hero-slider-container {
-        margin-top: -640px;
+        margin-top: -640px !important;
         margin-bottom: 40em;
         height: 80vh;
     }
@@ -126,35 +126,35 @@ header{
 
 @media screen and (max-width: 600px) {
     .hero-slider-container {
-        margin-top: -640px;
+        margin-top: -640px !important;
         margin-bottom: 40em;
     }
 }
 
 @media screen and (max-width: 500px) {
     .hero-slider-container {
-        margin-top: -640px;
+        margin-top: -640px !important;
         margin-bottom: 40em;
     }
 }
 
 @media screen and (max-width: 480px) {
     .hero-slider-container {
-        margin-top: -640px;
+        margin-top: -640px !important;
         margin-bottom: 40em;
     }
 }
 
 @media screen and (max-width: 400px) {
     .hero-slider-container {
-        margin-top: -640px;
+        margin-top: -640px !important;
         margin-bottom: 40em;
     }
 }
 
 @media screen and (max-width: 360px) {
     .hero-slider-container {
-        margin-top: -640px;
+        margin-top: -640px !important;
         margin-bottom: 40em;
     }
 }
