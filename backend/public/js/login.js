@@ -18,7 +18,7 @@ function showLogin() {
   loginOtpSent = false;
   loginOtpSection.style.display = "none";
   loginOtpInput.value = "";
-  loginBtn.textContent = "Send OTP";
+  loginBtn.textContent = "Login";
 }
 function showRegister() {
   regForm.style.display = 'block';
@@ -54,14 +54,28 @@ const loginBtn = document.getElementById('login-btn');
 // Register OTP state
 let regOtpSent = false;
 let regOtpValue = "";
+let regRequestInProgress = false; // Prevent double submission
 
 // Login OTP state (yeh lines zaroor add karein)
 let loginOtpSent = false;
 let loginOtpValue = "";
+let loginRequestInProgress = false; // Prevent double submission
 
 regForm.addEventListener('submit', async function(e) {
   e.preventDefault();
+  
+  // Prevent double submission
+  if (regBtn.disabled) {
+    return;
+  }
+  
   if (!regOtpSent) {
+    // Prevent double submission
+    if (regRequestInProgress || regBtn.disabled) {
+      return;
+    }
+    regRequestInProgress = true;
+    
     // Send OTP
     regBtn.disabled = true;
     regBtn.textContent = "Sending...";
@@ -71,7 +85,7 @@ regForm.addEventListener('submit', async function(e) {
     if (!email.endsWith('@gmail.com') || !password) {
       regOtpMsg.textContent = "Enter valid Gmail and password.";
       regBtn.disabled = false;
-      regBtn.textContent = "Send OTP";
+      regBtn.textContent = "Register";
       return;
     }
     regOtpValue = Math.floor(100000 + Math.random() * 900000).toString();
@@ -79,7 +93,7 @@ regForm.addEventListener('submit', async function(e) {
       const res = await fetch(`${getOtpApiUrl()}/send-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, otp: regOtpValue })
+        body: JSON.stringify({ email, otp: regOtpValue, context: 'register' })
       });
       const data = await res.json();
       if (data.message === 'OTP sent') {
@@ -88,15 +102,24 @@ regForm.addEventListener('submit', async function(e) {
         regOtpSent = true;
         regBtn.disabled = false;
         regOtpMsg.textContent = "OTP sent to your Gmail.";
+        regRequestInProgress = false; // Reset flag
+      } else if (res.status === 429) {
+        // Handle cooldown
+        regOtpMsg.textContent = data.message;
+        regBtn.disabled = false;
+        regBtn.textContent = "Register";
+        regRequestInProgress = false; // Reset flag
       } else {
         regOtpMsg.textContent = "Failed to send OTP: " + data.message;
         regBtn.disabled = false;
-        regBtn.textContent = "Send OTP";
+        regBtn.textContent = "Register";
+        regRequestInProgress = false; // Reset flag
       }
     } catch (err) {
       regOtpMsg.textContent = "Error sending OTP.";
       regBtn.disabled = false;
-      regBtn.textContent = "Send OTP";
+      regBtn.textContent = "Register";
+      regRequestInProgress = false; // Reset flag
     }
   } else {
     // Verify OTP
@@ -139,7 +162,7 @@ regForm.addEventListener('submit', async function(e) {
           regOtpInput.value = "";
           regOtpMsg.textContent = "";
           regOtpSent = false;
-          regBtn.textContent = "Send OTP";
+          regBtn.textContent = "Register";
           showLogin();
         }, 1200);
       } else {
@@ -160,7 +183,19 @@ regForm.addEventListener('submit', async function(e) {
 // Login Form Logic
 loginForm.addEventListener('submit', async function(e) {
   e.preventDefault();
+  
+  // Prevent double submission
+  if (loginBtn.disabled) {
+    return;
+  }
+  
   if (!loginOtpSent) {
+    // Prevent double submission
+    if (loginRequestInProgress || loginBtn.disabled) {
+      return;
+    }
+    loginRequestInProgress = true;
+    
     // Send OTP
     loginBtn.disabled = true;
     loginBtn.textContent = "Sending...";
@@ -170,7 +205,7 @@ loginForm.addEventListener('submit', async function(e) {
     if (!email.endsWith('@gmail.com') || !password) {
       loginOtpMsg.textContent = "Enter valid Gmail and password.";
       loginBtn.disabled = false;
-      loginBtn.textContent = "Send OTP";
+      loginBtn.textContent = "Login";
       return;
     }
     loginOtpValue = Math.floor(100000 + Math.random() * 900000).toString();
@@ -178,7 +213,7 @@ loginForm.addEventListener('submit', async function(e) {
       const res = await fetch(`${getOtpApiUrl()}/send-otp`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, otp: loginOtpValue })
+        body: JSON.stringify({ email, otp: loginOtpValue, context: 'login' })
       });
       const data = await res.json();
       if (data.message === 'OTP sent') {
@@ -187,15 +222,24 @@ loginForm.addEventListener('submit', async function(e) {
         loginOtpSent = true;
         loginBtn.disabled = false;
         loginOtpMsg.textContent = "OTP sent to your Gmail.";
+        loginRequestInProgress = false; // Reset flag
+      } else if (res.status === 429) {
+        // Handle cooldown
+        loginOtpMsg.textContent = data.message;
+        loginBtn.disabled = false;
+        loginBtn.textContent = "Login";
+        loginRequestInProgress = false; // Reset flag
       } else {
         loginOtpMsg.textContent = "Failed to send OTP: " + data.message;
         loginBtn.disabled = false;
-        loginBtn.textContent = "Send OTP";
+        loginBtn.textContent = "Login";
+        loginRequestInProgress = false; // Reset flag
       }
     } catch (err) {
       loginOtpMsg.textContent = "Error sending OTP.";
       loginBtn.disabled = false;
-      loginBtn.textContent = "Send OTP";
+      loginBtn.textContent = "Login";
+      loginRequestInProgress = false; // Reset flag
     }
   } else {
     // Verify OTP
