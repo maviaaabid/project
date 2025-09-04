@@ -3,6 +3,7 @@ const cors = require('cors');
 const axios = require('axios');
 const nodemailer = require('nodemailer');
 const path = require('path');
+const fs = require('fs'); // Add fs for file operations
 // Load environment variables
 require('dotenv').config();
 
@@ -40,35 +41,246 @@ app.get('/api/test', (req, res) => {
 // OTP Store and Users store
 let otpStore = {}; // { email: otp }
 let users = {}; // { email: { password: string } }
+let otpCooldown = {}; // { email: timestamp } - to prevent multiple OTP sends
+let otpRequestInProgress = {}; // { email: boolean } - to prevent concurrent requests
 
 // OTP Endpoints
 app.post('/send-otp', async (req, res) => {
-  const { email, otp } = req.body;
+  const { email, otp, context } = req.body; // Added context parameter
   if (!email || !otp) return res.status(400).json({ message: 'Email and OTP required' });
 
-  // Configure Gmail credentials using environment variables
-  let transporter = nodemailer.createTransport({
-    service: 'gmail',
-    auth: {
-      user: process.env.EMAIL_USER || process.env.SMTP_USER || 'itxmaviaabid@gmail.com',
-      pass: process.env.EMAIL_PASS || process.env.SMTP_PASS || 'vqzn vqlc qltk biba'
-    }
-  });
+  // Check if request is already in progress for this email
+  if (otpRequestInProgress[email]) {
+    return res.status(429).json({ 
+      message: 'OTP request already in progress. Please wait.'
+    });
+  }
+
+  // Mark request as in progress
+  otpRequestInProgress[email] = true;
 
   try {
-    await transporter.sendMail({
-      from: process.env.EMAIL_FROM || '"Game OTP" <itxmaviaabid@gmail.com>',
-      to: email,
-      subject: 'Your OTP Code',
-      text: `Your OTP code is: ${otp}`,
-      html: `<b>Your OTP code is: ${otp}</b>`
+    // Check if OTP was recently sent (cooldown period of 60 seconds)
+    const now = Date.now();
+    const lastSent = otpCooldown[email];
+    const cooldownTime = 60000; // 60 seconds
+    
+    if (lastSent && (now - lastSent) < cooldownTime) {
+      const remainingTime = Math.ceil((cooldownTime - (now - lastSent)) / 1000);
+      return res.status(429).json({ 
+        message: `Please wait ${remainingTime} seconds before requesting another OTP`,
+        cooldownRemaining: remainingTime
+      });
+    }
+
+    // Configure Gmail credentials using environment variables
+    let transporter = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: process.env.EMAIL_USER || process.env.SMTP_USER || 'itxmaviaabid@gmail.com',
+        pass: process.env.EMAIL_PASS || process.env.SMTP_PASS || 'vqzn vqlc qltk biba'
+      }
     });
+
+  try {
+    // Create context-aware content
+    const contextInfo = {
+      login: {
+        subject: '🎮 Your GAMES-REALM Login Code',
+        title: 'Login Verification',
+        description: 'Please use the following code to complete your login to GAMES-REALM.'
+      },
+      register: {
+        subject: '🎮 Welcome to GAMES-REALM - Verify Your Account', 
+        title: 'Account Verification',
+        description: 'Welcome to GAMES-REALM! Please use the following code to complete your registration.'
+      },
+      forgot: {
+        subject: '🔐 GAMES-REALM Password Reset Code',
+        title: 'Password Reset',
+        description: 'Please use the following code to reset your password for GAMES-REALM.'
+      },
+      settings: {
+        subject: '🔧 GAMES-REALM Settings Update Code',
+        title: 'Settings Verification',
+        description: 'Please use the following code to confirm your account settings changes.'
+      },
+      default: {
+        subject: '🎮 Your GAMES-REALM Verification Code',
+        title: 'Verification Code', 
+        description: 'Please use the following One-Time Password (OTP) to complete your verification.'
+      }
+    };
+    
+    const emailContext = contextInfo[context] || contextInfo.default;
+    
+    // Check logo file existence and prepare for attachment
+    let logoPath = null;
+    let logoExists = false;
+    try {
+      // Use the specific logo file you requested
+      logoPath = path.join(__dirname, 'logo.png');
+      
+      console.log('Checking for GAMES-REALM logo at:', logoPath);
+      logoExists = fs.existsSync(logoPath);
+      console.log('Logo exists:', logoExists);
+      
+      if (logoExists) {
+        console.log('✅ Using GAMES-REALM logo from:', logoPath);
+      } else {
+        console.log('❌ Logo file not found at:', logoPath);
+      }
+    } catch (logoErr) {
+      console.log('Logo check error:', logoErr.message);
+    }
+    
+    // Create branded HTML email template
+    const htmlTemplate = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Your OTP Code - GAMES-REALM</title>
+        <style>
+            * { margin: 0; padding: 0; box-sizing: border-box; }
+            body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f4f4f4; margin: 0; padding: 20px; }
+            .email-container { max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.1); }
+            .header { background: linear-gradient(135deg, #7b2ff2 0%, #f357a8 100%); padding: 40px 20px; text-align: center; }
+            .logo { width: 100px; height: 100px; margin: 0 auto 20px; display: block; border-radius: 12px; border: 3px solid rgba(255,255,255,0.3); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+            .site-name { color: #fff; font-size: 28px; font-weight: 700; letter-spacing: 1px; margin-bottom: 8px; }
+            .tagline { color: rgba(255,255,255,0.9); font-size: 14px; letter-spacing: 0.5px; }
+            .content { padding: 40px 30px; text-align: center; }
+            .title { color: #2d2d2d; font-size: 24px; font-weight: 600; margin-bottom: 16px; }
+            .subtitle { color: #666; font-size: 16px; line-height: 1.5; margin-bottom: 30px; }
+            .otp-container { background: linear-gradient(135deg, #f8f9ff 0%, #f0f4ff 100%); border: 2px dashed #7b2ff2; border-radius: 12px; padding: 30px 20px; margin: 30px 0; }
+            .otp-label { color: #7b2ff2; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+            .otp-code { color: #2d2d2d; font-size: 36px; font-weight: 700; letter-spacing: 8px; font-family: 'Courier New', monospace; }
+            .validity { color: #f357a8; font-size: 13px; margin-top: 15px; font-weight: 500; }
+            .instructions { background: #f8f9fa; border-radius: 8px; padding: 20px; margin: 25px 0; text-align: left; }
+            .instructions h4 { color: #2d2d2d; font-size: 16px; margin-bottom: 10px; }
+            .instructions ul { color: #666; font-size: 14px; line-height: 1.6; padding-left: 20px; }
+            .instructions li { margin-bottom: 5px; }
+            .warning { background: linear-gradient(135deg, #fff5f5 0%, #fef2f2 100%); border-left: 4px solid #f357a8; padding: 15px 20px; margin: 20px 0; border-radius: 0 8px 8px 0; }
+            .warning-text { color: #d73527; font-size: 14px; font-weight: 500; }
+            .footer { background: #2d2d2d; padding: 30px 20px; text-align: center; }
+            .footer-text { color: #999; font-size: 12px; line-height: 1.5; margin-bottom: 15px; }
+            .social-links { margin: 20px 0; }
+            .social-links a { display: inline-block; margin: 0 10px; padding: 8px; background: rgba(255,255,255,0.1); border-radius: 50%; color: #fff; text-decoration: none; }
+            .copyright { color: #666; font-size: 11px; border-top: 1px solid #444; padding-top: 15px; margin-top: 15px; }
+            @media (max-width: 600px) {
+                .email-container { margin: 10px; }
+                .content { padding: 30px 20px; }
+                .otp-code { font-size: 28px; letter-spacing: 4px; }
+                .header { padding: 30px 15px; }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="email-container">
+            <!-- Header with Logo and Branding -->
+            <div class="header">
+                ${logoExists ? '<img src="cid:logo" alt="GAMES-REALM Logo" class="logo" />' : '<div class="logo" style="background: linear-gradient(135deg, #7b2ff2, #f357a8); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 24px;">GR</div>'}
+                <div class="site-name">GAMES-REALM</div>
+                <div class="tagline">Your Ultimate Gaming Destination</div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="content">
+                <h1 class="title">${emailContext.title}</h1>
+                <p class="subtitle">${emailContext.description} This code is required to secure your account.</p>
+                
+                <!-- OTP Display -->
+                <div class="otp-container">
+                    <div class="otp-label">Your Verification Code</div>
+                    <div class="otp-code">${otp}</div>
+                    <div class="validity">⏰ Valid for 10 minutes only</div>
+                </div>
+                
+                <!-- Instructions -->
+                <div class="instructions">
+                    <h4>🎮 How to use this code:</h4>
+                    <ul>
+                        <li>📝 Enter this 6-digit code in the verification field on GAMES-REALM</li>
+                        <li>⏱️ Complete the process within 10 minutes</li>
+                        <li>🔒 Do not share this code with anyone</li>
+                        <li>⚠️ If you didn't request this code, please ignore this email</li>
+                    </ul>
+                </div>
+                
+                <!-- Security Warning -->
+                <div class="warning">
+                    <div class="warning-text">🔒 Security Note: Never share your OTP with anyone. GAMES-REALM will never ask for your password or OTP via email or phone.</div>
+                </div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="footer">
+                <div class="footer-text">
+                    This email was sent from GAMES-REALM security system.<br>
+                    If you didn't request this verification, please ignore this email.
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" title="Facebook">📘</a>
+                    <a href="#" title="Twitter">🐦</a>
+                    <a href="#" title="Instagram">📷</a>
+                    <a href="#" title="YouTube">📺</a>
+                </div>
+                
+                <div class="copyright">
+                    © 2024 GAMES-REALM. All rights reserved.<br>
+                    This is an automated message, please do not reply to this email.
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+    `;
+
+    // Debug: Log the logo portion of HTML
+    console.log('\n=== GAMES-REALM EMAIL LOGO DEBUG ===');
+    console.log('Ἲe Logo exists:', logoExists);
+    console.log('📁 Logo path:', logoPath);
+    const logoHtml = logoExists ? '<img src="cid:logo" alt="GAMES-REALM Logo" class="logo" />' : '<div class="logo" style="background: linear-gradient(135deg, #7b2ff2, #f357a8); display: flex; align-items: center; justify-content: center; color: white; font-weight: bold; font-size: 24px;">GR</div>';
+    console.log('🎨 Logo HTML will be:', logoHtml);
+    console.log('===================================\n');
+
+    // Prepare email options
+    const mailOptions = {
+      from: process.env.EMAIL_FROM || '"GAMES-REALM Security" <itxmaviaabid@gmail.com>',
+      to: email,
+      subject: emailContext.subject,
+      text: `Your GAMES-REALM verification code is: ${otp}. This code is valid for 10 minutes. Please do not share this code with anyone.`,
+      html: htmlTemplate
+    };
+    
+    // Add logo attachment if it exists
+    if (logoExists && logoPath) {
+      mailOptions.attachments = [{
+        filename: 'logo.png',
+        path: logoPath,
+        cid: 'logo' // Content-ID for embedding
+      }];
+      console.log('Added logo attachment:', logoPath);
+    }
+
+    // Send email with branded template
+    await transporter.sendMail(mailOptions);
     console.log('OTP sent to:', email, 'OTP:', otp);
     otpStore[email] = otp;
+    otpCooldown[email] = now; // Set cooldown timestamp
     res.json({ message: 'OTP sent' });
   } catch (err) {
     console.error('Send OTP error:', err);
     res.status(500).json({ message: 'Failed to send OTP', error: err.toString() });
+  }
+  } catch (outerErr) {
+    console.error('Outer try block error:', outerErr);
+    res.status(500).json({ message: 'Failed to process OTP request', error: outerErr.toString() });
+  } finally {
+    // Always clear the in-progress flag
+    delete otpRequestInProgress[email];
   }
 });
 
