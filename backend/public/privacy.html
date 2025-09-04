@@ -163,6 +163,7 @@
       border: 2.5px solid #7f00ff;
       padding: 5px 10px;
       border-radius: 10px;
+      z-index: 20;
     }
     .back-icon:hover {
       background: linear-gradient(135deg, #420072, #6a45a7);
@@ -171,9 +172,12 @@
     .back-icon i { margin-right: 10px; }
         @media  (max-width: 476px) {
         .back-icon{
-          font-size:  0.6em;
-          
-          display: block;
+          font-size:  1.1em;
+          top: -10px;
+        }
+        .lang-switch{
+
+          top: 0px;
         }
       }
           .about-highlight {
