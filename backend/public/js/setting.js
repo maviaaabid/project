@@ -387,7 +387,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const res = await fetch(`${getOtpApiUrl()}/send-otp`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email: newEmail, otp: otpValue })
+          body: JSON.stringify({ email: newEmail, otp: otpValue, context: 'settings' })
         });
         const data = await res.json();
         if (data.message === 'OTP sent') {
