@@ -185,6 +185,11 @@
     .input-row .input-half {
       flex: 1;
     }
+    @media (max-width: 1400px) {
+      .contact-container { padding: 18px 4vw 18px 4vw; }
+      .contact-title { font-size: 1.3em;}
+      .input-row { flex-direction: column; gap: 0;}
+    }
     @media (max-width: 600px) {
       .contact-container { padding: 18px 4vw 18px 4vw; }
       .contact-title { font-size: 1.3em;}
@@ -192,25 +197,25 @@
     }
     .back-button {
       position: fixed;
-      top: 20px;
+      top: 45px;
       left: 20px;
       font-size: 24px;
       color: #fff;
       text-decoration: none;
-       background: rgba(24,18,43,0.93);
+      background: rgba(24,18,43,0.93);
       box-shadow: 0 8px 32px 0 #7f00ff55, 0 0 32px #e100ff44;
       border: 2.5px solid #7f00ff;
-      padding: 5px 10px;
+      padding: 6px 18px;
       border-radius: 10px;
-      
       z-index: 20;
     }
     .back-button:hover {
-        background: linear-gradient(135deg, #420072, #6a45a7);
+      background: linear-gradient(135deg, #420072, #6a45a7);
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     }
     .back-button i {
       margin-right: 10px;
+      font-size: 18px;
     }
     .lang-switch {
       position: absolute;
@@ -234,9 +239,13 @@
     .lang-switch option {
       padding: 8px 0;
     }
+    @media (max-width: 1400px) {
+      .back-btn { top: 45px; left: 10px; width: 38px; height: 38px; font-size: 1.1em;}
+      .lang-switch { top: 45px; right: 10px; font-size: 0.95em; min-width: 120px;}
+    }
     @media (max-width: 600px) {
-      .back-btn { top: 10px; left: 10px; width: 38px; height: 38px; font-size: 1.1em;}
-      .lang-switch { top: 10px; right: 10px; font-size: 0.95em; min-width: 120px;}
+      .back-btn { top: 45px; left: 20px; width: 38px; height: 38px; font-size: 1.1em;}
+      .lang-switch { top: 45px; right: 12px; font-size: 0.95em; min-width: 120px;}
     }
     /* --- Light Theme Styles for Contact Page --- */
 body.light-theme {
