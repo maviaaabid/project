@@ -127,14 +127,10 @@ header{
 }
 
 @media screen and (max-width: 768px) {
-    /* Hide desktop hero slider on mobile */
-    .desktop-hero {
-        display: none !important;
-    }
-    
-    /* Show mobile hero slider on mobile */
+    /* Hide both desktop and mobile hero sliders on mobile */
+    .desktop-hero,
     .mobile-hero {
-        display: block !important;
+        display: none !important;
     }
     
     .hero-slider-container {
@@ -145,14 +141,10 @@ header{
 }
 
 @media screen and (max-width: 600px) {
-    /* Hide desktop hero slider on mobile */
-    .desktop-hero {
-        display: none !important;
-    }
-    
-    /* Show mobile hero slider on mobile */
+    /* Hide both desktop and mobile hero sliders on mobile */
+    .desktop-hero,
     .mobile-hero {
-        display: block !important;
+        display: none !important;
     }
     
     .hero-slider-container {
@@ -162,14 +154,10 @@ header{
 }
 
 @media screen and (max-width: 500px) {
-    /* Hide desktop hero slider on mobile */
-    .desktop-hero {
-        display: none !important;
-    }
-    
-    /* Show mobile hero slider on mobile */
+    /* Hide both desktop and mobile hero sliders on mobile */
+    .desktop-hero,
     .mobile-hero {
-        display: block !important;
+        display: none !important;
     }
     
     .hero-slider-container {
@@ -179,14 +167,10 @@ header{
 }
 
 @media screen and (max-width: 480px) {
-    /* Hide desktop hero slider on mobile */
-    .desktop-hero {
-        display: none !important;
-    }
-    
-    /* Show mobile hero slider on mobile */
+    /* Hide both desktop and mobile hero sliders on mobile */
+    .desktop-hero,
     .mobile-hero {
-        display: block !important;
+        display: none !important;
     }
     
     .hero-slider-container {
@@ -196,14 +180,10 @@ header{
 }
 
 @media screen and (max-width: 400px) {
-    /* Hide desktop hero slider on mobile */
-    .desktop-hero {
-        display: none !important;
-    }
-    
-    /* Show mobile hero slider on mobile */
+    /* Hide both desktop and mobile hero sliders on mobile */
+    .desktop-hero,
     .mobile-hero {
-        display: block !important;
+        display: none !important;
     }
     
     .hero-slider-container {
@@ -213,14 +193,10 @@ header{
 }
 
 @media screen and (max-width: 360px) {
-    /* Hide desktop hero slider on mobile */
-    .desktop-hero {
-        display: none !important;
-    }
-    
-    /* Show mobile hero slider on mobile */
+    /* Hide both desktop and mobile hero sliders on mobile */
+    .desktop-hero,
     .mobile-hero {
-        display: block !important;
+        display: none !important;
     }
     
     .hero-slider-container {
