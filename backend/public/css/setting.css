@@ -462,4 +462,21 @@ body.light-theme .error-msg {
     max-width: 98vw;
     padding: 1.2em 0.5em;
   }
+    .settings-container {
+    max-width: 98vw;
+    padding: 1.2em 0.5em;
+    margin-top: -30px;
+  }
+  .back-button {
+    top: 20px;
+    left: -10px;
+    font-size: 7px;
+    padding: 2px 12px;
+  }
+  #editPicModal {
+    margin-left: 10px;
+  }
+  body.dark-theme .settings-container { padding: 18px 4vw 18px 4vw; }
+  body.dark-theme .settings-title { font-size: 1.3em;}
+  body.dark-theme .settings-field { font-size: 1em; }
 }
