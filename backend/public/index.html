@@ -408,8 +408,8 @@ function logoutProfile() {
 </div>
 <!--end nav-->
 
-<!-- Hero Game Slider -->
-<div class="hero-slider-container">
+<!-- Hero Game Slider - Desktop Only -->
+<div class="hero-slider-container desktop-hero">
   <div class="hero-slider">
     <!-- Slide 1: GTA V -->
     <div class="slide active" data-bg="images/gta-v-2452361.webp">
@@ -1051,6 +1051,408 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Initialize
+    init();
+});
+</script>
+
+<!-- Mobile Hero Game Slider - Mobile Only -->
+<div class="hero-slider-container mobile-hero">
+  <div class="hero-slider">
+    <!-- Slide 1: GTA V -->
+    <div class="slide active" data-bg="images/gta-v-2452361.webp">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="game-info">
+          <span class="game-category">Open World</span>
+          <h1 class="game-title">Grand Theft Auto V</h1>
+          <p class="game-description">Experience the award-winning open world action-adventure game that takes you to the sprawling city of Los Santos.</p>
+          <div class="game-details">
+            <div class="detail-item">
+              <i class="fa fa-hdd-o"></i>
+              <span>Storage: 72 GB</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-star"></i>
+              <span>Rating: 9.5/10</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-calendar"></i>
+              <span>Release: 2013</span>
+            </div>
+          </div>
+          <div class="game-actions">
+            <button class="download-btn primary">
+              <i class="fa fa-download"></i>
+              <span>Download Now</span>
+            </button>
+            <button class="info-btn secondary">
+              <i class="fa fa-info-circle"></i>
+              <span>More Info</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2: Fortnite -->
+    <div class="slide" data-bg="images/fort.jpeg">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="game-info">
+          <span class="game-category">Battle Royale</span>
+          <h1 class="game-title">Fortnite</h1>
+          <p class="game-description">Drop into the ultimate battle royale experience with building mechanics and intense 100-player battles.</p>
+          <div class="game-details">
+            <div class="detail-item">
+              <i class="fa fa-hdd-o"></i>
+              <span>Storage: 26 GB</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-star"></i>
+              <span>Rating: 8.5/10</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-calendar"></i>
+              <span>Release: 2017</span>
+            </div>
+          </div>
+          <div class="game-actions">
+            <button class="download-btn primary">
+              <i class="fa fa-download"></i>
+              <span>Download Now</span>
+            </button>
+            <button class="info-btn secondary">
+              <i class="fa fa-info-circle"></i>
+              <span>More Info</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 3: Call of Duty -->
+    <div class="slide" data-bg="images/call of duty black ops 3.jpg">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="game-info">
+          <span class="game-category">FPS Shooter</span>
+          <h1 class="game-title">Call of Duty</h1>
+          <p class="game-description">Engage in intense first-person shooter combat with cinematic campaigns and multiplayer warfare.</p>
+          <div class="game-details">
+            <div class="detail-item">
+              <i class="fa fa-hdd-o"></i>
+              <span>Storage: 175 GB</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-star"></i>
+              <span>Rating: 9.0/10</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-calendar"></i>
+              <span>Release: 2020</span>
+            </div>
+          </div>
+          <div class="game-actions">
+            <button class="download-btn primary">
+              <i class="fa fa-download"></i>
+              <span>Download Now</span>
+            </button>
+            <button class="info-btn secondary">
+              <i class="fa fa-info-circle"></i>
+              <span>More Info</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 4: Forza Motorsport -->
+    <div class="slide" data-bg="images/forza motorspot.webp">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="game-info">
+          <span class="game-category">Racing</span>
+          <h1 class="game-title">Forza Motorsport</h1>
+          <p class="game-description">Experience the thrill of racing with stunning graphics and realistic physics in the ultimate racing simulator.</p>
+          <div class="game-details">
+            <div class="detail-item">
+              <i class="fa fa-hdd-o"></i>
+              <span>Storage: 66 GB</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-star"></i>
+              <span>Rating: 8.8/10</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-calendar"></i>
+              <span>Release: 2023</span>
+            </div>
+          </div>
+          <div class="game-actions">
+            <button class="download-btn primary">
+              <i class="fa fa-download"></i>
+              <span>Download Now</span>
+            </button>
+            <button class="info-btn secondary">
+              <i class="fa fa-info-circle"></i>
+              <span>More Info</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 5: Palworld -->
+    <div class="slide" data-bg="images/palworld ww.jpg">
+      <div class="slide-overlay"></div>
+      <div class="slide-content">
+        <div class="game-info">
+          <span class="game-category">Adventure</span>
+          <h1 class="game-title">Palworld</h1>
+          <p class="game-description">Collect mysterious creatures called Pals in this multiplayer survival and crafting adventure game.</p>
+          <div class="game-details">
+            <div class="detail-item">
+              <i class="fa fa-hdd-o"></i>
+              <span>Storage: 20 GB</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-star"></i>
+              <span>Rating: 8.7/10</span>
+            </div>
+            <div class="detail-item">
+              <i class="fa fa-calendar"></i>
+              <span>Release: 2024</span>
+            </div>
+          </div>
+          <div class="game-actions">
+            <button class="download-btn primary">
+              <i class="fa fa-download"></i>
+              <a href="palworld.html">
+              <span style="color: white;">Download Now</span>
+              </a>
+            </button>
+            <button class="info-btn secondary">
+              <i class="fa fa-info-circle"></i>
+              <span>More Info</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Slider Navigation -->
+  <div class="slider-nav">
+    <button class="nav-btn prev-btn">
+      <i class="fa fa-chevron-left"></i>
+    </button>
+    <button class="nav-btn next-btn">
+      <i class="fa fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <!-- Slider Indicators -->
+  <div class="slider-indicators">
+    <button class="indicator active" data-slide="0"></button>
+    <button class="indicator" data-slide="1"></button>
+    <button class="indicator" data-slide="2"></button>
+    <button class="indicator" data-slide="3"></button>
+    <button class="indicator" data-slide="4"></button>
+  </div>
+</div>
+
+<!-- Mobile Hero Slider JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if we're on mobile
+    const isMobile = window.innerWidth <= 768;
+    if (!isMobile) return; // Exit if not mobile
+    
+    const mobileSlider = document.querySelector('.mobile-hero');
+    if (!mobileSlider) return;
+    
+    const slides = mobileSlider.querySelectorAll('.slide');
+    const indicators = mobileSlider.querySelectorAll('.indicator');
+    const prevBtn = mobileSlider.querySelector('.prev-btn');
+    const nextBtn = mobileSlider.querySelector('.next-btn');
+    let currentSlide = 0;
+    let isTransitioning = false;
+    let autoPlayInterval;
+    let touchStartX = 0;
+    let touchEndX = 0;
+    let preloadedImages = new Set();
+
+    // Create progress bar
+    const progressBar = document.createElement('div');
+    progressBar.className = 'slider-progress';
+    progressBar.innerHTML = '<div class="progress-fill"></div>';
+    mobileSlider.appendChild(progressBar);
+    const progressFill = progressBar.querySelector('.progress-fill');
+
+    // Preload images
+    function preloadImages() {
+        slides.forEach((slide, index) => {
+            const bgImage = slide.getAttribute('data-bg');
+            const img = new Image();
+            img.onload = () => {
+                preloadedImages.add(index);
+                slide.style.backgroundImage = `url('${bgImage}')`;
+            };
+            img.src = bgImage;
+        });
+    }
+
+    // Show slide function
+    function showSlide(index, direction = 'next') {
+        if (isTransitioning) return;
+        isTransitioning = true;
+
+        // Stop current progress
+        progressFill.style.transition = 'none';
+        progressFill.style.width = '0%';
+
+        // Remove active classes
+        slides[currentSlide].classList.remove('active');
+        indicators[currentSlide].classList.remove('active');
+
+        // Update current slide
+        currentSlide = index;
+
+        // Add active classes
+        slides[currentSlide].classList.add('active');
+        indicators[currentSlide].classList.add('active');
+
+        setTimeout(() => {
+            isTransitioning = false;
+            startProgress();
+        }, 1000);
+
+        // Trigger content animations
+        animateSlideContent();
+    }
+
+    // Animate slide content elements
+    function animateSlideContent() {
+        const content = slides[currentSlide].querySelector('.slide-content');
+        const elements = content.querySelectorAll('.game-category, .game-title, .game-description, .game-details, .game-actions');
+        
+        elements.forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            
+            setTimeout(() => {
+                el.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, index * 150 + 300);
+        });
+    }
+
+    // Progress bar animation
+    function startProgress() {
+        progressFill.style.transition = 'width 4s linear';
+        progressFill.style.width = '100%';
+    }
+
+    function resetProgress() {
+        progressFill.style.transition = 'none';
+        progressFill.style.width = '0%';
+    }
+
+    // Navigation functions
+    function nextSlide() {
+        const next = (currentSlide + 1) % slides.length;
+        showSlide(next, 'next');
+    }
+
+    function prevSlide() {
+        const prev = (currentSlide - 1 + slides.length) % slides.length;
+        showSlide(prev, 'prev');
+    }
+
+    // Auto-play functions
+    function startAutoPlay() {
+        autoPlayInterval = setInterval(nextSlide, 4000);
+        startProgress();
+    }
+
+    function stopAutoPlay() {
+        clearInterval(autoPlayInterval);
+        resetProgress();
+    }
+
+    // Touch handling
+    function handleTouchStart(e) {
+        touchStartX = e.touches[0].clientX;
+    }
+
+    function handleTouchMove(e) {
+        e.preventDefault();
+    }
+
+    function handleTouchEnd(e) {
+        touchEndX = e.changedTouches[0].clientX;
+        const swipeThreshold = 80;
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            stopAutoPlay();
+            if (diff > 0) {
+                nextSlide();
+            } else {
+                prevSlide();
+            }
+            setTimeout(startAutoPlay, 1000);
+        }
+    }
+
+    // Initialize everything
+    function init() {
+        preloadImages();
+        
+        // Event listeners
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                stopAutoPlay();
+                nextSlide();
+                setTimeout(startAutoPlay, 1000);
+            });
+        }
+
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                stopAutoPlay();
+                prevSlide();
+                setTimeout(startAutoPlay, 1000);
+            });
+        }
+
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                if (index !== currentSlide) {
+                    stopAutoPlay();
+                    showSlide(index);
+                    setTimeout(startAutoPlay, 1000);
+                }
+            });
+        });
+
+        // Touch events
+        mobileSlider.addEventListener('touchstart', handleTouchStart, { passive: true });
+        mobileSlider.addEventListener('touchmove', handleTouchMove, { passive: false });
+        mobileSlider.addEventListener('touchend', handleTouchEnd, { passive: true });
+
+        // Mouse events
+        mobileSlider.addEventListener('mouseenter', stopAutoPlay);
+        mobileSlider.addEventListener('mouseleave', startAutoPlay);
+
+        // Start the show
+        setTimeout(() => {
+            startAutoPlay();
+            animateSlideContent();
+        }, 500);
+    }
+
+    // Initialize mobile slider
     init();
 });
 </script>
