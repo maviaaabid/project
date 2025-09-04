@@ -50,7 +50,7 @@
         <input type="text" id="reg-otp" class="otp-input" placeholder="Enter OTP" maxlength="6">
         <div class="otp-msg" id="reg-otp-msg"></div>
       </div>
-      <button type="submit" id="register-btn">Send OTP</button>
+      <button type="submit" id="register-btn">Register</button>
     </form>
     <!-- Login Form -->
     <form id="login-form" style="display:none;">
@@ -69,7 +69,7 @@
         <div class="otp-msg" id="login-otp-msg"></div>
       </div>
       <p id="forgot-password-link" style="text-align:left;margin:0.5em 0;color:#f357a8;cursor:pointer;font-size:0.9em;">Forgot Password?</p>
-      <button type="submit" id="login-btn">Send OTP</button>
+      <button type="submit" id="login-btn">Login</button>
     </form>
     
          <!-- Forgot Password Form -->
@@ -98,7 +98,7 @@
          <input type="text" id="forgot-otp" class="otp-input" placeholder="Enter OTP" maxlength="6">
          <div class="otp-msg" id="forgot-otp-msg"></div>
        </div>
-       <button type="submit" id="forgot-btn">Send OTP</button>
+       <button type="submit" id="forgot-btn">Reset Password</button>
        <button type="button" id="back-to-login" style="background:linear-gradient(90deg, #666 60%, #999 100%);margin-top:0.5em;">Back to Login</button>
      </form>
     
@@ -936,109 +936,161 @@ document.addEventListener('DOMContentLoaded', function() {
   });
   
   // Forgot password form submit - using same logic as register form
+  let forgotOtpSent = false;
+  let forgotOtpValue = "";
+  let forgotRequestInProgress = false; // Prevent double submission
+  
+  // Helper function to get OTP API URL for forgot password
+  function getOtpApiUrl() {
+    return window.CONFIG ? window.CONFIG.getOtpApiUrl() : window.location.origin;
+  }
+  
   document.getElementById('forgot-password-form').addEventListener('submit', async function(e) {
     e.preventDefault();
     
-    // Check if button is disabled
-    const sendOtpBtn = document.getElementById('forgot-btn');
-    if (sendOtpBtn.disabled) {
-      return; // Don't proceed if button is disabled
-    }
+    const forgotBtn = document.getElementById('forgot-btn');
+    const msg = document.getElementById('msg');
+    const forgotOtpSection = document.getElementById('forgot-otp-section');
+    const forgotOtpMsg = document.getElementById('forgot-otp-msg');
     
-    let msg = document.getElementById('msg');
-    msg.textContent = "";
-    let email = document.getElementById('forgot-email').value.trim();
-    let password = document.getElementById('forgot-password').value.trim();
-    let confirmPassword = document.getElementById('forgot-confirm-password').value.trim();
-    
-    if (!email || !password || !confirmPassword) {
-      msg.textContent = "Please fill all fields.";
+    // Prevent double submission
+    if (forgotBtn.disabled || forgotRequestInProgress) {
       return;
     }
     
-    if (password !== confirmPassword) {
-      msg.textContent = "Passwords do not match!";
-      return;
-    }
-    
-    // Check if user exists
-    const userKey = 'user_' + email;
-    const userData = localStorage.getItem(userKey);
-    if (!userData) {
-      msg.textContent = "No account found for this Gmail!";
-      document.getElementById('forgot-otp-section').style.display = "none";
-      return;
-    }
-    
-    // Send OTP to backend
-    msg.textContent = "Sending OTP to your Gmail...";
-    try {
-      const otp = Math.floor(100000 + Math.random() * 900000).toString();
-      const res = await fetch('http://localhost:3000/send-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, otp })
-      });
-      const data = await res.json();
-      if (data.message === 'OTP sent') {
-        msg.textContent = "OTP sent to your Gmail. Please enter OTP below.";
-        document.getElementById('forgot-otp-section').style.display = "block";
-      } else {
-        msg.textContent = "Failed to send OTP: " + data.message;
+    if (!forgotOtpSent) {
+      // Send OTP
+      forgotRequestInProgress = true;
+      // Send OTP
+      if (forgotBtn.disabled) {
+        return; // Don't proceed if button is disabled
       }
-    } catch (e) {
-      msg.textContent = "Error sending OTP.";
-    }
-  });
-  
-  // Verify OTP for forgot password
-  document.getElementById('forgot-otp').addEventListener('input', async function() {
-    const otpInput = this.value.trim();
-    const otpMsg = document.getElementById('forgot-otp-msg');
-    const email = document.getElementById('forgot-email').value.trim();
-    const password = document.getElementById('forgot-password').value.trim();
-    
-    if (otpInput.length === 6) {
+      
+      forgotBtn.disabled = true;
+      forgotBtn.textContent = "Sending...";
+      msg.textContent = "";
+      
+      let email = document.getElementById('forgot-email').value.trim();
+      let password = document.getElementById('forgot-password').value.trim();
+      let confirmPassword = document.getElementById('forgot-confirm-password').value.trim();
+      
+      if (!email || !password || !confirmPassword) {
+        msg.textContent = "Please fill all fields.";
+        forgotBtn.disabled = false;
+        forgotBtn.textContent = "Reset Password";
+        return;
+      }
+      
+      if (password !== confirmPassword) {
+        msg.textContent = "Passwords do not match!";
+        forgotBtn.disabled = false;
+        forgotBtn.textContent = "Reset Password";
+        return;
+      }
+      
+      // Check if user exists
+      const userKey = 'user_' + email;
+      const userData = localStorage.getItem(userKey);
+      if (!userData) {
+        msg.textContent = "No account found for this Gmail!";
+        forgotOtpSection.style.display = "none";
+        forgotBtn.disabled = false;
+        forgotBtn.textContent = "Reset Password";
+        return;
+      }
+      
+      // Send OTP to backend
+      forgotOtpValue = Math.floor(100000 + Math.random() * 900000).toString();
       try {
-        const res = await fetch('http://localhost:3000/verify-otp', {
+        const res = await fetch(`${getOtpApiUrl()}/send-otp`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, otp: otpInput })
+          body: JSON.stringify({ email, otp: forgotOtpValue, context: 'forgot' })
+        });
+        const data = await res.json();
+        if (data.message === 'OTP sent') {
+          msg.textContent = "OTP sent to your Gmail. Please enter OTP below.";
+          forgotOtpSection.style.display = "block";
+          forgotBtn.textContent = "Reset Password";
+          forgotOtpSent = true;
+          forgotBtn.disabled = false;
+          forgotRequestInProgress = false; // Reset flag
+        } else if (res.status === 429) {
+          // Handle cooldown
+          msg.textContent = data.message;
+          forgotBtn.disabled = false;
+          forgotBtn.textContent = "Reset Password";
+          forgotRequestInProgress = false; // Reset flag
+        } else {
+          msg.textContent = "Failed to send OTP: " + data.message;
+          forgotBtn.disabled = false;
+          forgotBtn.textContent = "Reset Password";
+          forgotRequestInProgress = false; // Reset flag
+        }
+      } catch (e) {
+        msg.textContent = "Error sending OTP.";
+        forgotBtn.disabled = false;
+        forgotBtn.textContent = "Reset Password";
+        forgotRequestInProgress = false; // Reset flag
+      }
+    } else {
+      // Verify OTP and reset password
+      const otpInput = document.getElementById('forgot-otp').value.trim();
+      if (!otpInput) {
+        forgotOtpMsg.textContent = "Please enter OTP.";
+        return;
+      }
+      
+      forgotBtn.disabled = true;
+      forgotBtn.textContent = "Verifying...";
+      
+      try {
+        const res = await fetch(`${getOtpApiUrl()}/verify-otp`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email: document.getElementById('forgot-email').value.trim(), otp: otpInput })
         });
         const data = await res.json();
         if (data.success) {
           // Update password in localStorage
+          const email = document.getElementById('forgot-email').value.trim();
+          const newPassword = document.getElementById('forgot-password').value.trim();
           const userKey = 'user_' + email;
           const userData = localStorage.getItem(userKey);
           if (userData) {
             const userObj = JSON.parse(userData);
-            userObj.password = password;
+            userObj.password = newPassword;
             localStorage.setItem(userKey, JSON.stringify(userObj));
             
-            otpMsg.style.color = '#00eaff';
-            otpMsg.textContent = 'Password updated successfully! You can now login with your new password.';
+            forgotOtpMsg.style.color = '#00eaff';
+            forgotOtpMsg.textContent = 'Password updated successfully! Redirecting to login...';
             
             // Reset form and go back to login after 2 seconds
             setTimeout(() => {
               document.getElementById('forgot-password-form').style.display = 'none';
               document.getElementById('login-form').style.display = 'block';
-              document.getElementById('msg').textContent = '';
+              msg.textContent = '';
               // Reset forgot password form
               document.getElementById('forgot-email').value = '';
               document.getElementById('forgot-password').value = '';
               document.getElementById('forgot-confirm-password').value = '';
               document.getElementById('forgot-otp').value = '';
-              document.getElementById('forgot-otp-section').style.display = 'none';
+              forgotOtpSection.style.display = 'none';
+              forgotOtpSent = false;
+              forgotBtn.textContent = 'Reset Password';
             }, 2000);
           }
         } else {
-          otpMsg.style.color = '#ff4444';
-          otpMsg.textContent = 'Invalid OTP. Please try again.';
+          forgotOtpMsg.style.color = '#f357a8';
+          forgotOtpMsg.textContent = 'Invalid OTP. Try again.';
+          forgotBtn.disabled = false;
+          forgotBtn.textContent = "Reset Password";
         }
       } catch (e) {
-        console.error('Error:', e);
-        otpMsg.style.color = '#ff4444';
-        otpMsg.textContent = 'Error verifying OTP.';
+        forgotOtpMsg.style.color = '#f357a8';
+        forgotOtpMsg.textContent = 'Error verifying OTP.';
+        forgotBtn.disabled = false;
+        forgotBtn.textContent = "Reset Password";
       }
     }
   });
